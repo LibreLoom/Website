@@ -15,7 +15,7 @@ function Projects() {
         </div>
         <div className="header-divider"></div>
         <h1>Projects</h1>
-        <p>Explore our current and upcoming projects. Each card lists status, links, and a brief description.</p>
+        <p>Explore our current and upcoming projects!</p>
         <div className="header-divider"></div>
       </header>
 
