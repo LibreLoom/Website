@@ -1,3 +1,3 @@
 # Website
 
-LibreLoom's website. Hosted [here](https://libreloom.org)
+LibreLoom's website. Hosted [here](https://libreloom.org).
