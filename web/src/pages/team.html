@@ -58,6 +58,7 @@ footer.corner-top-right{right:20px;left:auto;top:20px;bottom:auto;transform:none
 .menu-item{background:var(--primary);color:var(--secondary);border:2px solid var(--primary);padding:16px 24px;border-radius:100px;text-align:center;cursor:pointer;transition:all 0.3s ease;font-family:'FreeMono','Courier New',monospace;font-size:.95rem;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
 .menu-item:hover{transform:scale(1.04);background:var(--secondary);color:var(--primary);border-color:var(--primary)}
 .menu-item:active{transform:scale(.96)}
+.menu-item.active{background:var(--secondary);color:var(--primary);border-color:var(--primary);font-weight:600}
 .menu-divider{width:100%;height:2px;background:var(--accent);opacity:.3;margin:4px 0}
 .footer-divider{width:2px;height:32px;background-color:var(--accent);opacity:.4}
 .header-divider{width:100%;height:2px;background-color:var(--accent);opacity:.3;margin:30px 0}
@@ -65,6 +66,7 @@ footer p{font-size:.9rem;color:var(--primary);margin:0;transition:color 0.3s eas
 .nav-link{background:var(--primary);border:2px solid var(--primary);color:var(--secondary);padding:12px 28px;border-radius:100px;font-family:'Noto Sans',sans-serif;font-size:.95rem;cursor:pointer;transition:all 0.3s ease;text-decoration:none;display:inline-flex;align-items:center;font-weight:500}
 .nav-link:hover{transform:scale(1.05);background:var(--secondary);color:var(--primary);border-color:var(--primary)}
 .nav-link:active{transform:scale(.95)}
+.nav-link.active{background:var(--secondary);color:var(--primary);border-color:var(--primary);font-weight:600}
 .nav-link.donate-btn{background:var(--secondary);color:var(--primary);border-color:var(--secondary);font-weight:600}
 .nav-link.donate-btn:hover{background:var(--primary);color:var(--secondary);border-color:var(--primary)}
 .theme-toggle{background:var(--primary);border:2px solid var(--primary);color:var(--secondary);padding:10px 24px;border-radius:100px;font-family:'FreeMono','Courier New',monospace;font-size:1.8rem;cursor:pointer;transition:all 0.3s ease;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;font-weight:400;min-width:48px;height:48px}
@@ -138,15 +140,11 @@ header,.team-section{position:relative;z-index:1}
 <div class="cards-container">
 <div class="card">
 <h2>plainskill</h2>
-<p>The master of delegation who tells Kilo to code instead of doing it themselves. Has perfected the art of looking busy while simultaneously assigning tasks to others. Their favorite phrase is "Could you just..." followed by a complex coding request that they definitely could do themselves but won't.</p>
+<p>The master of delegation who tells Kilo to code instenpm ad of doing it themselves. Has perfected the art of looking busy while simultaneously assigning tasks to others. Their favorite phrase is "Could you just..." followed by a complex coding request that they definitely could do themselves but won't.</p>
 </div>
 <div class="card">
 <h2>trafficcone</h2>
 <p>Their desk setup is such a mess it's officially classified as a workplace hazard. OSHA had to send over actual traffic cones to mark the danger zone. Somehow finds everything in the chaos and claims it's an "organized filing system" that only they understand.</p>
-</div>
-<div class="card">
-<h2>1nOnlyDude</h2>
-<p>Professional goof-off artist who spends work hours playing Roblox and publishing videos under @1nOnlyDude on YouTube instead of at least vibe coding. Somehow still delivers projects on time, leading everyone to wonder if they've discovered time travel or just have a really good bot.</p>
 </div>
 <div class="card">
 <h2>lazypanda5050</h2>
@@ -154,6 +152,10 @@ header,.team-section{position:relative;z-index:1}
 </div>
 </div>
 </section>
+<div class="card">
+<h2>1nOnlyDude</h2>
+<p>Professional goof-off artist who spends work hours playing Roblox and publishing videos under @1nOnlyDude on YouTube instead of at least vibe coding. Somehow still delivers projects on time, leading everyone to wonder if they've discovered time travel or just have a really good bot.</p>
+</div>
 
 <footer id="footer">
 <div class="footer-content">
@@ -219,6 +221,22 @@ function startDrag(e){const footer=document.getElementById('footer');if(!footer.
 function drag(e){if(!dragState.isDragging)return;const footer=document.getElementById('footer');const touch=e.type==='touchmove'?e.touches[0]:e;const dx=touch.clientX-dragState.lastX;const dy=touch.clientY-dragState.lastY;if(Math.abs(dx)>3||Math.abs(dy)>3){dragState.hasMoved=true;e.preventDefault()}const now=Date.now();const dt=now-dragState.lastTime;if(dt>0){const smoothing=0.3;dragState.velocityX=dragState.velocityX*(1-smoothing)+((touch.clientX-dragState.lastX)/dt)*smoothing;dragState.velocityY=dragState.velocityY*(1-smoothing)+((touch.clientY-dragState.lastY)/dt)*smoothing}dragState.lastX=touch.clientX;dragState.lastY=touch.clientY;dragState.lastTime=now;dragState.currentX=touch.clientX-dragState.startX;dragState.currentY=touch.clientY-dragState.startY;footer.style.left=dragState.currentX+'px';footer.style.top=dragState.currentY+'px';footer.style.bottom='auto';footer.style.right='auto';footer.style.transform='none';footer.classList.remove('corner-bottom-left','corner-bottom-right','corner-top-left','corner-top-right')}
 function endDrag(e){if(!dragState.isDragging)return;dragState.isDragging=false;const footer=document.getElementById('footer');const menu=document.getElementById('hamburgerMenu');footer.classList.remove('dragging');footer.style.cursor='grab';if(!dragState.hasMoved){return}dragState.preventClick=true;setTimeout(()=>dragState.preventClick=false,100);const vx=dragState.velocityX;const vy=dragState.velocityY;const speed=Math.sqrt(vx*vx+vy*vy);const threshold=0.3;let finalX=dragState.currentX;let finalY=dragState.currentY;if(speed>threshold){const mult=Math.min(speed*400,500);finalX+=vx*mult;finalY+=vy*mult}const w=window.innerWidth;const h=window.innerHeight;const centerX=finalX+footer.offsetWidth/2;const centerY=finalY+footer.offsetHeight/2;const toLeft=centerX<w/2;const toTop=centerY<h/2;const wasMenuOpen=menu.classList.contains('active');if(wasMenuOpen){closeHamburgerMenu()}footer.classList.remove('corner-bottom-left','corner-bottom-right','corner-top-left','corner-top-right');footer.style.left='';footer.style.top='';footer.style.bottom='';footer.style.right='';footer.style.transform='';let newCorner='';if(toTop&&toLeft){footer.classList.add('corner-top-left');newCorner='corner-top-left'}else if(toTop&&!toLeft){footer.classList.add('corner-top-right');newCorner='corner-top-right'}else if(!toTop&&toLeft){footer.classList.add('corner-bottom-left');newCorner='corner-bottom-left'}else{footer.classList.add('corner-bottom-right');newCorner='corner-bottom-right'}if(dragState.startCorner!==newCorner){dragState.positionChanged=true;setTimeout(()=>dragState.positionChanged=false,300)}}
 initDrag();
+
+// Highlight active page in navigation
+(function(){
+  const path = window.location.pathname;
+  const navLinks = document.querySelectorAll('.nav-link:not(.donate-btn), .menu-item:not(:has(svg))');
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if (href && (
+      (path === '/' && href === '/') ||
+      (path.includes('/team') && (href === 'team.html' || href === '/team.html')) ||
+      (path.includes('/projects') && (href === 'projects.html' || href === '/projects.html'))
+    )) {
+      link.classList.add('active');
+    }
+  });
+})();
 </script>
 </body>
 </html>

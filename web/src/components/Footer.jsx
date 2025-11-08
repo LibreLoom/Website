@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import '../styles/Footer.css'
 
 function Footer() {
@@ -69,9 +69,9 @@ function Footer() {
             </span>
           </button>
           <div className="footer-divider"></div>
-          <Link to="/" className="nav-link">Home</Link>
-          <Link to="/team" className="nav-link">The Team</Link>
-          <Link to="/projects" className="nav-link">Projects</Link>
+          <NavLink to="/" className="nav-link" end>Home</NavLink>
+          <NavLink to="/team" className="nav-link">The Team</NavLink>
+          <NavLink to="/projects" className="nav-link">Projects</NavLink>
           <div className="footer-divider"></div>
           <a href="https://ko-fi.com/libreloom" target="_blank" rel="noopener noreferrer" className="nav-link donate-btn">☕ Support Us on Ko-fi</a>
         </div>
@@ -92,9 +92,9 @@ function Footer() {
           </svg> <span>Settings</span>
         </button>
         <div className="menu-divider"></div>
-        <Link to="/" className="menu-item">Home</Link>
-        <Link to="/team" className="menu-item">The Team</Link>
-        <Link to="/projects" className="menu-item">Projects</Link>
+        <NavLink to="/" className="menu-item" end>Home</NavLink>
+        <NavLink to="/team" className="menu-item">The Team</NavLink>
+        <NavLink to="/projects" className="menu-item">Projects</NavLink>
         <div className="menu-divider"></div>
         <a href="https://ko-fi.com/libreloom" target="_blank" rel="noopener noreferrer" className="menu-item">☕ Support Us on Ko-fi</a>
       </div>

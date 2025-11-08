@@ -30,12 +30,12 @@ function Team() {
             <p>Their desk setup is such a mess it's officially classified as a workplace hazard. OSHA had to send over actual traffic cones to mark the danger zone. Somehow finds everything in the chaos and claims it's an "organized filing system" that only they understand.</p>
           </div>
           <div className="card">
-            <h2>1nOnlyDude</h2>
-            <p>Professional goof-off artist who spends work hours playing Roblox and publishing videos under @1nOnlyDude on YouTube instead of at least vibe coding. Somehow still delivers projects on time, leading everyone to wonder if they've discovered time travel or just have a really good bot.</p>
+            <h2>lazypanda5050</h2>
+            <p>So lazy it happens to be good sometimes. Their philosophy is "Why do it today when you can do it tomorrow... or never?" Has accidentally created some of our most efficient solutions (using his competitive coding genes)by trying to find the minimum effort required to solve a problem.</p>
           </div>
           <div className="card">
-            <h2>lazypanda5050</h2>
-            <p>So lazy it happens to be good sometimes. Their philosophy is "Why do it today when you can do it tomorrow... or never?" Has accidentally created some of our most efficient solutions by trying to find the minimum effort required to solve a problem.</p>
+            <h2>1nOnlyDude</h2>
+            <p>Professional goof-off artist who spends work hours playing Roblox and publishing videos under @1nOnlyDude on YouTube instead of at least vibe coding. Somehow still delivers projects on time, leading everyone to wonder if they've discovered time travel or just have a really good bot.</p>
           </div>
         </div>
       </section>

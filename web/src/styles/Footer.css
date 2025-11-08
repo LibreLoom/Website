@@ -167,6 +167,13 @@ footer.corner-top-right {
   transform: scale(0.96);
 }
 
+.menu-item.active {
+  background: var(--secondary);
+  color: var(--primary);
+  border-color: var(--primary);
+  font-weight: 600;
+}
+
 .menu-divider {
   width: 100%;
   height: 2px;
@@ -214,6 +221,13 @@ footer p {
 
 .nav-link:active {
   transform: scale(0.95);
+}
+
+.nav-link.active {
+  background: var(--secondary);
+  color: var(--primary);
+  border-color: var(--primary);
+  font-weight: 600;
 }
 
 .nav-link.donate-btn {
