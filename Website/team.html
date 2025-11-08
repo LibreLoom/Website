@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Team - LibreLoom</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="icon" type="image/png" href="assets/logo/LibreLoom Logo (Simplex Mono, textfree, favicon-optimized).png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'FreeMono';src:url('https://cdnjs.cloudflare.com/ajax/libs/gnu-freefont/20120503/FreeMono.woff') format('woff');font-weight:normal;font-style:normal}
+:root{--primary:#FFFFFF;--secondary:#000000;--accent:#767676;--dark-primary:#000000;--dark-secondary:#FFFFFF;--dark-accent:#767676}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,sans-serif;background:var(--primary);color:var(--secondary);margin:0;padding:0 0 120px 0;min-height:100vh;transition:background-color 0.3s ease, color 0.3s ease}
+header{text-align:center;padding:80px 40px 40px;max-width:1100px;margin:0 auto}
+.logo-container{margin-bottom:40px;display:flex;justify-content:center;align-items:center}
+.logo-container svg{max-width:500px;width:100%;height:auto;transition:transform 0.3s ease}
+.logo-container svg:hover{transform:scale(1.02)}
+.logo-svg-bg{fill:var(--secondary);transition:fill 0.3s ease}
+.logo-svg-fg{fill:var(--primary);transition:fill 0.3s ease}
+header h1{font-family:'FreeMono','Courier New',monospace;font-size:2.5rem;margin-bottom:24px;font-weight:400;letter-spacing:-.02em}
+header p{font-size:1.2rem;color:var(--secondary);max-width:700px;margin:0 auto 20px;line-height:1.8}
+header p em{font-style:italic;font-weight:500}
+.team-section{max-width:1100px;margin:40px auto;padding:0 40px}
+.team-intro{background-color:var(--primary);border:2px solid var(--secondary);border-radius:28px;padding:50px;text-align:center;transition:transform 0.3s ease, background-color 0.3s ease;margin-bottom:40px}
+.team-intro:hover{transform:translateY(-4px);background-color:var(--secondary)}
+.team-intro:hover h2,.team-intro:hover p{color:var(--primary)}
+.team-intro h2{font-family:'FreeMono','Courier New',monospace;font-size:2rem;margin-bottom:24px;font-weight:400;color:var(--secondary);transition:color 0.3s ease}
+.team-intro p{font-size:1.1rem;line-height:1.8;color:var(--accent);transition:color 0.3s ease;margin-bottom:0}
+.cards-container{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:28px}
+.card{background-color:var(--primary);border:2px solid var(--secondary);border-radius:28px;padding:40px;display:flex;flex-direction:column;transition:transform 0.3s ease, background-color 0.3s ease}
+.card:hover{transform:translateY(-6px);background-color:var(--secondary)}
+.card:hover h2,.card:hover p{color:var(--primary)}
+.card h2{font-family:'FreeMono','Courier New',monospace;margin-top:0;font-size:1.5rem;color:var(--secondary);margin-bottom:20px;font-weight:400;transition:color 0.3s ease}
+.card p{flex:1;line-height:1.7;margin-bottom:0;color:var(--accent);transition:color 0.3s ease}
+footer{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background-color:var(--secondary);border:2px solid var(--secondary);padding:20px 40px;border-radius:100px;text-align:center;z-index:100;max-width:90%;transition:all 0.3s ease;backdrop-filter:blur(20px);touch-action:none;user-select:none}
+footer.collapsed{padding:16px;border-radius:50%;width:60px;height:60px;cursor:grab}
+footer.collapsed:active{cursor:grabbing}
+footer.collapsed .footer-content{display:none}
+footer.collapsed .hamburger{display:flex}
+footer.dragging{transition:none}
+footer.corner-bottom-left{left:20px;bottom:20px;transform:none}
+footer.corner-bottom-right{right:20px;left:auto;bottom:20px;transform:none}
+footer.corner-top-left{left:20px;top:20px;bottom:auto;transform:none}
+footer.corner-top-right{right:20px;left:auto;top:20px;bottom:auto;transform:none}
+.footer-content{display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center}
+.hamburger-menu-panel{position:fixed;background:var(--secondary);border:2px solid var(--secondary);border-radius:28px;padding:32px;z-index:99;opacity:0;pointer-events:none;transition:all 0.3s ease;min-width:280px;display:flex;flex-direction:column;gap:20px;align-items:stretch}
+.hamburger-menu-panel.active{opacity:1;pointer-events:auto}
+.hamburger-menu-panel.position-bottom-left{bottom:90px;left:20px;transform:translateY(20px)}
+.hamburger-menu-panel.position-bottom-left.active{transform:translateY(0)}
+.hamburger-menu-panel.position-bottom-right{bottom:90px;right:20px;transform:translateY(20px)}
+.hamburger-menu-panel.position-bottom-right.active{transform:translateY(0)}
+.hamburger-menu-panel.position-top-left{top:90px;left:20px;transform:translateY(-20px)}
+.hamburger-menu-panel.position-top-left.active{transform:translateY(0)}
+.hamburger-menu-panel.position-top-right{top:90px;right:20px;transform:translateY(-20px)}
+.hamburger-menu-panel.position-top-right.active{transform:translateY(0)}
+.menu-item{background:var(--primary);color:var(--secondary);border:2px solid var(--primary);padding:16px 24px;border-radius:100px;text-align:center;cursor:pointer;transition:all 0.3s ease;font-family:'FreeMono','Courier New',monospace;font-size:.95rem;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+.menu-item:hover{transform:scale(1.04);background:var(--secondary);color:var(--primary);border-color:var(--primary)}
+.menu-item:active{transform:scale(.96)}
+.menu-divider{width:100%;height:2px;background:var(--accent);opacity:.3;margin:4px 0}
+.footer-divider{width:2px;height:32px;background-color:var(--accent);opacity:.4}
+.header-divider{width:100%;height:2px;background-color:var(--accent);opacity:.3;margin:30px 0}
+footer p{font-size:.9rem;color:var(--primary);margin:0;transition:color 0.3s ease}
+.nav-link{background:var(--primary);border:2px solid var(--primary);color:var(--secondary);padding:12px 28px;border-radius:100px;font-family:'Noto Sans',sans-serif;font-size:.95rem;cursor:pointer;transition:all 0.3s ease;text-decoration:none;display:inline-flex;align-items:center;font-weight:500}
+.nav-link:hover{transform:scale(1.05);background:var(--secondary);color:var(--primary);border-color:var(--primary)}
+.nav-link:active{transform:scale(.95)}
+.nav-link.donate-btn{background:var(--secondary);color:var(--primary);border-color:var(--secondary);font-weight:600}
+.nav-link.donate-btn:hover{background:var(--primary);color:var(--secondary);border-color:var(--primary)}
+.theme-toggle{background:var(--primary);border:2px solid var(--primary);color:var(--secondary);padding:10px 24px;border-radius:100px;font-family:'FreeMono','Courier New',monospace;font-size:1.8rem;cursor:pointer;transition:all 0.3s ease;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;font-weight:400;min-width:48px;height:48px}
+.theme-toggle svg{vertical-align:middle}
+.menu-item svg{vertical-align:middle}
+.theme-toggle:hover{transform:scale(1.05)}
+.theme-toggle:active{transform:scale(.95)}
+.hamburger{display:none;width:24px;height:24px;position:relative;cursor:pointer;flex-direction:column;align-items:center;justify-content:center}
+.hamburger span{display:block;width:20px;height:2px;background:var(--primary);transition:all 0.3s ease;position:absolute}
+.hamburger span:nth-child(1){top:6px}
+.hamburger span:nth-child(2){top:50%;transform:translateY(-50%)}
+.hamburger span:nth-child(3){bottom:6px}
+.hamburger.open span:nth-child(1){top:50%;transform:translateY(-50%) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){bottom:50%;transform:translateY(50%) rotate(-45deg)}
+.settings-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:transparent;display:none;align-items:center;justify-content:center;z-index:200;opacity:0;transition:opacity 0.3s ease}
+.settings-overlay.active{display:flex;opacity:1}
+.settings-modal{background:var(--primary);border:2px solid var(--secondary);border-radius:28px;padding:40px;max-width:500px;width:90%;max-height:80vh;overflow-y:auto;transform:scale(.9);transition:transform 0.3s ease}
+.settings-overlay.active .settings-modal{transform:scale(1)}
+.settings-modal h2{font-family:'FreeMono','Courier New',monospace;margin-top:0;margin-bottom:24px;font-size:1.8rem;font-weight:400}
+.settings-group{margin-bottom:28px}
+.settings-group label{display:block;margin-bottom:8px;font-weight:500;color:var(--accent)}
+.settings-group input[type="color"]{width:100%;height:50px;border:2px solid var(--secondary);border-radius:12px;cursor:pointer;transition:transform 0.3s ease}
+.settings-group input[type="color"]:hover{transform:scale(1.02)}
+.settings-group input[type="checkbox"]{width:20px;height:20px;cursor:pointer;margin-right:10px}
+.checkbox-wrapper{display:flex;align-items:center;margin-top:12px}
+.settings-actions{display:flex;gap:12px;margin-top:32px}
+.settings-actions button{flex:1;background:var(--secondary);color:var(--primary);border:2px solid var(--secondary);padding:14px 24px;border-radius:100px;font-family:'Noto Sans',sans-serif;font-size:.95rem;cursor:pointer;transition:all 0.3s ease}
+.settings-actions button:hover{transform:scale(1.04)}
+.settings-actions button.secondary{background:var(--primary);color:var(--secondary)}
+@media (max-width:768px){
+header{padding:60px 24px 30px}
+header h1{font-size:2rem}
+.logo-container svg{max-width:300px}
+.team-section{padding:0 24px;margin:30px auto}
+.team-intro{padding:35px}
+.cards-container{grid-template-columns:1fr;gap:20px}
+footer:not(.collapsed){bottom:10px;padding:16px 24px;border-radius:50px}
+footer.collapsed{width:56px;height:56px;padding:14px}
+.footer-content{flex-direction:column;gap:12px}
+.footer-divider{display:none}
+}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.team-intro{animation:fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;animation-delay:0.1s}
+.card{animation:fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards}
+.card:nth-child(1){animation-delay:0.05s}
+.card:nth-child(2){animation-delay:0.08s}
+.card:nth-child(3){animation-delay:0.11s}
+.card:nth-child(4){animation-delay:0.14s}
+header,.team-section{position:relative;z-index:1}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo-container">
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+<ellipse class="logo-svg-bg" cx="250" cy="228.786" rx="132.72" ry="134.19"/>
+<path class="logo-svg-fg" d="m 185.2795,134.97602 c 0.83,-2.97 8.24,-2.27 8.24,0.75 v 10.86 h 18.74 v -12.74 c 0.64,-0.31 2.25,0.64 2.25,1.12 v 11.61 h 6 v -12.74 c 0.64,-0.31 2.25,0.64 2.25,1.12 v 11.61 c 1.21,0.07 6,0.32 6,-1.12 v -11.61 h 1.5 v 11.61 c 0,1.6 6.75,1.6 6.75,0 v -11.61 h 1.5 v 12.74 h 6 v -11.61 c 0,-0.49 1.61,-1.44 2.25,-1.12 v 11.61 c 0,1.45 4.78,1.19 6,1.12 v -11.61 c 0,-0.49 1.61,-1.44 2.25,-1.12 v 12.74 h 6 v -11.61 c 0,-0.49 1.61,-1.44 2.25,-1.12 v 12.74 h 6 v -11.61 c 0,-0.49 1.61,-1.44 2.25,-1.12 v 12.74 h 6 v -11.61 c 0,-0.49 1.61,-1.44 2.25,-1.12 v 12.74 h 6 v -11.61 c 0,-0.49 1.61,-1.44 2.25,-1.12 v 12.74 h 17.99 c 0.2,-4.56 -1.83,-14.77 5.59,-13.49 0.97,0.17 3.41,2.15 3.41,2.63 v 10.86 h 10.87 c 4.16,0 4.04,8.99 0.75,8.99 h -11.62 v 134.1 h 11.62 c 0.84,0 2.61,2.82 2.67,4.1 0.09,1.73 -2.06,4.89 -3.42,4.89 h -10.87 v 10.86 c 0,3.87 -8.99,4.23 -8.99,0 v -10.86 c -6.41,-2.1 -12.06,10.58 -16.27,11.83 -2.84,0.84 -13.53,0.54 -13.53,0.54 -0.46,1.87 -3.01,3.53 -4.68,3.11 -4.47,-1.11 -3.9,-5.45 -1.5,-7.37 1.91,-1.53 6.35,0.68 6.38,2.36 0,0 10.42,0.27 11.83,-0.14 1.99,-0.59 8.32,-8.44 10.27,-10.33 h -59.96 c -0.35,10.01 4.35,10.21 4.35,10.21 1.8,0.03 8.91,0.22 12.15,0.27 0.34,0.34 0,9.36 0,9.36 3.72,0.27 4.08,6.08 -1.11,6.08 -4.47,0 -3.94,-5.96 -1.12,-6.11 0,0 -0.16,-4.49 -0.03,-7.08 -2.85,-0.43 -10.73,-0.48 -10.73,-0.48 -0.54,-0.27 -2.53,-2.35 -4.68,-6.13 0,0 -0.34,-5.67 -0.34,-6.13 h -42.72 c -1.94,4.04 1.69,14.2 -4.85,14.29 -6.54,0.09 -4.57,-9.89 -4.89,-14.29 h -10.87 c -4.07,0 -3.68,-8.99 -0.75,-8.99 h 11.24 v -134.1 h -11.24 c -2.94,0 -2.15,-8.99 0.75,-8.99 h 11.62 c 0.56,-3.14 -0.76,-8.89 0,-11.61 z m 26.98,20.6 h -17.61 c -0.08,0 -1.12,1.04 -1.12,1.12 v 132.98 h 34.1 c 0.08,0 1.12,-1.04 1.12,-1.12 v -43.45 c 0,-1.27 -6.49,-0.62 -6.75,-0.38 -0.37,0.35 0,11.61 0,11.61 0,0 2.22,1.29 2.09,2.88 -0.31,3.88 -5.78,3.72 -5.65,-0.52 0.07,-2.32 2.06,-1.82 2.06,-1.98 v -11.99 c -5.74,-0.12 -6.38,-1.18 -6.78,4.84 -0.25,3.85 0.03,23.59 0.03,23.59 -0.28,0.49 -6.91,5.57 -7.3,6.23 0,0 0.01,2.55 -0.89,3.23 -2.64,1.98 -6.81,-1.66 -4.21,-4.19 1.58,-1.54 4.38,-0.53 4.38,-0.53 1.8,-0.94 6.79,-5.25 6.86,-6.17 0.10,-1.29 0.16,-24.31 -0.46,-26.52 -0.62,-2.21 -11.55,2.23 -9.57,-3.77 0.74,-2.24 7.6,-0.82 9.68,-1.2 v -84.65999 z m 8.25,0 c -1.25,0 -6.75,-0.44 -6.75,1.12 v 83.53 h 6.75 v -84.66 z m 8.24,0 c -1.25,0 -6.75,-0.44 -6.75,1.12 v 83.53 h 6.75 v -84.66 z m 8.25,84.65 v -83.53 c 0,-1.56 -5.5,-1.12 -6.75,-1.12 v 84.66 h 6.75 z m 1.49,0 c 2.31,-0.27 6.28,1.17 6.75,-1.87 l -0.33,-82.08 c -0.92,-1.32 -4.75,-0.51 -6.42,-0.7 v 84.66 z m 8.25,0 c 2.31,-0.27 6.28,1.17 6.75,-1.87 l -0.33,-82.08 c -0.92,-1.32 -4.75,-0.51 -6.42,-0.7 v 84.66 z m 8.24,0 c 2.31,-0.27 6.28,1.17 6.75,-1.87 l -0.33,-82.08 c -0.92,-1.32 -4.75,-0.51 -6.42,-0.7 v 84.66 z m 8.25,0 c 2.31,-0.27 6.28,1.17 6.75,-1.87 l -0.33,-82.08 c -0.92,-1.32 -4.75,-0.51 -6.42,-0.7 v 84.66 z m 8.24,0 c 2.31,-0.27 6.28,1.17 6.75,-1.87 l -0.33,-82.08 c -0.92,-1.32 -4.75,-0.51 -6.42,-0.7 v 84.66 z m 8.25,0 c 2.31,-0.27 6.28,1.17 6.75,-1.87 l -0.33,-82.08 c -0.92,-1.32 -4.75,-0.51 -6.42,-0.7 v 84.66 z m 26.23,-84.65 h -17.99 v 84.66 c 3.83,0.44 9.92,-1.98 9,3.74 h -9 c 0.08,2.22 -0.34,4.97 -0.31,6.77 0.02,1.23 2.48,1.43 2.4,2.76 -0.24,3.66 -6.01,4.03 -5.64,0.29 0.19,-1.91 1.26,-1.61 1.32,-2.85 0.09,-1.86 -0.04,-4.45 -0.02,-6.97 -1.07,0.87 -5.99,0.44 -5.99,0.75 v 22.47 c 2.23,0.37 8.16,0.26 8.16,0.26 6,-4.63 6.43,4.84 2.24,3.54 -0.96,-0.3 -1.81,-1.42 -2.68,-1.57 -3.54,-0.6 -7.72,1.06 -9.22,-1.11 v -23.22 c 0,-1.6 -6.75,-1.6 -6.75,0 v 21.73 c 0,0.14 1.39,1 1.54,2.29 0.39,3.39 -4.95,4.55 -5.32,0.67 -0.2,-2.11 1.98,-2.02 2.28,-4.46 0.22,-1.77 0.31,-18.88 -0.09,-20.11 -0.68,-2.08 -4.81,-1.01 -6.64,-1.23 0.99,9.37 -0.41,20.8 -0.05,29.93 0,0 4.69,4.62 -1.02,6.28 -1.77,0.51 -6.22,-2.46 -1.09,-6.29 0.4,-6.45 0.73,-19.58 0.68,-28.04 -0.02,-3.11 -4.37,-1.6 -6.75,-1.87 v 11.61 c 0,0.58 -8.24,7.66 -8.24,8.24 v 25.85 h 59.21 v -134.1 z m -75.7,89.52 v 44.58 c 1.83,-0.22 5.96,0.86 6.64,-1.23 0.37,-1.13 0.75,-14.11 0.75,-14.11 -1.48,-0.23 -2.6,-1.08 -2.67,-3.18 -0.07,-2.1 2.03,-2.96 2.03,-2.96 0.3,-2.55 0.41,-21.42 -0.1,-22.99 -0.66,-2 -6.17,-1.63 -6.64,-0.1 z m 16.49,16.11 c 8.24,-9.64 6.75,-2.05 6.78,-14.65 0.01,-4.23 -6.78,-2.25 -6.78,-1.82999 z m -1.5,28.47 v -44.58 c 0,-1.25 -5.91,-2.11 -6.64,0.1 -0.42,1.26 -0.45,21.02 -0.09,22.87 0,0 2.49,1.02 2.6,2.67 0.16,2.39 -1.97,3.44 -1.97,3.44 0,0 0.06,11.24 -0.65,15.49 h 6.75 z"/>
+<text x="119.056" y="404.636" style="font-family:FreeMono,monospace;font-size:48px" class="logo-svg-bg">LibreLoom</text>
+</svg>
+</div>
+<div class="header-divider"></div>
+<h1>The Team</h1>
+<p>Meet the brilliant minds behind LibreLoom. We're a diverse group of developers, designers, and dreamers working together to create amazing open-source software.</p>
+<div class="header-divider"></div>
+</header>
+
+<section class="team-section">
+
+<div class="cards-container">
+<div class="card">
+<h2>plainskill</h2>
+<p>The master of delegation who tells Kilo to code instead of doing it themselves. Has perfected the art of looking busy while simultaneously assigning tasks to others. Their favorite phrase is "Could you just..." followed by a complex coding request that they definitely could do themselves but won't.</p>
+</div>
+<div class="card">
+<h2>trafficcone</h2>
+<p>Their desk setup is such a mess it's officially classified as a workplace hazard. OSHA had to send over actual traffic cones to mark the danger zone. Somehow finds everything in the chaos and claims it's an "organized filing system" that only they understand.</p>
+</div>
+<div class="card">
+<h2>1nOnlyDude</h2>
+<p>Professional goof-off artist who spends work hours playing Roblox and publishing videos under @1nOnlyDude on YouTube instead of at least vibe coding. Somehow still delivers projects on time, leading everyone to wonder if they've discovered time travel or just have a really good bot.</p>
+</div>
+<div class="card">
+<h2>lazypanda5050</h2>
+<p>So lazy it happens to be good sometimes. Their philosophy is "Why do it today when you can do it tomorrow... or never?" Has accidentally created some of our most efficient solutions by trying to find the minimum effort required to solve a problem.</p>
+</div>
+</div>
+</section>
+
+<footer id="footer">
+<div class="footer-content">
+<button class="theme-toggle" onclick="toggleTheme()"><span id="theme-text">☾</span></button>
+<button class="theme-toggle" onclick="openSettings()"><span><svg width="1.3em" height="1.3em" viewBox="0 0 64 64"><path fill="currentColor" d="M 29.054688 10 C 27.715688 10 26.571703 10.964203 26.345703 12.283203 L 25.763672 15.664062 C 25.457672 15.781062 25.152469 15.902156 24.855469 16.035156 L 22.058594 14.058594 C 20.830594 13.209594 19.383344 13.520328 18.527344 14.361328 L 14.361328 18.525391 C 13.414328 19.472391 13.288547 20.962641 14.060547 22.056641 L 16.035156 24.855469 C 15.901156 25.152469 15.781063 25.455719 15.664062 25.761719 L 12.283203 26.34375 C 10.963203 26.57075 10 27.715688 10 29.054688 L 10 34.945312 C 10 36.284312 10.964203 37.428297 12.283203 37.654297 L 15.664062 38.236328 C 15.781062 38.542328 15.902156 38.847531 16.035156 39.144531 L 14.058594 41.941406 C 13.286594 43.034406 13.414328 44.525656 14.361328 45.472656 L 18.525391 49.638672 C 19.609391 50.698672 21.124641 50.614453 22.056641 49.939453 L 24.855469 47.964844 C 25.152469 48.098844 25.455719 48.218938 25.761719 48.335938 L 26.34375 51.716797 C 26.57075 53.036797 27.715688 54 29.054688 54 L 34.945312 54 C 36.284312 54 37.428297 53.035797 37.654297 51.716797 L 38.236328 48.335938 C 38.542328 48.218937 38.847531 48.097844 39.144531 47.964844 L 41.941406 49.941406 C 42.766406 50.549406 44.343656 50.768672 45.472656 49.638672 L 49.638672 45.474609 C 50.585672 44.527609 50.711453 43.037359 49.939453 41.943359 L 47.964844 39.144531 C 48.098844 38.847531 48.218938 38.544281 48.335938 38.238281 L 51.716797 37.65625 C 53.036797 37.42925 54 36.284312 54 34.945312 L 54 29.054688 C 54 27.715688 53.035797 26.571703 51.716797 26.345703 L 48.335938 25.763672 C 48.218937 25.457672 48.097844 25.152469 47.964844 24.855469 L 49.941406 22.058594 C 50.713406 20.965594 50.585672 19.474344 49.638672 18.527344 L 45.474609 14.361328 C 44.417609 13.329328 42.952359 13.351547 41.943359 14.060547 L 39.144531 16.035156 C 38.847531 15.901156 38.544281 15.781063 38.238281 15.664062 L 37.65625 12.283203 C 37.42925 10.963203 36.284312 10 34.945312 10 L 29.054688 10 z M 30.214844 14 L 33.787109 14 C 33.848109 14 33.900156 14.043516 33.910156 14.103516 L 34.681641 18.589844 C 36.449641 19.224844 38.104844 19.894141 39.589844 20.619141 L 43.302734 17.996094 C 43.352734 17.961094 43.421844 17.966766 43.464844 18.009766 L 45.990234 20.537109 C 46.033234 20.580109 46.040859 20.647266 46.005859 20.697266 L 43.380859 24.412109 C 44.139859 26.017109 44.824156 27.649359 45.410156 29.318359 L 49.896484 30.091797 C 49.956484 30.101797 50 30.153844 50 30.214844 L 50 33.787109 C 50 33.848109 49.955531 33.900156 49.894531 33.910156 L 45.410156 34.681641 C 44.825156 36.350641 44.148859 37.985844 43.380859 39.589844 L 46.005859 43.304688 C 46.040859 43.354688 46.033234 43.421844 45.990234 43.464844 L 43.464844 45.992188 C 43.421844 46.035187 43.352734 46.040859 43.302734 46.005859 L 39.589844 43.382812 C 37.949844 44.153812 36.313641 44.829109 34.681641 45.412109 L 33.908203 49.896484 C 33.898203 49.956484 33.846156 50 33.785156 50 L 30.212891 50 C 30.151891 50 30.099844 49.955531 30.089844 49.894531 L 29.318359 45.410156 C 27.709359 44.851156 26.075156 44.184859 24.410156 43.380859 L 20.695312 46.005859 C 20.645312 46.040859 20.578156 46.033234 20.535156 45.990234 L 18.007812 43.464844 C 17.964813 43.421844 17.959141 43.352734 17.994141 43.302734 L 20.617188 39.589844 C 19.838187 37.924844 19.161891 36.288641 18.587891 34.681641 L 14.103516 33.908203 C 14.043516 33.898203 14 33.846156 14 33.785156 L 14 30.212891 C 14 30.151891 14.043516 30.100844 14.103516 30.089844 L 18.589844 29.316406 C 19.170844 27.680406 19.837141 26.045156 20.619141 24.410156 L 17.994141 20.695312 C 17.959141 20.645312 17.966766 20.578156 18.009766 20.535156 L 20.535156 18.007812 C 20.578156 17.964813 20.647266 17.959141 20.697266 17.994141 L 24.410156 20.617188 C 25.958156 19.874187 27.599359 19.201891 29.318359 18.587891 L 30.091797 14.103516 C 30.101797 14.043516 30.153844 14 30.214844 14 z M 32 23 C 27.029 23 23 27.029 23 32 C 23 36.971 27.029 41 32 41 C 36.971 41 41 36.971 41 32 C 41 27.029 36.971 23 32 23 z M 32 27 C 34.761 27 37 29.239 37 32 C 37 34.761 34.761 37 32 37 C 29.239 37 27 34.761 27 32 C 27 29.239 29.239 27 32 27 z"></path></svg></span></button>
+<div class="footer-divider"></div>
+<a href="/" class="nav-link">Home</a>
+<a href="projects.html" class="nav-link">Projects</a>
+<div class="footer-divider"></div>
+<a href="https://ko-fi.com/libreloom" target="_blank" rel="noopener noreferrer" class="nav-link donate-btn">☕ Support Us on Ko-fi</a>
+</div>
+<div class="hamburger" id="hamburger" onclick="toggleHamburgerMenu()"><span></span><span></span><span></span></div>
+</footer>
+
+<div class="hamburger-menu-panel" id="hamburgerMenu" onclick="event.stopPropagation()">
+<button class="menu-item" onclick="toggleTheme()"><span id="menu-theme-text">☾</span> <span>Toggle Theme</span></button>
+<button class="menu-item" onclick="openSettings()"><svg width="1.3em" height="1.3em" viewBox="0 0 64 64"><path fill="currentColor" d="M 29.054688 10 C 27.715688 10 26.571703 10.964203 26.345703 12.283203 L 25.763672 15.664062 C 25.457672 15.781062 25.152469 15.902156 24.855469 16.035156 L 22.058594 14.058594 C 20.830594 13.209594 19.383344 13.520328 18.527344 14.361328 L 14.361328 18.525391 C 13.414328 19.472391 13.288547 20.962641 14.060547 22.056641 L 16.035156 24.855469 C 15.901156 25.152469 15.781063 25.455719 15.664062 25.761719 L 12.283203 26.34375 C 10.963203 26.57075 10 27.715688 10 29.054688 L 10 34.945312 C 10 36.284312 10.964203 37.428297 12.283203 37.654297 L 15.664062 38.236328 C 15.781062 38.542328 15.902156 38.847531 16.035156 39.144531 L 14.058594 41.941406 C 13.286594 43.034406 13.414328 44.525656 14.361328 45.472656 L 18.525391 49.638672 C 19.609391 50.698672 21.124641 50.614453 22.056641 49.939453 L 24.855469 47.964844 C 25.152469 48.098844 25.455719 48.218938 25.761719 48.335938 L 26.34375 51.716797 C 26.57075 53.036797 27.715688 54 29.054688 54 L 34.945312 54 C 36.284312 54 37.428297 53.035797 37.654297 51.716797 L 38.236328 48.335938 C 38.542328 48.218937 38.847531 48.097844 39.144531 47.964844 L 41.941406 49.941406 C 42.766406 50.549406 44.343656 50.768672 45.472656 49.638672 L 49.638672 45.474609 C 50.585672 44.527609 50.711453 43.037359 49.939453 41.943359 L 47.964844 39.144531 C 48.098844 38.847531 48.218938 38.544281 48.335938 38.238281 L 51.716797 37.65625 C 53.036797 37.42925 54 36.284312 54 34.945312 L 54 29.054688 C 54 27.715688 53.035797 26.571703 51.716797 26.345703 L 48.335938 25.763672 C 48.218937 25.457672 48.097844 25.152469 47.964844 24.855469 L 49.941406 22.058594 C 50.713406 20.965594 50.585672 19.474344 49.638672 18.527344 L 45.474609 14.361328 C 44.417609 13.329328 42.952359 13.351547 41.943359 14.060547 L 39.144531 16.035156 C 38.847531 15.901156 38.544281 15.781063 38.238281 15.664062 L 37.65625 12.283203 C 37.42925 10.963203 36.284312 10 34.945312 10 L 29.054688 10 z M 30.214844 14 L 33.787109 14 C 33.848109 14 33.900156 14.043516 33.910156 14.103516 L 34.681641 18.589844 C 36.449641 19.224844 38.104844 19.894141 39.589844 20.619141 L 43.302734 17.996094 C 43.352734 17.961094 43.421844 17.966766 43.464844 18.009766 L 45.990234 20.537109 C 46.033234 20.580109 46.040859 20.647266 46.005859 20.697266 L 43.380859 24.412109 C 44.139859 26.017109 44.824156 27.649359 45.410156 29.318359 L 49.896484 30.091797 C 49.956484 30.101797 50 30.153844 50 30.214844 L 50 33.787109 C 50 33.848109 49.955531 33.900156 49.894531 33.910156 L 45.410156 34.681641 C 44.825156 36.350641 44.148859 37.985844 43.380859 39.589844 L 46.005859 43.304688 C 46.040859 43.354688 46.033234 43.421844 45.990234 43.464844 L 43.464844 45.992188 C 43.421844 46.035187 43.352734 46.040859 43.302734 46.005859 L 39.589844 43.382812 C 37.949844 44.153812 36.313641 44.829109 34.681641 45.412109 L 33.908203 49.896484 C 33.898203 49.956484 33.846156 50 33.785156 50 L 30.212891 50 C 30.151891 50 30.099844 49.955531 30.089844 49.894531 L 29.318359 45.410156 C 27.709359 44.851156 26.075156 44.184859 24.410156 43.380859 L 20.695312 46.005859 C 20.645312 46.040859 20.578156 46.033234 20.535156 45.990234 L 18.007812 43.464844 C 17.964813 43.421844 17.959141 43.352734 17.994141 43.302734 L 20.617188 39.589844 C 19.838187 37.924844 19.161891 36.288641 18.587891 34.681641 L 14.103516 33.908203 C 14.043516 33.898203 14 33.846156 14 33.785156 L 14 30.212891 C 14 30.151891 14.043516 30.100844 14.103516 30.089844 L 18.589844 29.316406 C 19.170844 27.680406 19.837141 26.045156 20.619141 24.410156 L 17.994141 20.695312 C 17.959141 20.645312 17.966766 20.578156 18.009766 20.535156 L 20.535156 18.007812 C 20.578156 17.964813 20.647266 17.959141 20.697266 17.994141 L 24.410156 20.617188 C 25.958156 19.874187 27.599359 19.201891 29.318359 18.587891 L 30.091797 14.103516 C 30.101797 14.043516 30.153844 14 30.214844 14 z M 32 23 C 27.029 23 23 27.029 23 32 C 23 36.971 27.029 41 32 41 C 36.971 41 41 36.971 41 32 C 41 27.029 36.971 23 32 23 z M 32 27 C 34.761 27 37 29.239 37 32 C 37 34.761 34.761 37 32 37 C 29.239 37 27 34.761 27 32 C 27 29.239 29.239 27 32 27 z"></path></svg> <span>Settings</span></button>
+<div class="menu-divider"></div>
+<a href="/" class="menu-item">Home</a>
+<a href="projects.html" class="menu-item">Projects</a>
+<div class="menu-divider"></div>
+<a href="https://ko-fi.com/libreloom" target="_blank" rel="noopener noreferrer" class="menu-item">☕ Support Us on Ko-fi</a>
+</div>
+
+<div class="settings-overlay" id="settingsOverlay" onclick="closeSettingsOnOverlay(event)">
+<div class="settings-modal" onclick="event.stopPropagation()">
+<h2>Color Settings</h2>
+<div class="settings-group"><label for="primaryColor">Primary Color (Active)</label><input type="color" id="primaryColor" value="#FFFFFF"></div>
+<div class="settings-group"><label for="secondaryColor">Secondary Color (Active)</label><input type="color" id="secondaryColor" value="#000000"></div>
+<div class="settings-group"><label for="accentColor">Accent Color (Active)</label><input type="color" id="accentColor" value="#767676"></div>
+<div class="settings-group"><div class="checkbox-wrapper"><input type="checkbox" id="useDarkPalette" onchange="toggleDarkPalette()"><label for="useDarkPalette">Use different color palette for dark mode</label></div></div>
+<div id="darkModeColors" style="display:none">
+<div class="settings-group"><label for="darkPrimaryColor">Primary Color (Dark Mode Only)</label><input type="color" id="darkPrimaryColor" value="#000000"></div>
+<div class="settings-group"><label for="darkSecondaryColor">Secondary Color (Dark Mode Only)</label><input type="color" id="darkSecondaryColor" value="#FFFFFF"></div>
+<div class="settings-group"><label for="darkAccentColor">Accent Color (Dark Mode Only)</label><input type="color" id="darkAccentColor" value="#767676"></div>
+</div>
+<div class="settings-actions"><button class="secondary" onclick="closeSettings()">Cancel</button><button class="secondary" onclick="resetColors()">Reset Colors</button><button onclick="saveSettings()">Apply</button></div>
+</div>
+</div>
+
+<script>
+function openSettings(){const overlay=document.getElementById('settingsOverlay');overlay.style.display='flex';setTimeout(()=>overlay.classList.add('active'),10);loadCurrentColors()}
+function closeSettings(){const overlay=document.getElementById('settingsOverlay');overlay.classList.remove('active');setTimeout(()=>overlay.style.display='none',500)}
+function closeSettingsOnOverlay(e){if(e.target.id==='settingsOverlay')closeSettings()}
+function toggleDarkPalette(){const c=document.getElementById('useDarkPalette');document.getElementById('darkModeColors').style.display=c.checked?'block':'none'}
+function loadCurrentColors(){const r=document.documentElement;const s=getComputedStyle(r);document.getElementById('primaryColor').value=rgbToHex(s.getPropertyValue('--primary').trim());document.getElementById('secondaryColor').value=rgbToHex(s.getPropertyValue('--secondary').trim());document.getElementById('accentColor').value=rgbToHex(s.getPropertyValue('--accent').trim());const u=localStorage.getItem('useDarkPalette')==='true';document.getElementById('useDarkPalette').checked=u;document.getElementById('darkModeColors').style.display=u?'block':'none';if(u){document.getElementById('darkPrimaryColor').value=localStorage.getItem('darkPrimary')||'#000000';document.getElementById('darkSecondaryColor').value=localStorage.getItem('darkSecondary')||'#FFFFFF';document.getElementById('darkAccentColor').value=localStorage.getItem('darkAccent')||'#767676'}}
+function rgbToHex(rgb){if(rgb.startsWith('#'))return rgb;const m=rgb.match(/\d+/g);if(!m)return'#000000';const r=parseInt(m[0]);const g=parseInt(m[1]);const b=parseInt(m[2]);return'#'+[r,g,b].map(x=>{const h=x.toString(16);return h.length===1?'0'+h:h}).join('')}
+function resetColors(){document.getElementById('primaryColor').value='#FFFFFF';document.getElementById('secondaryColor').value='#000000';document.getElementById('accentColor').value='#767676';document.getElementById('darkPrimaryColor').value='#000000';document.getElementById('darkSecondaryColor').value='#FFFFFF';document.getElementById('darkAccentColor').value='#767676';document.getElementById('useDarkPalette').checked=false;toggleDarkPalette()}
+function saveSettings(){const r=document.documentElement;const u=document.getElementById('useDarkPalette').checked;const p=document.getElementById('primaryColor').value;const s=document.getElementById('secondaryColor').value;const a=document.getElementById('accentColor').value;r.style.setProperty('--primary',p);r.style.setProperty('--secondary',s);r.style.setProperty('--accent',a);localStorage.setItem('lightPrimary',p);localStorage.setItem('lightSecondary',s);localStorage.setItem('lightAccent',a);localStorage.setItem('useDarkPalette',u);if(u){const dp=document.getElementById('darkPrimaryColor').value;const ds=document.getElementById('darkSecondaryColor').value;const da=document.getElementById('darkAccentColor').value;r.style.setProperty('--dark-primary',dp);r.style.setProperty('--dark-secondary',ds);r.style.setProperty('--dark-accent',da);localStorage.setItem('darkPrimary',dp);localStorage.setItem('darkSecondary',ds);localStorage.setItem('darkAccent',da)}else{r.style.setProperty('--dark-primary',s);r.style.setProperty('--dark-secondary',p);r.style.setProperty('--dark-accent',a)}const ct=r.getAttribute('data-theme');if(ct==='dark'){r.setAttribute('data-theme','light');setTimeout(()=>r.setAttribute('data-theme','dark'),50)}closeSettings()}
+function toggleTheme(){const h=document.documentElement;const c=h.getAttribute('data-theme');const n=c==='dark'?'light':'dark';const t=document.getElementById('theme-text');const mt=document.getElementById('menu-theme-text');const icon=n==='dark'?'☀':'☾';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);t.textContent=icon;if(mt)mt.textContent=icon;if(n==='dark'){h.style.setProperty('--primary',getComputedStyle(h).getPropertyValue('--dark-primary'));h.style.setProperty('--secondary',getComputedStyle(h).getPropertyValue('--dark-secondary'));h.style.setProperty('--accent',getComputedStyle(h).getPropertyValue('--dark-accent'))}else{const lp=localStorage.getItem('lightPrimary')||'#FFFFFF';const ls=localStorage.getItem('lightSecondary')||'#000000';const la=localStorage.getItem('lightAccent')||'#767676';h.style.setProperty('--primary',lp);h.style.setProperty('--secondary',ls);h.style.setProperty('--accent',la)}}
+(function(){const r=document.documentElement;const st=localStorage.getItem('theme')||'light';const tt=document.getElementById('theme-text');const mt=document.getElementById('menu-theme-text');const lp=localStorage.getItem('lightPrimary')||'#FFFFFF';const ls=localStorage.getItem('lightSecondary')||'#000000';const la=localStorage.getItem('lightAccent')||'#767676';const u=localStorage.getItem('useDarkPalette')==='true';let dp,ds,da;if(u){dp=localStorage.getItem('darkPrimary')||'#000000';ds=localStorage.getItem('darkSecondary')||'#FFFFFF';da=localStorage.getItem('darkAccent')||'#767676';r.style.setProperty('--dark-primary',dp);r.style.setProperty('--dark-secondary',ds);r.style.setProperty('--dark-accent',da)}else{dp=ls;ds=lp;da=la;r.style.setProperty('--dark-primary',dp);r.style.setProperty('--dark-secondary',ds);r.style.setProperty('--dark-accent',da)}const icon=st==='dark'?'☀':'☾';if(st==='dark'){r.setAttribute('data-theme','dark');tt.textContent=icon;if(mt)mt.textContent=icon;r.style.setProperty('--primary',dp);r.style.setProperty('--secondary',ds);r.style.setProperty('--accent',da)}else{r.setAttribute('data-theme','light');tt.textContent=icon;if(mt)mt.textContent=icon;r.style.setProperty('--primary',lp);r.style.setProperty('--secondary',ls);r.style.setProperty('--accent',la)}})();
+function toggleHamburgerMenu(){if(dragState.positionChanged || dragState.preventClick){return}const menu=document.getElementById('hamburgerMenu');const hamburger=document.getElementById('hamburger');const footer=document.getElementById('footer');const isActive=menu.classList.contains('active');if(isActive){closeHamburgerMenu()}else{menu.classList.remove('position-bottom-left','position-bottom-right','position-top-left','position-top-right');if(footer.classList.contains('corner-bottom-left')){menu.classList.add('position-bottom-left')}else if(footer.classList.contains('corner-bottom-right')){menu.classList.add('position-bottom-right')}else if(footer.classList.contains('corner-top-left')){menu.classList.add('position-top-left')}else if(footer.classList.contains('corner-top-right')){menu.classList.add('position-top-right')}else{menu.classList.add('position-bottom-left');menu.style.bottom='90px';menu.style.left='50%';menu.style.transform='translateX(-50%) translateY(20px)';menu.style.right='auto';menu.style.top='auto'}setTimeout(()=>menu.classList.add('active'),10);hamburger.classList.add('open')}}
+function closeHamburgerMenu(){const menu=document.getElementById('hamburgerMenu');const hamburger=document.getElementById('hamburger');menu.classList.remove('active');hamburger.classList.remove('open');menu.style.left='';menu.style.right='';menu.style.top='';menu.style.bottom='';menu.style.transform=''}
+function checkMobile(){const f=document.getElementById('footer');const menu=document.getElementById('hamburgerMenu');if(window.innerWidth<=768){if(!f.classList.contains('collapsed')){closeHamburgerMenu();f.classList.add('collapsed','corner-bottom-left');f.style.left='';f.style.right='';f.style.top='';f.style.bottom='';f.style.transform=''}}else{if(f.classList.contains('collapsed')){closeHamburgerMenu();f.classList.remove('collapsed','corner-bottom-left','corner-bottom-right','corner-top-left','corner-top-right');f.style.left='';f.style.right='';f.style.top='';f.style.bottom='';f.style.transform=''}}}
+window.addEventListener('resize',checkMobile);
+checkMobile();
+
+let dragState={isDragging:false,hasMoved:false,positionChanged:false,preventClick:false,startX:0,startY:0,currentX:0,currentY:0,velocityX:0,velocityY:0,lastX:0,lastY:0,lastTime:0,startCorner:''};
+function initDrag(){const footer=document.getElementById('footer');footer.addEventListener('mousedown',startDrag);footer.addEventListener('touchstart',startDrag,{passive:false});document.addEventListener('mousemove',drag);document.addEventListener('touchmove',drag,{passive:false});document.addEventListener('mouseup',endDrag);document.addEventListener('touchend',endDrag);document.addEventListener('click',handleOutsideClick,true)}
+function handleOutsideClick(e){const menu=document.getElementById('hamburgerMenu');const hamburger=document.getElementById('hamburger');if(!menu.classList.contains('active'))return;if(!menu.contains(e.target)&&!hamburger.contains(e.target)){closeHamburgerMenu()}}
+function getCornerClass(footer){if(footer.classList.contains('corner-top-left'))return'corner-top-left';if(footer.classList.contains('corner-top-right'))return'corner-top-right';if(footer.classList.contains('corner-bottom-left'))return'corner-bottom-left';if(footer.classList.contains('corner-bottom-right'))return'corner-bottom-right';return''}
+function startDrag(e){const footer=document.getElementById('footer');if(!footer.classList.contains('collapsed'))return;dragState.isDragging=true;dragState.hasMoved=false;dragState.positionChanged=false;dragState.preventClick=false;dragState.startCorner=getCornerClass(footer);const touch=e.type==='touchstart'?e.touches[0]:e;dragState.startX=touch.clientX-footer.offsetLeft;dragState.startY=touch.clientY-footer.offsetTop;dragState.lastX=touch.clientX;dragState.lastY=touch.clientY;dragState.lastTime=Date.now();dragState.velocityX=0;dragState.velocityY=0;footer.classList.add('dragging');footer.style.cursor='grabbing'}
+function drag(e){if(!dragState.isDragging)return;const footer=document.getElementById('footer');const touch=e.type==='touchmove'?e.touches[0]:e;const dx=touch.clientX-dragState.lastX;const dy=touch.clientY-dragState.lastY;if(Math.abs(dx)>3||Math.abs(dy)>3){dragState.hasMoved=true;e.preventDefault()}const now=Date.now();const dt=now-dragState.lastTime;if(dt>0){const smoothing=0.3;dragState.velocityX=dragState.velocityX*(1-smoothing)+((touch.clientX-dragState.lastX)/dt)*smoothing;dragState.velocityY=dragState.velocityY*(1-smoothing)+((touch.clientY-dragState.lastY)/dt)*smoothing}dragState.lastX=touch.clientX;dragState.lastY=touch.clientY;dragState.lastTime=now;dragState.currentX=touch.clientX-dragState.startX;dragState.currentY=touch.clientY-dragState.startY;footer.style.left=dragState.currentX+'px';footer.style.top=dragState.currentY+'px';footer.style.bottom='auto';footer.style.right='auto';footer.style.transform='none';footer.classList.remove('corner-bottom-left','corner-bottom-right','corner-top-left','corner-top-right')}
+function endDrag(e){if(!dragState.isDragging)return;dragState.isDragging=false;const footer=document.getElementById('footer');const menu=document.getElementById('hamburgerMenu');footer.classList.remove('dragging');footer.style.cursor='grab';if(!dragState.hasMoved){return}dragState.preventClick=true;setTimeout(()=>dragState.preventClick=false,100);const vx=dragState.velocityX;const vy=dragState.velocityY;const speed=Math.sqrt(vx*vx+vy*vy);const threshold=0.3;let finalX=dragState.currentX;let finalY=dragState.currentY;if(speed>threshold){const mult=Math.min(speed*400,500);finalX+=vx*mult;finalY+=vy*mult}const w=window.innerWidth;const h=window.innerHeight;const centerX=finalX+footer.offsetWidth/2;const centerY=finalY+footer.offsetHeight/2;const toLeft=centerX<w/2;const toTop=centerY<h/2;const wasMenuOpen=menu.classList.contains('active');if(wasMenuOpen){closeHamburgerMenu()}footer.classList.remove('corner-bottom-left','corner-bottom-right','corner-top-left','corner-top-right');footer.style.left='';footer.style.top='';footer.style.bottom='';footer.style.right='';footer.style.transform='';let newCorner='';if(toTop&&toLeft){footer.classList.add('corner-top-left');newCorner='corner-top-left'}else if(toTop&&!toLeft){footer.classList.add('corner-top-right');newCorner='corner-top-right'}else if(!toTop&&toLeft){footer.classList.add('corner-bottom-left');newCorner='corner-bottom-left'}else{footer.classList.add('corner-bottom-right');newCorner='corner-bottom-right'}if(dragState.startCorner!==newCorner){dragState.positionChanged=true;setTimeout(()=>dragState.positionChanged=false,300)}}
+initDrag();
+</script>
+</body>
+</html>
