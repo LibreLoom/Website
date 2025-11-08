@@ -1,0 +1,205 @@
+header {
+  text-align: center;
+  padding: 80px 40px 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.logo-container {
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-container svg {
+  max-width: 500px;
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.logo-container svg:hover {
+  transform: scale(1.02);
+}
+
+.logo-svg-bg {
+  fill: var(--secondary);
+  transition: fill 0.3s ease;
+}
+
+.logo-svg-fg {
+  fill: var(--primary);
+  transition: fill 0.3s ease;
+}
+
+header h1 {
+  font-family: 'FreeMono', 'Courier New', monospace;
+  font-size: 2.5rem;
+  margin-bottom: 24px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+header p {
+  font-size: 1.2rem;
+  color: var(--secondary);
+  max-width: 700px;
+  margin: 0 auto 20px;
+  line-height: 1.8;
+}
+
+header p em {
+  font-style: italic;
+  font-weight: 500;
+}
+
+.mission-section {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 40px;
+}
+
+.mission-card {
+  background-color: var(--primary);
+  border: 2px solid var(--secondary);
+  border-radius: 28px;
+  padding: 50px;
+  text-align: center;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.mission-card:hover {
+  transform: translateY(-4px);
+  background-color: var(--secondary);
+}
+
+.mission-card:hover h2,
+.mission-card:hover p {
+  color: var(--primary);
+}
+
+.mission-card h2 {
+  font-family: 'FreeMono', 'Courier New', monospace;
+  font-size: 2rem;
+  margin-bottom: 24px;
+  font-weight: 400;
+  color: var(--secondary);
+  transition: color 0.3s ease;
+}
+
+.mission-card p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--accent);
+  transition: color 0.3s ease;
+  margin-bottom: 0;
+}
+
+.decorative-img {
+  position: absolute;
+  border-radius: 28px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  border: 2px solid var(--secondary);
+}
+
+.decorative-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.decorative-img-1 {
+  width: 250px;
+  top: 150px;
+  left: 5%;
+  transform: rotate(-5deg);
+}
+
+.decorative-img-2 {
+  width: 200px;
+  top: 400px;
+  right: 8%;
+  transform: rotate(8deg);
+}
+
+.decorative-img-3 {
+  width: 220px;
+  top: 700px;
+  left: 3%;
+  transform: rotate(3deg);
+}
+
+.decorative-img-4 {
+  width: 180px;
+  top: 950px;
+  right: 5%;
+  transform: rotate(-7deg);
+}
+
+.decorative-img-5 {
+  width: 240px;
+  top: 1200px;
+  left: 7%;
+  transform: rotate(4deg);
+}
+
+.decorative-img-6 {
+  width: 190px;
+  top: 1450px;
+  right: 6%;
+  transform: rotate(-3deg);
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 60px 24px 30px;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  .logo-container svg {
+    max-width: 300px;
+  }
+
+  .mission-section {
+    padding: 0 24px;
+    margin: 30px auto;
+  }
+
+  .mission-card {
+    padding: 35px;
+  }
+
+  .decorative-img {
+    display: none;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mission-card {
+  animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+  animation-delay: 0.1s;
+}
+
+header,
+.mission-section {
+  position: relative;
+  z-index: 1;
+}
+
