@@ -6,15 +6,21 @@
 }
 
 :root {
-  --primary: #FFFFFF;
-  --secondary: #000000;
-  --accent: #767676;
+  --primary-light: #FFFFFF;
+  --secondary-light: #000000;
+  --accent-light: #767676;
+  --primary-dark: #000000;
+  --secondary-dark: #FFFFFF;
+  --accent-dark: #767676;
+  --primary: var(--primary-light);
+  --secondary: var(--secondary-light);
+  --accent: var(--accent-light);
 }
 
 [data-theme="dark"] {
-  --primary: #000000;
-  --secondary: #FFFFFF;
-  --accent: #767676;
+  --primary: var(--primary-dark);
+  --secondary: var(--secondary-dark);
+  --accent: var(--accent-dark);
 }
 
 * {

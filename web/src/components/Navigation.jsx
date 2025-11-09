@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import '../styles/Navigation.css'
+import ColorSettings from './ColorSettings'
 
 function Navigation() {
   const location = useLocation()
@@ -13,6 +14,8 @@ function Navigation() {
   const [isDragging, setIsDragging] = useState(false)
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 })
   const hamburgerRef = useRef(null)
+  const animationFrameRef = useRef(null)
+  const pendingPositionRef = useRef(null)
 
   useEffect(() => {
     // Initialize theme from localStorage
@@ -20,12 +23,48 @@ function Navigation() {
     setTheme(savedTheme)
     document.documentElement.setAttribute('data-theme', savedTheme)
     
+    // Apply saved custom colors if they exist
+    applySavedColors(savedTheme)
+    
     // Initialize hamburger position from localStorage or default to bottom-right
     const savedPosition = localStorage.getItem('hamburgerPosition')
     if (savedPosition) {
       setPosition(JSON.parse(savedPosition))
     }
   }, [])
+
+  const applySavedColors = (currentTheme) => {
+    const savedColors = localStorage.getItem('customColors')
+    const useDarkModePalette = localStorage.getItem('useDarkModePalette') === 'true'
+    
+    if (savedColors) {
+      const colors = JSON.parse(savedColors)
+      const root = document.documentElement
+      
+      if (useDarkModePalette) {
+        root.style.setProperty('--primary-light', colors.primary)
+        root.style.setProperty('--secondary-light', colors.secondary)
+        root.style.setProperty('--accent-light', colors.accent)
+        root.style.setProperty('--primary-dark', colors.primaryDark)
+        root.style.setProperty('--secondary-dark', colors.secondaryDark)
+        root.style.setProperty('--accent-dark', colors.accentDark)
+        
+        if (currentTheme === 'dark') {
+          root.style.setProperty('--primary', colors.primaryDark)
+          root.style.setProperty('--secondary', colors.secondaryDark)
+          root.style.setProperty('--accent', colors.accentDark)
+        } else {
+          root.style.setProperty('--primary', colors.primary)
+          root.style.setProperty('--secondary', colors.secondary)
+          root.style.setProperty('--accent', colors.accent)
+        }
+      } else {
+        root.style.setProperty('--primary', colors.primary)
+        root.style.setProperty('--secondary', colors.secondary)
+        root.style.setProperty('--accent', colors.accent)
+      }
+    }
+  }
 
   // Close menu when screen size changes to desktop
   useEffect(() => {
@@ -49,6 +88,7 @@ function Navigation() {
     setTheme(newTheme)
     document.documentElement.setAttribute('data-theme', newTheme)
     localStorage.setItem('theme', newTheme)
+    applySavedColors(newTheme)
   }
 
   const openSettings = () => {
@@ -80,14 +120,32 @@ function Navigation() {
     const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX
     const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY
     
-    setPosition({
+    // Store the pending position
+    pendingPositionRef.current = {
       x: clientX - dragStart.x,
       y: clientY - dragStart.y
-    })
+    }
+    
+    // Use requestAnimationFrame for smooth updates
+    if (!animationFrameRef.current) {
+      animationFrameRef.current = requestAnimationFrame(() => {
+        if (pendingPositionRef.current) {
+          setPosition(pendingPositionRef.current)
+          pendingPositionRef.current = null
+        }
+        animationFrameRef.current = null
+      })
+    }
   }
 
   const handleDragEnd = (e) => {
     if (!isDragging || window.innerWidth > 768) return
+    
+    // Cancel any pending animation frame
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current)
+      animationFrameRef.current = null
+    }
     
     setIsDragging(false)
     
@@ -142,6 +200,15 @@ function Navigation() {
       }
     }
   }, [isDragging, position, dragStart])
+
+  // Cleanup animation frames on unmount
+  useEffect(() => {
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current)
+      }
+    }
+  }, [])
 
   // Calculate hamburger button position style
   const getHamburgerStyle = () => {
@@ -267,15 +334,7 @@ function Navigation() {
         </div>
       )}
 
-      {showSettings && (
-        <div className="settings-overlay active" onClick={(e) => e.target.className.includes('settings-overlay') && closeSettings()}>
-          <div className="settings-modal">
-            <h2>Settings Coming Soon</h2>
-            <p>Settings functionality will be implemented in a future update.</p>
-            <button onClick={closeSettings}>Close</button>
-          </div>
-        </div>
-      )}
+      <ColorSettings isOpen={showSettings} onClose={closeSettings} />
     </>
   )
 }

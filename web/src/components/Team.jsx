@@ -32,7 +32,7 @@ function Team() {
           </div>
           <div className="card">
             <h2>lazypanda5050</h2>
-            <p>So lazy it happens to be good sometimes. Their philosophy is "Why do it today when you can do it tomorrow... or never?" Has accidentally created some of our most efficient solutions (using his competitive coding genes)by trying to find the minimum effort required to solve a problem.</p>
+            <p>So lazy it happens to be good sometimes. Their philosophy is "Why do it today when you can do it tomorrow... or never?" Has accidentally created some of our most efficient solutions (using his competitive coding genes) by trying to find the minimum effort required to solve a problem.</p>
           </div>
           <div className="card">
             <h2>1nOnlyDude</h2>
