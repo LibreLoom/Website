@@ -113,7 +113,7 @@ function Home() {
         borderRadius: '28px',
         overflow: 'hidden',
         pointerEvents: 'auto',
-        zIndex: 2,
+        zIndex: 0,
         border: '2px solid var(--secondary)',
         transition: 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.3s ease',
         cursor: 'pointer',
