@@ -1,6 +1,6 @@
 # Website
 
-LibreLoom's website. Hosted [here](https://libreloom.org). (Latest version automatically hosted daily.)
+LibreLoom's website. Hosted [here](https://libreloom.org). (Hot reloading enabled.)
 
 ### Disclosure
 
