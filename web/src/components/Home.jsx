@@ -38,68 +38,52 @@ function Home() {
     }
 
     const generateRandomStyle = (index, totalImages, usedPositions) => {
-      const rotations = [-5, 8, 3, -7, 4, -3]
+      // Random rotation between -15 and 15 degrees
+      const randomRotation = (Math.random() - 0.5) * 30
       
-      // Generate random size between 150px and 280px
-      const randomSize = Math.floor(Math.random() * 130) + 150
+      // MUCH BIGGER random size between 200px and 300px
+      const randomSize = Math.floor(Math.random() * 100) + 200
       
-      // Define safe zones with more spacing - reduced vertical range to prevent scrolling
-      const safeZones = [
-        { topMin: 100, topMax: 180, leftMin: 2, leftMax: 8, rightMin: 2, rightMax: 8 },    // Top area
-        { topMin: 250, topMax: 330, leftMin: 2, leftMax: 8, rightMin: 2, rightMax: 8 },    // Upper middle area
-        { topMin: 400, topMax: 480, leftMin: 2, leftMax: 8, rightMin: 2, rightMax: 8 },    // Lower middle area
-        { topMin: 550, topMax: 630, leftMin: 2, leftMax: 8, rightMin: 2, rightMax: 8 }     // Bottom area
-      ]
-      
-      // Count how many images are on each side to balance distribution
-      const leftCount = usedPositions.filter(pos => pos.left !== undefined).length
-      const rightCount = usedPositions.filter(pos => pos.right !== undefined).length
-      
-      // Generate truly random positions within safe bounds
       let position
       let attempts = 0
-      const maxAttempts = 200
+      const maxAttempts = 500
       
       do {
-        // Bias towards the side with fewer images, but still allow randomness
-        let useLeft
-        if (leftCount === rightCount) {
-          useLeft = Math.random() > 0.5
-        } else if (leftCount < rightCount) {
-          useLeft = Math.random() > 0.3 // 70% chance to use left
-        } else {
-          useLeft = Math.random() > 0.7 // 30% chance to use left
-        }
+        // Randomly decide left or right side
+        const isLeft = Math.random() > 0.5
         
-        const selectedZone = safeZones[Math.floor(Math.random() * safeZones.length)]
+        // MASSIVE range of vertical movement - entire viewport height
+        const top = 50 + Math.random() * 900 // Between 50px and 950px
+        
+        // MUCH WIDER horizontal range - images can move much further from edges
+        const horizontalPos = 0.5 + Math.random() * 18 // Between 0.5% and 18.5%
         
         position = {
-          top: selectedZone.topMin + Math.random() * (selectedZone.topMax - selectedZone.topMin),
-          size: randomSize
-        }
-        
-        if (useLeft) {
-          position.left = selectedZone.leftMin + Math.random() * (selectedZone.leftMax - selectedZone.leftMin)
-        } else {
-          position.right = selectedZone.rightMin + Math.random() * (selectedZone.rightMax - selectedZone.rightMin)
+          top,
+          size: randomSize,
+          isLeft,
+          horizontalPos
         }
         
         // Check for overlaps with existing images
+        const viewportWidth = window.innerWidth
+        const currentLeft = isLeft 
+          ? (horizontalPos / 100) * viewportWidth 
+          : viewportWidth - ((horizontalPos / 100) * viewportWidth) - randomSize
+        const currentRight = currentLeft + randomSize
+        const currentTop = top
+        const currentBottom = currentTop + randomSize
+        
         const overlaps = usedPositions.some(used => {
-          // Calculate actual pixel positions for overlap detection
-          const viewportWidth = window.innerWidth
-          const currentLeft = position.left !== undefined ? (position.left / 100) * viewportWidth : viewportWidth - ((position.right / 100) * viewportWidth) - randomSize
-          const currentRight = currentLeft + randomSize
-          const currentTop = position.top
-          const currentBottom = currentTop + randomSize
-          
-          const usedLeft = used.left !== undefined ? (used.left / 100) * viewportWidth : viewportWidth - ((used.right / 100) * viewportWidth) - used.size
+          const usedLeft = used.isLeft
+            ? (used.horizontalPos / 100) * viewportWidth
+            : viewportWidth - ((used.horizontalPos / 100) * viewportWidth) - used.size
           const usedRight = usedLeft + used.size
           const usedTop = used.top
           const usedBottom = usedTop + used.size
           
-          // Add padding between images
-          const padding = 30
+          // HUGE padding between images - 80px to ensure clear separation
+          const padding = 80
           
           const horizontalOverlap = currentLeft < (usedRight + padding) && currentRight > (usedLeft - padding)
           const verticalOverlap = currentTop < (usedBottom + padding) && currentBottom > (usedTop - padding)
@@ -107,11 +91,17 @@ function Home() {
           return horizontalOverlap && verticalOverlap
         })
         
-        if (!overlaps || attempts > maxAttempts) {
+        if (!overlaps) {
           break
         }
         
         attempts++
+        
+        // If we've tried too many times, give up and use this position anyway
+        if (attempts >= maxAttempts) {
+          console.warn(`Image ${index} placed after ${attempts} attempts`)
+          break
+        }
       } while (true)
       
       usedPositions.push(position)
@@ -127,15 +117,14 @@ function Home() {
         border: '2px solid var(--secondary)',
         transition: 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.3s ease',
         cursor: 'pointer',
-        transform: `rotate(${rotations[index] + (Math.random() - 0.5) * 4}deg)`
+        transform: `rotate(${randomRotation}deg)`
       }
 
       // Apply position
-      if (position.left !== undefined) {
-        style.left = `${position.left}%`
-      }
-      if (position.right !== undefined) {
-        style.right = `${position.right}%`
+      if (position.isLeft) {
+        style.left = `${position.horizontalPos}%`
+      } else {
+        style.right = `${position.horizontalPos}%`
       }
       style.top = `${position.top}px`
 
