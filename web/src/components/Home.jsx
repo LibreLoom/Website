@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/Home.css'
 import abstractImg1 from '../assets/abstract/yupp-generated-image-524118.png'
 import abstractImg2 from '../assets/abstract/yupp-generated-image-622587.png'
@@ -8,26 +8,179 @@ import abstractImg5 from '../assets/abstract/yupp-generated-image-781807.png'
 import abstractImg6 from '../assets/abstract/OG (Seedream 4.0 Max on Yupp.ai).png'
 
 function Home() {
+  const [imageStyles, setImageStyles] = useState([])
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth)
+  const [enlargedImage, setEnlargedImage] = useState(null)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth)
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  useEffect(() => {
+    const images = [
+      { src: abstractImg1 },
+      { src: abstractImg2 },
+      { src: abstractImg3 },
+      { src: abstractImg4 },
+      { src: abstractImg5 },
+      { src: abstractImg6 }
+    ]
+
+    // Don't show images on small screens to prevent overlap with content
+    if (screenWidth < 1024) {
+      setImageStyles([])
+      return
+    }
+
+    const generateRandomStyle = (index, totalImages, usedPositions) => {
+      const rotations = [-5, 8, 3, -7, 4, -3]
+      
+      // Generate random size between 150px and 280px
+      const randomSize = Math.floor(Math.random() * 130) + 150
+      
+      // Define safe zones with more spacing - reduced vertical range to prevent scrolling
+      const safeZones = [
+        { topMin: 100, topMax: 180, leftMin: 2, leftMax: 8, rightMin: 2, rightMax: 8 },    // Top area
+        { topMin: 250, topMax: 330, leftMin: 2, leftMax: 8, rightMin: 2, rightMax: 8 },    // Upper middle area
+        { topMin: 400, topMax: 480, leftMin: 2, leftMax: 8, rightMin: 2, rightMax: 8 },    // Lower middle area
+        { topMin: 550, topMax: 630, leftMin: 2, leftMax: 8, rightMin: 2, rightMax: 8 }     // Bottom area
+      ]
+      
+      // Count how many images are on each side to balance distribution
+      const leftCount = usedPositions.filter(pos => pos.left !== undefined).length
+      const rightCount = usedPositions.filter(pos => pos.right !== undefined).length
+      
+      // Generate truly random positions within safe bounds
+      let position
+      let attempts = 0
+      const maxAttempts = 200
+      
+      do {
+        // Bias towards the side with fewer images, but still allow randomness
+        let useLeft
+        if (leftCount === rightCount) {
+          useLeft = Math.random() > 0.5
+        } else if (leftCount < rightCount) {
+          useLeft = Math.random() > 0.3 // 70% chance to use left
+        } else {
+          useLeft = Math.random() > 0.7 // 30% chance to use left
+        }
+        
+        const selectedZone = safeZones[Math.floor(Math.random() * safeZones.length)]
+        
+        position = {
+          top: selectedZone.topMin + Math.random() * (selectedZone.topMax - selectedZone.topMin),
+          size: randomSize
+        }
+        
+        if (useLeft) {
+          position.left = selectedZone.leftMin + Math.random() * (selectedZone.leftMax - selectedZone.leftMin)
+        } else {
+          position.right = selectedZone.rightMin + Math.random() * (selectedZone.rightMax - selectedZone.rightMin)
+        }
+        
+        // Check for overlaps with existing images
+        const overlaps = usedPositions.some(used => {
+          // Calculate actual pixel positions for overlap detection
+          const viewportWidth = window.innerWidth
+          const currentLeft = position.left !== undefined ? (position.left / 100) * viewportWidth : viewportWidth - ((position.right / 100) * viewportWidth) - randomSize
+          const currentRight = currentLeft + randomSize
+          const currentTop = position.top
+          const currentBottom = currentTop + randomSize
+          
+          const usedLeft = used.left !== undefined ? (used.left / 100) * viewportWidth : viewportWidth - ((used.right / 100) * viewportWidth) - used.size
+          const usedRight = usedLeft + used.size
+          const usedTop = used.top
+          const usedBottom = usedTop + used.size
+          
+          // Add padding between images
+          const padding = 30
+          
+          const horizontalOverlap = currentLeft < (usedRight + padding) && currentRight > (usedLeft - padding)
+          const verticalOverlap = currentTop < (usedBottom + padding) && currentBottom > (usedTop - padding)
+          
+          return horizontalOverlap && verticalOverlap
+        })
+        
+        if (!overlaps || attempts > maxAttempts) {
+          break
+        }
+        
+        attempts++
+      } while (true)
+      
+      usedPositions.push(position)
+      
+      const style = {
+        position: 'absolute',
+        width: `${randomSize}px`,
+        aspectRatio: '1',
+        borderRadius: '28px',
+        overflow: 'hidden',
+        pointerEvents: 'auto',
+        zIndex: 2,
+        border: '2px solid var(--secondary)',
+        transition: 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.3s ease',
+        cursor: 'pointer',
+        transform: `rotate(${rotations[index] + (Math.random() - 0.5) * 4}deg)`
+      }
+
+      // Apply position
+      if (position.left !== undefined) {
+        style.left = `${position.left}%`
+      }
+      if (position.right !== undefined) {
+        style.right = `${position.right}%`
+      }
+      style.top = `${position.top}px`
+
+      return style
+    }
+
+    const usedPositions = []
+    const styles = images.map((_, index) => generateRandomStyle(index, images.length, usedPositions))
+    setImageStyles(styles)
+  }, [screenWidth])
+
   return (
     <>
-      <div className="decorative-img decorative-img-1">
-        <img src={abstractImg1} alt="" />
-      </div>
-      <div className="decorative-img decorative-img-2">
-        <img src={abstractImg2} alt="" />
-      </div>
-      <div className="decorative-img decorative-img-3">
-        <img src={abstractImg3} alt="" />
-      </div>
-      <div className="decorative-img decorative-img-4">
-        <img src={abstractImg4} alt="" />
-      </div>
-      <div className="decorative-img decorative-img-5">
-        <img src={abstractImg5} alt="" />
-      </div>
-      <div className="decorative-img decorative-img-6">
-        <img src={abstractImg6} alt="" />
-      </div>
+      {imageStyles.map((style, index) => {
+        const images = [abstractImg1, abstractImg2, abstractImg3, abstractImg4, abstractImg5, abstractImg6]
+        return (
+          <div
+            key={index}
+            className="decorative-img"
+            style={style}
+            onClick={() => setEnlargedImage(images[index])}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = `${style.transform} scale(1.05) translateY(-5px)`
+              e.currentTarget.style.borderColor = 'var(--accent)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = style.transform
+              e.currentTarget.style.borderColor = 'var(--secondary)'
+            }}
+          >
+            <img src={images[index]} alt="" />
+          </div>
+        )
+      })}
+
+      {enlargedImage && (
+        <div
+          className="enlarged-image-overlay"
+          onClick={() => setEnlargedImage(null)}
+        >
+          <div className="enlarged-image-container">
+            <img src={enlargedImage} alt="Enlarged view" />
+          </div>
+        </div>
+      )}
 
       <header>
         <div className="logo-container">
