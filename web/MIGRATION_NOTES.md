@@ -56,13 +56,13 @@ web/
 ├── README.md
 ├── MIGRATION_NOTES.md (this file)
 ├── public/ (for static assets)
-├── assets/ (images and logos)
-│   ├── abstract/
-│   └── logo/
 └── src/
     ├── main.jsx (React entry)
     ├── App.jsx (routing)
     ├── index.css (global styles)
+    ├── assets/ (images and logos)
+    │   ├── abstract/
+    │   └── logo/
     ├── components/ (React components)
     │   ├── Home.jsx
     │   ├── Projects.jsx
@@ -135,6 +135,6 @@ To continue development:
 - Original HTML files are preserved in `src/pages/` for easy reading
 - The application uses functional React components with hooks
 - All original styles have been converted to CSS modules
-- Asset paths remain the same (`/assets/...`)
+- Assets are now in `src/assets/` and imported as modules in components
 - LocalStorage is used for theme persistence
 

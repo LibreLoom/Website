@@ -1,26 +1,32 @@
 import React from 'react'
 import '../styles/Home.css'
+import abstractImg1 from '../assets/abstract/yupp-generated-image-524118.png'
+import abstractImg2 from '../assets/abstract/yupp-generated-image-622587.png'
+import abstractImg3 from '../assets/abstract/yupp-generated-image-626277.png'
+import abstractImg4 from '../assets/abstract/yupp-generated-image-691537.png'
+import abstractImg5 from '../assets/abstract/yupp-generated-image-781807.png'
+import abstractImg6 from '../assets/abstract/OG (Seedream 4.0 Max on Yupp.ai).png'
 
 function Home() {
   return (
     <>
       <div className="decorative-img decorative-img-1">
-        <img src="/assets/abstract/yupp-generated-image-524118.png" alt="" />
+        <img src={abstractImg1} alt="" />
       </div>
       <div className="decorative-img decorative-img-2">
-        <img src="/assets/abstract/yupp-generated-image-622587.png" alt="" />
+        <img src={abstractImg2} alt="" />
       </div>
       <div className="decorative-img decorative-img-3">
-        <img src="/assets/abstract/yupp-generated-image-626277.png" alt="" />
+        <img src={abstractImg3} alt="" />
       </div>
       <div className="decorative-img decorative-img-4">
-        <img src="/assets/abstract/yupp-generated-image-691537.png" alt="" />
+        <img src={abstractImg4} alt="" />
       </div>
       <div className="decorative-img decorative-img-5">
-        <img src="/assets/abstract/yupp-generated-image-781807.png" alt="" />
+        <img src={abstractImg5} alt="" />
       </div>
       <div className="decorative-img decorative-img-6">
-        <img src="/assets/abstract/OG (Seedream 4.0 Max on Yupp.ai).png" alt="" />
+        <img src={abstractImg6} alt="" />
       </div>
 
       <header>

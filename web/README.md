@@ -22,10 +22,12 @@ web/
 │   │   ├── Projects.css
 │   │   ├── Team.css
 │   │   └── Footer.css
+│   ├── assets/         # Images, logos, and other assets
+│   │   ├── abstract/   # Background images
+│   │   └── logo/       # Logo files
 │   ├── App.jsx         # Main app component with routing
 │   ├── main.jsx        # React entry point
 │   └── index.css       # Global styles
-├── assets/             # Images, logos, and other assets
 ├── index.html          # HTML entry point for Vite
 ├── package.json        # Dependencies and scripts
 ├── vite.config.js      # Vite configuration
@@ -93,7 +95,7 @@ npm run preview
 ## Notes
 
 - Original HTML files are preserved in `src/pages/` for reference
-- Assets are stored in the `assets/` directory at the web root
+- Assets are stored in the `src/assets/` directory and imported as modules
 - The application uses CSS custom properties (CSS variables) for theming
 - Theme preference is saved to localStorage
 
