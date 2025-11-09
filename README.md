@@ -1,6 +1,6 @@
 # Website
 
-LibreLoom's website. Hosted [here](https://libreloom.org). (Latest commit hosted: 9f311114b9)
+LibreLoom's website. Hosted [here](https://libreloom.org). (Latest version automatically hosted daily.)
 
 ### Disclosure
 
