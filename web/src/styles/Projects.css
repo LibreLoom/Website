@@ -141,6 +141,87 @@ header p em {
   transition: color 0.3s ease;
 }
 
+.status-container {
+  margin: 16px 0 24px 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: default;
+}
+
+.status-badge:hover {
+  transform: translateY(-3px) scale(1.05);
+}
+
+.status-icon {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  animation: statusIconPulse 2s ease-in-out infinite;
+}
+
+.status-text {
+  position: relative;
+  z-index: 1;
+}
+
+/* Concept/Initial Design Status */
+.status-concept {
+  background: var(--accent);
+  color: var(--primary);
+  border: 2px solid var(--accent);
+}
+
+/* Maintenance-Only Status */
+.status-maintenance {
+  background: var(--accent);
+  color: var(--primary);
+  border: 2px solid var(--accent);
+}
+
+/* Active/Development Status (for future use) */
+.status-active {
+  background: var(--accent);
+  color: var(--primary);
+  border: 2px solid var(--accent);
+}
+
+/* Completed Status (for future use) */
+.status-completed {
+  background: var(--accent);
+  color: var(--primary);
+  border: 2px solid var(--accent);
+}
+
+/* Planning Status (for future use) */
+.status-planning {
+  background: var(--accent);
+  color: var(--primary);
+  border: 2px solid var(--accent);
+}
+
+@keyframes statusIconPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+}
+
 .card a {
   color: var(--secondary);
   text-decoration: underline;

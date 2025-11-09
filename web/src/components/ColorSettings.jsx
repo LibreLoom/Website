@@ -100,17 +100,25 @@ function ColorSettings({ isOpen, onClose }) {
         root.style.setProperty('--accent', colors.accent)
       }
     } else {
-      // Use same colors for both modes
+      // Swap primary and secondary for dark mode, keep accent the same
       root.style.setProperty('--primary-light', colors.primary)
       root.style.setProperty('--secondary-light', colors.secondary)
       root.style.setProperty('--accent-light', colors.accent)
-      root.style.setProperty('--primary-dark', colors.primary)
-      root.style.setProperty('--secondary-dark', colors.secondary)
+      root.style.setProperty('--primary-dark', colors.secondary)
+      root.style.setProperty('--secondary-dark', colors.primary)
       root.style.setProperty('--accent-dark', colors.accent)
       
-      root.style.setProperty('--primary', colors.primary)
-      root.style.setProperty('--secondary', colors.secondary)
-      root.style.setProperty('--accent', colors.accent)
+      // Apply based on current theme
+      const theme = document.documentElement.getAttribute('data-theme') || 'light'
+      if (theme === 'dark') {
+        root.style.setProperty('--primary', colors.secondary)
+        root.style.setProperty('--secondary', colors.primary)
+        root.style.setProperty('--accent', colors.accent)
+      } else {
+        root.style.setProperty('--primary', colors.primary)
+        root.style.setProperty('--secondary', colors.secondary)
+        root.style.setProperty('--accent', colors.accent)
+      }
     }
   }
 
