@@ -1,11 +1,9 @@
 import React from 'react'
 import '../styles/Home.css'
-import Navigation from './Navigation'
 
 function Home() {
   return (
     <>
-      <Navigation />
       <div className="decorative-img decorative-img-1">
         <img src="/assets/abstract/yupp-generated-image-524118.png" alt="" />
       </div>

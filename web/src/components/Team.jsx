@@ -1,11 +1,9 @@
 import React from 'react'
 import '../styles/Team.css'
-import Navigation from './Navigation'
 
 function Team() {
   return (
     <>
-      <Navigation />
       <header>
         <div className="logo-container">
           <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">

@@ -8,6 +8,7 @@ function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [theme, setTheme] = useState('light')
   const [showSettings, setShowSettings] = useState(false)
+  const [shouldAnimate, setShouldAnimate] = useState(false)
   
   // Draggable hamburger state
   const [position, setPosition] = useState({ x: null, y: null })
@@ -16,6 +17,7 @@ function Navigation() {
   const hamburgerRef = useRef(null)
   const animationFrameRef = useRef(null)
   const pendingPositionRef = useRef(null)
+  const isInitialMount = useRef(true)
 
   useEffect(() => {
     // Initialize theme from localStorage
@@ -31,6 +33,11 @@ function Navigation() {
     if (savedPosition) {
       setPosition(JSON.parse(savedPosition))
     }
+    
+    // Trigger animation on initial mount
+    requestAnimationFrame(() => {
+      setShouldAnimate(true)
+    })
   }, [])
 
   const applySavedColors = (currentTheme) => {
@@ -92,9 +99,16 @@ function Navigation() {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  // Close menu when route changes
+  // Close menu when route changes and disable animation after initial mount
   useEffect(() => {
     setIsMenuOpen(false)
+    
+    // After the first navigation (not initial mount), disable animation
+    if (isInitialMount.current) {
+      isInitialMount.current = false
+    } else {
+      setShouldAnimate(false)
+    }
   }, [location])
 
   const toggleTheme = () => {
@@ -240,7 +254,7 @@ function Navigation() {
   return (
     <>
       <nav className="navigation">
-        <div className="nav-container">
+        <div className={`nav-container ${shouldAnimate ? 'animate' : ''}`}>
           <button className="theme-toggle" onClick={toggleTheme} title="Toggle theme">
             <span>{theme === 'dark' ? '☀' : '☾'}</span>
           </button>
