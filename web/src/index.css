@@ -28,9 +28,16 @@ body {
   background: var(--primary);
   color: var(--secondary);
   margin: 0;
-  padding: 0 0 120px 0;
+  padding: 20px 0 120px 0;
   min-height: 100vh;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 20px;
+    padding-bottom: 120px;
+  }
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap');

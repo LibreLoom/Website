@@ -1,0 +1,500 @@
+/* Navigation - Minimal, bottom-floating design with Material Expressive V3 animations */
+
+.navigation {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: fit-content;
+  max-width: calc(100% - 40px);
+}
+
+.nav-container {
+  background: var(--primary);
+  border: 2px solid var(--secondary);
+  border-radius: 50px;
+  padding: clamp(10px, 1.5vh, 12px) clamp(16px, 2.5vw, 24px);
+  display: flex;
+  align-items: center;
+  gap: clamp(4px, 0.8vw, 8px);
+  backdrop-filter: blur(10px);
+  animation: navSlideUp 0.6s cubic-bezier(0.05, 0.7, 0.1, 1.0);
+}
+
+@keyframes navSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Nav Links - Pill shaped with fluid sizing */
+.nav-link {
+  font-family: 'FreeMono', 'Courier New', monospace;
+  font-size: clamp(0.75rem, 1.5vw, 0.95rem);
+  color: var(--secondary);
+  text-decoration: none;
+  padding: clamp(8px, 1.2vh, 10px) clamp(12px, 2vw, 20px);
+  border-radius: 50px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: var(--secondary);
+  transform: translate(-50%, -50%);
+  transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: -1;
+}
+
+.nav-link:hover::before {
+  width: 200%;
+  height: 200%;
+}
+
+.nav-link:hover {
+  color: var(--primary);
+  transform: scale(1.05);
+}
+
+.nav-link.active {
+  font-weight: bold;
+  background: var(--secondary);
+  color: var(--primary);
+}
+
+.nav-link.donate-btn {
+  background: var(--accent);
+  color: var(--primary);
+  border: 2px solid var(--accent);
+  font-weight: 600;
+}
+
+.nav-link.donate-btn::before {
+  background: var(--primary);
+}
+
+.nav-link.donate-btn:hover {
+  color: var(--accent);
+  border-color: var(--secondary);
+}
+
+/* Theme toggle and settings buttons - Circular with fluid sizing */
+.theme-toggle {
+  background: var(--secondary);
+  border: none;
+  color: var(--primary);
+  padding: 0;
+  width: clamp(38px, 5vw, 45px);
+  height: clamp(38px, 5vw, 45px);
+  border-radius: 50%;
+  font-family: 'FreeMono', 'Courier New', monospace;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-toggle span {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.theme-toggle svg {
+  vertical-align: middle;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.theme-toggle:hover {
+  transform: scale(1.15) rotate(10deg);
+}
+
+.theme-toggle:hover span {
+  transform: scale(1.1);
+}
+
+.theme-toggle:active {
+  transform: scale(0.9);
+}
+
+/* Divider - Accent colored, tall with fluid sizing */
+.nav-divider {
+  width: 2px;
+  height: clamp(28px, 4vh, 36px);
+  background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+  margin: 0 clamp(2px, 0.5vw, 4px);
+  opacity: 0.8;
+  animation: dividerPulse 3s ease-in-out infinite;
+}
+
+@keyframes dividerPulse {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scaleY(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1.1);
+  }
+}
+
+/* Mobile Hamburger Menu - Circular, draggable */
+.hamburger {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 60px;
+  height: 60px;
+  background: var(--secondary);
+  border: 2px solid var(--secondary);
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  touch-action: none;
+}
+
+.hamburger:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.hamburger:active,
+.hamburger.dragging {
+  transform: scale(0.95);
+  cursor: grabbing;
+}
+
+.hamburger span {
+  width: 24px;
+  height: 3px;
+  background: var(--primary);
+  border-radius: 10px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.mobile-menu {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary);
+  border: 2px solid var(--secondary);
+  border-radius: 30px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 280px;
+  max-width: calc(100% - 40px);
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+  animation: menuSlideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Smooth scrolling */
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+@keyframes menuSlideUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+/* Custom scrollbar for mobile menu */
+.mobile-menu::-webkit-scrollbar {
+  width: 8px;
+}
+
+.mobile-menu::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+.mobile-menu::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.mobile-menu::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+.mobile-menu .nav-link {
+  text-align: center;
+  font-size: 1rem;
+  padding: 14px 20px;
+  flex-shrink: 0;
+}
+
+.mobile-menu .theme-toggle {
+  width: 100%;
+  height: 50px;
+  border-radius: 50px;
+  flex-shrink: 0;
+}
+
+.mobile-menu .nav-divider {
+  width: 80%;
+  height: 2px;
+  margin: 4px auto;
+  background: linear-gradient(to right, transparent, var(--accent), transparent);
+  flex-shrink: 0;
+}
+
+/* Settings modal - Rounded */
+.settings-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.settings-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.settings-modal {
+  background: var(--primary);
+  border: 2px solid var(--secondary);
+  border-radius: 30px;
+  padding: 40px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  transform: scale(0.9);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: modalBounceIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalBounceIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.settings-overlay.active .settings-modal {
+  transform: scale(1);
+}
+
+.settings-modal h2 {
+  font-family: 'FreeMono', 'Courier New', monospace;
+  margin-top: 0;
+  margin-bottom: 24px;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--secondary);
+}
+
+.settings-modal p {
+  color: var(--secondary);
+  margin-bottom: 20px;
+}
+
+.settings-modal button {
+  background: var(--secondary);
+  color: var(--primary);
+  border: 2px solid var(--secondary);
+  padding: 14px 24px;
+  border-radius: 50px;
+  font-family: 'FreeMono', 'Courier New', monospace;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  width: 100%;
+  margin-top: 20px;
+}
+
+.settings-modal button:hover {
+  transform: scale(1.05);
+  background: var(--primary);
+  color: var(--secondary);
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .navigation {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  body {
+    padding-bottom: 100px !important;
+  }
+}
+
+/* Desktop - ensure hamburger is hidden */
+@media (min-width: 769px) {
+  .hamburger {
+    display: none !important;
+  }
+}
+
+/* Additional adjustments for very wide screens */
+@media (min-width: 1600px) {
+  .nav-container {
+    padding: 14px 28px;
+    gap: 10px;
+  }
+  
+  .nav-link {
+    font-size: 1rem;
+    padding: 12px 24px;
+  }
+  
+  .theme-toggle {
+    width: 48px;
+    height: 48px;
+    font-size: 1.5rem;
+  }
+  
+  .nav-divider {
+    height: 40px;
+  }
+}
+
+/* Additional adjustments for medium screens */
+@media (min-width: 769px) and (max-width: 1200px) {
+  .navigation {
+    max-width: calc(100% - 30px);
+  }
+}
+
+/* Small screens - adjust nav container */
+@media (max-width: 500px) {
+  .navigation {
+    bottom: 10px;
+  }
+
+  .nav-container {
+    padding: 10px 16px;
+  }
+}
+
+/* Smooth scrolling behavior for page transitions */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Add breathing animation to active links */
+.nav-link.active {
+  animation: breathe 2s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+/* Add ripple effect for buttons */
+.theme-toggle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: var(--primary);
+  opacity: 0.3;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease-out, height 0.6s ease-out, opacity 0.6s ease-out;
+}
+
+.theme-toggle:active::before {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}

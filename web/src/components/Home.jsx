@@ -1,10 +1,11 @@
 import React from 'react'
 import '../styles/Home.css'
-import Footer from './Footer'
+import Navigation from './Navigation'
 
 function Home() {
   return (
     <>
+      <Navigation />
       <div className="decorative-img decorative-img-1">
         <img src="/assets/abstract/yupp-generated-image-524118.png" alt="" />
       </div>
@@ -42,8 +43,6 @@ function Home() {
           <p>At LibreLoom, we believe in the power of free and open source software to transform lives. We build tools that respect your freedom, protect your privacy, and put you in control. Every project we create is designed with transparency, accessibility, and community at its core. Join us in weaving a better digital future — one that belongs to everyone.</p>
         </div>
       </section>
-
-      <Footer />
     </>
   )
 }
