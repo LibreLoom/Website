@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import '../styles/Navigation.css'
 import ColorSettings from './ColorSettings'
 
-function Navigation() {
+function Navigation({ disableSnapDragging, setDisableSnapDragging }) {
   const location = useLocation()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [theme, setTheme] = useState('light')
@@ -178,30 +178,31 @@ function Navigation() {
     setIsDragging(false)
     
     // Snap to nearest corner with smooth animation
-    const windowWidth = window.innerWidth
-    const windowHeight = window.innerHeight
-    const snapMargin = 20
-    
-    let newX, newY
-    
-    // Determine which corner to snap to
-    const currentX = position.x !== null ? position.x : windowWidth - 80
-    const currentY = position.y !== null ? position.y : windowHeight - 80
-    
-    // Snap horizontally
-    if (currentX < windowWidth / 2) {
-      newX = snapMargin
-    } else {
-      newX = windowWidth - 80 // 60px button + margin
+    if (!disableSnapDragging){
+      const windowWidth = window.innerWidth
+      const windowHeight = window.innerHeight
+      const snapMargin = 20
+      
+      let newX, newY
+      
+      // Determine which corner to snap to
+      const currentX = position.x !== null ? position.x : windowWidth - 80
+      const currentY = position.y !== null ? position.y : windowHeight - 80
+      
+      // Snap horizontally
+      if (currentX < windowWidth / 2) {
+        newX = snapMargin
+      } else {
+        newX = windowWidth - 80 // 60px button + margin
+      }
+      
+      // Snap vertically
+      if (currentY < windowHeight / 2) {
+        newY = snapMargin
+      } else {
+        newY = windowHeight - 80
+      }
     }
-    
-    // Snap vertically
-    if (currentY < windowHeight / 2) {
-      newY = snapMargin
-    } else {
-      newY = windowHeight - 80
-    }
-    
     const finalPosition = { x: newX, y: newY }
     setPosition(finalPosition)
     localStorage.setItem('hamburgerPosition', JSON.stringify(finalPosition))
@@ -362,7 +363,7 @@ function Navigation() {
         </div>
       )}
 
-      <ColorSettings isOpen={showSettings} onClose={closeSettings} />
+      <ColorSettings isOpen={showSettings} onClose={closeSettings} setDisableSnapDragging={setDisableSnapDragging} />
     </>
   )
 }
