@@ -6,10 +6,11 @@ import Projects from './components/Projects'
 import Team from './components/Team'
 
 function App() {
+  const [disableSnapDragging, setDisableSnapDragging] = useState(false);
+
   return (
     <Router>
-      const [disableSnapDragging, setDisableSnapDragging] = useState(false);
-      <Navigation disableSnapDragging={disableSnapDragging}/>
+      <Navigation disableSnapDragging={disableSnapDragging} setDisableSnapDragging={setDisableSnapDragging}/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<Projects />} />
