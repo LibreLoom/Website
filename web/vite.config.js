@@ -7,14 +7,14 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true,
-    host: true
+    host: true,
+    allowedHosts: ['jjbvu3jsfuuo.share.zrok.io']
   },
   preview: {
-    allowedHosts: ['libreloom.org']
+    allowedHosts: ['libreloom.org', "jjbvu3jsfuuo.share.zrok.io"]
   },
   build: {
     outDir: 'dist',
     sourcemap: true
   }
 })
-

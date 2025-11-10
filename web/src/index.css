@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap');
+
 @font-face {
   font-family: 'FreeMono';
   src: url('https://cdnjs.cloudflare.com/ajax/libs/gnu-freefont/20120503/FreeMono.woff') format('woff');
@@ -49,6 +51,3 @@ body {
     padding-bottom: 120px;
   }
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap');
-
