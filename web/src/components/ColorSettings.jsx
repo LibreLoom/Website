@@ -13,6 +13,7 @@ function ColorSettings({ isOpen, onClose }) {
 
   const [colors, setColors] = useState(defaultColors)
   const [useDarkModePalette, setUseDarkModePalette] = useState(false)
+  const [snapDragging, setSnapDragging] = useState(false)
 
   useEffect(() => {
     // Load saved colors from localStorage
@@ -127,7 +128,17 @@ function ColorSettings({ isOpen, onClose }) {
   return (
     <div className="settings-overlay active" onClick={(e) => e.target.className.includes('settings-overlay') && onClose()}>
       <div className="color-settings-modal" onClick={(e) => e.stopPropagation()}>
-        <h1>Color Settings</h1>
+        <h1>Settings</h1>
+
+        <div className="checkbox-group">
+          <input
+            type="checkbox"
+            id="snapDragging"
+            checked={useDarkModePalette}
+            onChange={(e) => setSnapDragging(e.target.checked)}
+          />
+          <label htmlFor="snapDragging">Disable snap dragging of hamburger menu</label>
+        </div>
         
         <div className="color-input-group">
           <label>Primary Color (Active)</label>
@@ -220,4 +231,3 @@ function ColorSettings({ isOpen, onClose }) {
 }
 
 export default ColorSettings
-
