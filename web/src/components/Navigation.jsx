@@ -363,7 +363,12 @@ function Navigation({ disableSnapDragging, setDisableSnapDragging }) {
         </div>
       )}
 
-      <ColorSettings isOpen={showSettings} onClose={closeSettings} setDisableSnapDragging={setDisableSnapDragging} />
+      <ColorSettings
+        isOpen={showSettings}
+        onClose={closeSettings}
+        disableSnapDragging={disableSnapDragging}
+        setDisableSnapDragging={setDisableSnapDragging}
+      />
     </>
   )
 }

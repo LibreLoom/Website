@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import '../styles/ColorSettings.css'
 
-function ColorSettings({ isOpen, onClose, setDisableSnapDragging }) {
+function ColorSettings({ isOpen, onClose, disableSnapDragging, setDisableSnapDragging }) {
   const defaultColors = {
     primary: '#FFFFFF',
     secondary: '#000000',
@@ -133,7 +133,7 @@ function ColorSettings({ isOpen, onClose, setDisableSnapDragging }) {
           <input
             type="checkbox"
             id="snapDragging"
-            checked={useDarkModePalette}
+            checked={disableSnapDragging}
             onChange={(e) => setDisableSnapDragging(e.target.checked)}
           />
           <label htmlFor="snapDragging">Disable snap dragging of hamburger menu</label>
