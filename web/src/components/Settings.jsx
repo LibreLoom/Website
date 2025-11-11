@@ -136,7 +136,7 @@ function Settings({ isOpen, onClose, disableSnapDragging, setDisableSnapDragging
             checked={disableSnapDragging}
             onChange={(e) => setDisableSnapDragging(e.target.checked)}
           />
-          <label htmlFor="snapDragging">Disable corner snapping of hamburger menu/label>
+          <label htmlFor="snapDragging">Disable corner snapping of hamburger menu</label>
         </div>
         
         <div className="color-input-group">
