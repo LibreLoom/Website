@@ -14,6 +14,7 @@ function Navigation({ disableSnapDragging, setDisableSnapDragging }) {
   const [position, setPosition] = useState({ x: null, y: null })
   const [isDragging, setIsDragging] = useState(false)
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 })
+  const [hasMoved, setHasMoved] = useState(false)
   const hamburgerRef = useRef(null)
   const animationFrameRef = useRef(null)
   const pendingPositionRef = useRef(null)
@@ -31,7 +32,27 @@ function Navigation({ disableSnapDragging, setDisableSnapDragging }) {
     // Initialize hamburger position from localStorage or default to bottom-right
     const savedPosition = localStorage.getItem('hamburgerPosition')
     if (savedPosition) {
-      setPosition(JSON.parse(savedPosition))
+      const parsed = JSON.parse(savedPosition)
+      const buttonSize = 60
+      const windowWidth = window.innerWidth
+      const windowHeight = window.innerHeight
+      
+      // Validate that the saved position is within viewport bounds
+      // If not, reset to default bottom-right corner
+      if (
+        parsed.x !== null && 
+        parsed.y !== null &&
+        parsed.x >= 0 && 
+        parsed.x <= windowWidth - buttonSize &&
+        parsed.y >= 0 && 
+        parsed.y <= windowHeight - buttonSize
+      ) {
+        setPosition(parsed)
+      } else {
+        // Position is invalid (outside viewport), clear it and use CSS default
+        localStorage.removeItem('hamburgerPosition')
+        setPosition({ x: null, y: null })
+      }
     }
     
     // Trigger animation on initial mount
@@ -87,17 +108,36 @@ function Navigation({ disableSnapDragging, setDisableSnapDragging }) {
     }
   }
 
-  // Close menu when screen size changes to desktop
+  // Close menu when screen size changes to desktop and validate position on resize
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 768) {
         setIsMenuOpen(false)
       }
+      
+      // Validate hamburger position is still within viewport bounds
+      if (position.x !== null && position.y !== null) {
+        const buttonSize = 60
+        const windowWidth = window.innerWidth
+        const windowHeight = window.innerHeight
+        
+        // Check if current position is now outside viewport
+        if (
+          position.x < 0 || 
+          position.x > windowWidth - buttonSize ||
+          position.y < 0 || 
+          position.y > windowHeight - buttonSize
+        ) {
+          // Reset to default position (bottom-right)
+          localStorage.removeItem('hamburgerPosition')
+          setPosition({ x: null, y: null })
+        }
+      }
     }
 
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
-  }, [])
+  }, [position])
 
   // Close menu when route changes and disable animation after initial mount
   useEffect(() => {
@@ -131,13 +171,28 @@ function Navigation({ disableSnapDragging, setDisableSnapDragging }) {
   const handleDragStart = (e) => {
     if (window.innerWidth > 768) return // Only on mobile
     
+    e.preventDefault() // Prevent any default behavior
+    
     const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX
     const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY
     
+    // Get actual current position if not set yet
+    let currentX = position.x
+    let currentY = position.y
+    
+    if (currentX === null || currentY === null) {
+      const rect = hamburgerRef.current.getBoundingClientRect()
+      currentX = rect.left
+      currentY = rect.top
+    }
+    
+    // Set all states together to avoid partial updates
     setIsDragging(true)
+    setHasMoved(false) // Reset movement tracking
+    setPosition({ x: currentX, y: currentY })
     setDragStart({
-      x: clientX - (position.x || 0),
-      y: clientY - (position.y || 0)
+      x: clientX - currentX,
+      y: clientY - currentY
     })
   }
 
@@ -148,10 +203,32 @@ function Navigation({ disableSnapDragging, setDisableSnapDragging }) {
     const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX
     const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY
     
+    // Calculate new position
+    let newX = clientX - dragStart.x
+    let newY = clientY - dragStart.y
+    
+    // Check if moved beyond threshold (5 pixels)
+    const moveThreshold = 5
+    const deltaX = Math.abs(newX - position.x)
+    const deltaY = Math.abs(newY - position.y)
+    
+    if (!hasMoved && (deltaX > moveThreshold || deltaY > moveThreshold)) {
+      setHasMoved(true)
+    }
+    
+    // Constrain to viewport boundaries
+    const buttonSize = 60 // Width/height of the hamburger button
+    const windowWidth = window.innerWidth
+    const windowHeight = window.innerHeight
+    
+    // Keep button within viewport bounds
+    newX = Math.max(0, Math.min(newX, windowWidth - buttonSize))
+    newY = Math.max(0, Math.min(newY, windowHeight - buttonSize))
+    
     // Store the pending position
     pendingPositionRef.current = {
-      x: clientX - dragStart.x,
-      y: clientY - dragStart.y
+      x: newX,
+      y: newY
     }
     
     // Use requestAnimationFrame for smooth updates
@@ -177,17 +254,19 @@ function Navigation({ disableSnapDragging, setDisableSnapDragging }) {
     
     setIsDragging(false)
     
+    let finalPosition
+    
     // Snap to nearest corner with smooth animation
     if (!disableSnapDragging){
       const windowWidth = window.innerWidth
       const windowHeight = window.innerHeight
       const snapMargin = 20
       
-      let newX, newY
-      
       // Determine which corner to snap to
       const currentX = position.x !== null ? position.x : windowWidth - 80
       const currentY = position.y !== null ? position.y : windowHeight - 80
+      
+      let newX, newY
       
       // Snap horizontally
       if (currentX < windowWidth / 2) {
@@ -202,8 +281,13 @@ function Navigation({ disableSnapDragging, setDisableSnapDragging }) {
       } else {
         newY = windowHeight - 80
       }
+      
+      finalPosition = { x: newX, y: newY }
+    } else {
+      // If snap dragging is disabled, keep current position
+      finalPosition = { x: position.x, y: position.y }
     }
-    const finalPosition = { x: newX, y: newY }
+    
     setPosition(finalPosition)
     localStorage.setItem('hamburgerPosition', JSON.stringify(finalPosition))
   }
@@ -241,7 +325,9 @@ function Navigation({ disableSnapDragging, setDisableSnapDragging }) {
 
   // Calculate hamburger button position style
   const getHamburgerStyle = () => {
-    if (window.innerWidth > 768 || position.x === null) {
+    // Only apply custom positioning if a position has been set
+    // Let CSS handle the default positioning via media queries
+    if (position.x === null || position.y === null) {
       return {}
     }
     return {
@@ -303,7 +389,7 @@ function Navigation({ disableSnapDragging, setDisableSnapDragging }) {
       <button 
         ref={hamburgerRef}
         className={`hamburger ${isMenuOpen ? 'active' : ''} ${isDragging ? 'dragging' : ''}`}
-        onClick={() => !isDragging && setIsMenuOpen(!isMenuOpen)}
+        onClick={() => !hasMoved && setIsMenuOpen(!isMenuOpen)}
         onMouseDown={handleDragStart}
         onTouchStart={handleDragStart}
         style={getHamburgerStyle()}
