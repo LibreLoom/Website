@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import '../styles/ColorSettings.css'
+import '../styles/Settings.css'
 
-function ColorSettings({ isOpen, onClose, disableSnapDragging, setDisableSnapDragging }) {
+function Settings({ isOpen, onClose, disableSnapDragging, setDisableSnapDragging }) {
   const defaultColors = {
     primary: '#FFFFFF',
     secondary: '#000000',
@@ -229,4 +229,5 @@ function ColorSettings({ isOpen, onClose, disableSnapDragging, setDisableSnapDra
   )
 }
 
-export default ColorSettings
+export default Settings
+

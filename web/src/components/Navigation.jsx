@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import '../styles/Navigation.css'
-import ColorSettings from './ColorSettings'
+import Settings from './Settings'
 
 function Navigation({ disableSnapDragging, setDisableSnapDragging }) {
   const location = useLocation()
@@ -449,7 +449,7 @@ function Navigation({ disableSnapDragging, setDisableSnapDragging }) {
         </div>
       )}
 
-      <ColorSettings
+      <Settings
         isOpen={showSettings}
         onClose={closeSettings}
         disableSnapDragging={disableSnapDragging}
