@@ -51,3 +51,8 @@ body {
     padding-bottom: 120px;
   }
 }
+
+#root {
+  position: relative;
+  overflow: visible;
+}

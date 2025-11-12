@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import '../styles/ColorSettings.css'
+import '../styles/Settings.css'
 
-function ColorSettings({ isOpen, onClose, disableSnapDragging, setDisableSnapDragging }) {
+function Settings({ isOpen, onClose, disableSnapDragging, setDisableSnapDragging }) {
   const defaultColors = {
     primary: '#FFFFFF',
     secondary: '#000000',
@@ -136,7 +136,7 @@ function ColorSettings({ isOpen, onClose, disableSnapDragging, setDisableSnapDra
             checked={disableSnapDragging}
             onChange={(e) => setDisableSnapDragging(e.target.checked)}
           />
-          <label htmlFor="snapDragging">Disable snap dragging of hamburger menu</label>
+          <label htmlFor="snapDragging">Disable corner snapping of hamburger menu</label>
         </div>
         
         <div className="color-input-group">
@@ -229,4 +229,5 @@ function ColorSettings({ isOpen, onClose, disableSnapDragging, setDisableSnapDra
   )
 }
 
-export default ColorSettings
+export default Settings
+

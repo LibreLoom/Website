@@ -111,6 +111,8 @@ header p em {
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease, background-color 0.3s ease;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .card:hover {
@@ -139,6 +141,8 @@ header p em {
   margin-bottom: 0;
   color: var(--accent);
   transition: color 0.3s ease;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .status-container {
@@ -225,10 +229,20 @@ header p em {
 .card a {
   color: var(--secondary);
   text-decoration: underline;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 .card a:visited {
   color: var(--secondary);
+}
+
+.card p strong + a {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
+  display: inline-block;
 }
 
 .card:hover a {
@@ -268,6 +282,18 @@ header p em {
   .cards-container {
     grid-template-columns: 1fr;
     gap: 20px;
+  }
+
+  .card {
+    padding: 30px 20px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+
+  .card a {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-all;
   }
 }
 
