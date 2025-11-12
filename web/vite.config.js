@@ -8,10 +8,9 @@ export default defineConfig({
     port: 3000,
     open: true,
     host: true,
-    allowedHosts: ['jjbvu3jsfuuo.share.zrok.io']
   },
   preview: {
-    allowedHosts: ['libreloom.org', "jjbvu3jsfuuo.share.zrok.io"]
+    allowedHosts: ['libreloom.org']
   },
   build: {
     outDir: 'dist',

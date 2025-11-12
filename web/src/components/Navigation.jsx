@@ -177,17 +177,18 @@ function Navigation({ disableSnapDragging, setDisableSnapDragging }) {
     
     setIsDragging(false)
     
+    let newX = position.x
+    let newY = position.y
+    
     // Snap to nearest corner with smooth animation
     if (!disableSnapDragging){
       const windowWidth = window.innerWidth
       const windowHeight = window.innerHeight
       const snapMargin = 20
       
-      let newX, newY
-      
       // Determine which corner to snap to
-      const currentX = position.x !== null ? position.x : windowWidth - 80
-      const currentY = position.y !== null ? position.y : windowHeight - 80
+      const currentX = newX !== null && newX !== undefined ? newX : windowWidth - 80
+      const currentY = newY !== null && newY !== undefined ? newY : windowHeight - 80
       
       // Snap horizontally
       if (currentX < windowWidth / 2) {
@@ -203,7 +204,12 @@ function Navigation({ disableSnapDragging, setDisableSnapDragging }) {
         newY = windowHeight - 80
       }
     }
-    const finalPosition = { x: newX, y: newY }
+    const fallbackX = window.innerWidth - 80
+    const fallbackY = window.innerHeight - 80
+    const finalPosition = {
+      x: Number.isFinite(newX) ? newX : fallbackX,
+      y: Number.isFinite(newY) ? newY : fallbackY
+    }
     setPosition(finalPosition)
     localStorage.setItem('hamburgerPosition', JSON.stringify(finalPosition))
   }
