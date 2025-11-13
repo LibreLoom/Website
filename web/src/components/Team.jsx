@@ -34,7 +34,7 @@ function Team() {
           </div>
           <div className="card">
             <h2>1nOnlyDude</h2>
-            <p>Professional goof-off artist who spends work hours playing Roblox and publishing videos under @1nOnlyDude on YouTube instead of at least vibe coding. Somehow still delivers projects on time, leading everyone to wonder if they've discovered time travel or just have a really good bot. Make sure to subscribe!</p>
+            <p>Professional goof-off artist who spends work hours playing Roblox and publishing videos under @1nOnlyDude on YouTube instead of at least vibe coding. Somehow still delivers projects on time, leading everyone to wonder if they've discovered time travel or just have a really good bot. Visit their YouTube channel <a src="https://www.youtube.com/@1nOnlyDude">here</a>!</p>
           </div>
           <div className="card">
             <h2>groc-nexgen</h2>
