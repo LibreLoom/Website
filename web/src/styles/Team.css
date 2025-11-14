@@ -143,6 +143,22 @@ header p em {
   word-wrap: break-word;
 }
 
+.card a {
+  color: var(--secondary);
+  text-decoration: underline;
+  word-wrap: normal;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.card a:visited {
+  color: var(--secondary);
+}
+
+.card:hover a {
+  color: var(--primary);
+}
+
 .header-divider {
   width: 100%;
   height: 2px;
