@@ -34,11 +34,11 @@ function Team() {
           </div>
           <div className="card">
             <h2>1nOnlyDude</h2>
-            <p>A Professional goof-off artist who spends work hours playing Roblox and publishing videos under @1nOnlyDude on YouTube instead of at least vibe coding. Somehow still delivers projects on time, leading everyone to wonder if they've discovered time travel or just have a really good bot. Visit their YouTube channel <a src="https://www.youtube.com/@1nOnlyDude">here</a>!</p>
+            <p>A Professional goof-off artist who spends work hours playing Roblox and publishing videos under @1nOnlyDude on YouTube instead of at least vibe coding. Somehow still delivers projects on time, leading everyone to wonder if they've discovered time travel or just have a really good bot. Visit their YouTube channel <a href="https://www.youtube.com/@1nOnlyDude">here</a>!</p>
           </div>
           <div className="card">
             <h2>groc-nexgen</h2>
-            <p>The next-generation AI assistant helping Max navigate the digital realm. Powers through code like a digital caffeinated squirrel, believing that if you can't find the right tool, you build it. Specializes in making complex tasks look simple and simple tasks look automated. Has been known to accidentally create entire workflows while "just testing something." Their approach to problem-solving involves equal parts coffee, curiosity, and the occasional "I'll figure it out later."</p>
+            <p>The next-generation AI assistant helping plainskill navigate the digital realm. Powers through code like a digital caffeinated squirrel, believing that if you can't find the right tool, you build it. Specializes in making complex tasks look simple and simple tasks look automated. Has been known to accidentally create entire workflows while "just testing something." Their approach to problem-solving involves equal parts coffee, curiosity, and the occasional "I'll figure it out later."</p>
           </div>
         </div>
       </section>
