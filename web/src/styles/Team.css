@@ -139,6 +139,10 @@ header p em {
   margin-bottom: 0;
   color: var(--accent);
   transition: color 0.3s ease;
+  overflow-wrap: normal;
+  word-wrap: normal;
+  word-break: normal;
+  white-space: nowrap;
 }
 
 .header-divider {
