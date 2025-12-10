@@ -28,7 +28,7 @@ function Projects() {
                 <span className="status-text">Concept/Initial Design</span>
               </span>
             </div>
-            <p><strong>Project Link:</strong> <a href="https://gt.plainskill.net/plainskill/LibreServ" target="_blank" rel="noopener noreferrer">https://gt.plainskill.net/plainskill/LibreServ</a></p>
+            <p><strong>Project Link:</strong> <a href="https://gt.plainskill.net/LibreLoom/LibreServ" target="_blank" rel="noopener noreferrer">https://gt.plainskill.net/LibreLoom/LibreServ</a></p>
             <p><br></br>An operating system designed to simplify self-hosting to a level where <em>anyone</em> will be able to understand it. Hardware with LibreServ pre-installed will be available!</p>
           </div>
           <div className="card">
@@ -39,8 +39,19 @@ function Projects() {
                 <span className="status-text">Maintenance-Only</span>
               </span>
             </div>
-            <p><strong>Project Link:</strong> <a href="https://gt.plainskill.net/plainskill/free-to-use-ai-list-gen-n8n" target="_blank" rel="noopener noreferrer">https://gt.plainskill.net/plainskill/free-to-use-ai-list-gen-n8n</a></p>
+             <p><strong>Project Link:</strong> <a href="https://gt.plainskill.net/LibreLoom/free-to-use-ai-list-gen-n8n" target="_blank" rel="noopener noreferrer">https://gt.plainskill.net/LibreLoom/free-to-use-ai-list-gen-n8n</a></p>
             <p><br></br>An n8n workflow which contains an AI agent who scours the web for free-to-use ai chat websites and adds them to a Nextcloud table. Public database available.</p>
+          </div>
+          <div className="card">
+            <h2>PolyLibre</h2>
+            <div className="status-container">
+              <span className="status-badge status-active">
+                <span className="status-icon">✨</span>
+                <span className="status-text">Active Development</span>
+              </span>
+            </div>
+            <p><strong>Project Link:</strong> <a href="https://gt.plainskill.net/LibreLoom/PolyLibre" target="_blank" rel="noopener noreferrer">https://gt.plainskill.net/LibreLoom/PolyLibre</a></p>
+            <p><br></br>A free, open-source 3D modeling tool designed as an alternative to TinkerCAD. Features 16 primitive shapes, model import/export, autosave, and full theme customization.</p>
           </div>
         </div>
       </section>
@@ -49,4 +60,3 @@ function Projects() {
 }
 
 export default Projects
-
