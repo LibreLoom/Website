@@ -34,7 +34,7 @@ function Team() {
           </div>
           <div className="card">
             <h2>1nOnlyDude</h2>
-            <p>A Professional goof-off artist who spends work hours playing Roblox. Somehow still delivers projects on time, leading everyone to wonder if they've discovered time travel or just have a really good bot.
+            <p>A Professional goof-off artist who spends work hours playing Roblox. Somehow still delivers projects on time, leading everyone to wonder if they've discovered time travel or just have a really good bot.</p>
           </div>
           <div className="card">
             <h2>groc-nexgen</h2>
