@@ -24,8 +24,8 @@ function Projects() {
             <h2>LibreServ</h2>
             <div className="status-container">
               <span className="status-badge status-concept">
-                <span className="status-icon">💡</span>
-                <span className="status-text">Concept/Initial Design</span>
+                <span className="status-icon">🚧</span>
+                <span className="status-text">In development...</span>
               </span>
             </div>
             <p><strong>Project Link:</strong> <a href="https://gt.plainskill.net/LibreLoom/LibreServ" target="_blank" rel="noopener noreferrer">https://gt.plainskill.net/LibreLoom/LibreServ</a></p>
@@ -46,8 +46,8 @@ function Projects() {
             <h2>PolyLibre</h2>
             <div className="status-container">
               <span className="status-badge status-active">
-                <span className="status-icon">✨</span>
-                <span className="status-text">Active Development</span>
+                <span className="status-icon">⏸️</span>
+                <span className="status-text">Development Halted</span>
               </span>
             </div>
             <p><strong>Project Link:</strong> <a href="https://gt.plainskill.net/LibreLoom/PolyLibre" target="_blank" rel="noopener noreferrer">https://gt.plainskill.net/LibreLoom/PolyLibre</a></p>
