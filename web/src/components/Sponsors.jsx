@@ -1,8 +1,369 @@
+import { useEffect, useRef, useState } from 'react'
 import '../styles/Team.css'
+import '../styles/Sponsors.css'
 
-import '../styles/Team.css'
+const CANVAS_WIDTH = 420
+const CANVAS_HEIGHT = 260
 
 function Sponsors() {
+  const [isLoomOpen, setIsLoomOpen] = useState(false)
+  const [runState, setRunState] = useState('idle')
+  const [stitches, setStitches] = useState(0)
+  const [slips, setSlips] = useState(0)
+  const canvasRef = useRef(null)
+  const animationRef = useRef(null)
+  const gameRef = useRef(null)
+  const runStateRef = useRef(runState)
+  const stitchesRef = useRef(0)
+  const slipsRef = useRef(0)
+
+  useEffect(() => {
+    runStateRef.current = runState
+  }, [runState])
+
+  useEffect(() => {
+    if (!isLoomOpen) {
+      return
+    }
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isLoomOpen])
+
+  useEffect(() => {
+    if (!isLoomOpen) {
+      return
+    }
+
+    const canvas = canvasRef.current
+    if (!canvas) {
+      return
+    }
+
+    const ctx = canvas.getContext('2d')
+    const styles = getComputedStyle(document.documentElement)
+    const primary = styles.getPropertyValue('--primary').trim() || '#ffffff'
+    const secondary = styles.getPropertyValue('--secondary').trim() || '#000000'
+    const accent = styles.getPropertyValue('--accent').trim() || '#767676'
+
+    const setupCanvas = () => {
+      const dpr = window.devicePixelRatio || 1
+      canvas.width = CANVAS_WIDTH * dpr
+      canvas.height = CANVAS_HEIGHT * dpr
+      canvas.style.width = `${CANVAS_WIDTH}px`
+      canvas.style.height = `${CANVAS_HEIGHT}px`
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+    }
+
+    setupCanvas()
+
+    const game = {
+      width: CANVAS_WIDTH,
+      height: CANVAS_HEIGHT,
+      shuttle: {
+        x: CANVAS_WIDTH / 2,
+        width: 72,
+        height: 12,
+        y: CANVAS_HEIGHT - 26
+      },
+      threads: [],
+      lastSpawn: 0,
+      lastTime: 0,
+      input: {
+        left: false,
+        right: false
+      },
+      slipsAllowed: 3
+    }
+
+    gameRef.current = game
+
+    const clamp = (value, min, max) => Math.max(min, Math.min(max, value))
+
+    const resetWeave = () => {
+      const current = gameRef.current
+      if (!current) {
+        return
+      }
+      current.threads = []
+      current.lastSpawn = 0
+      current.lastTime = 0
+      current.shuttle.x = current.width / 2
+      stitchesRef.current = 0
+      slipsRef.current = 0
+      setStitches(0)
+      setSlips(0)
+    }
+
+    resetWeave()
+    setRunState('idle')
+
+    const spawnThread = (time) => {
+      const current = gameRef.current
+      if (!current) {
+        return
+      }
+      current.threads.push({
+        x: 24 + Math.random() * (current.width - 48),
+        y: -10,
+        radius: 6,
+        speed: 0.18 + Math.random() * 0.07
+      })
+      current.lastSpawn = time
+    }
+
+    const update = (delta) => {
+      if (runStateRef.current !== 'running') {
+        return
+      }
+      const current = gameRef.current
+      if (!current) {
+        return
+      }
+
+      const moveSpeed = 0.3 * delta
+      if (current.input.left) {
+        current.shuttle.x -= moveSpeed
+      }
+      if (current.input.right) {
+        current.shuttle.x += moveSpeed
+      }
+
+      const minX = 16 + current.shuttle.width / 2
+      const maxX = current.width - 16 - current.shuttle.width / 2
+      current.shuttle.x = clamp(current.shuttle.x, minX, maxX)
+
+      const spawnInterval = 720
+      if (!current.lastSpawn || current.lastTime - current.lastSpawn > spawnInterval) {
+        spawnThread(current.lastTime)
+      }
+
+      current.threads = current.threads.filter((thread) => {
+        thread.y += thread.speed * delta * 4
+        const hitY = thread.y + thread.radius >= current.shuttle.y
+        const hitX = Math.abs(thread.x - current.shuttle.x) <= current.shuttle.width / 2
+
+        if (hitY && hitX) {
+          stitchesRef.current += 1
+          setStitches(stitchesRef.current)
+          return false
+        }
+
+        if (thread.y - thread.radius > current.height + 10) {
+          slipsRef.current += 1
+          setSlips(slipsRef.current)
+          if (slipsRef.current >= current.slipsAllowed) {
+            setRunState('over')
+          }
+          return false
+        }
+
+        return true
+      })
+    }
+
+    const draw = () => {
+      const current = gameRef.current
+      if (!current) {
+        return
+      }
+
+      ctx.clearRect(0, 0, current.width, current.height)
+      ctx.fillStyle = primary
+      ctx.fillRect(0, 0, current.width, current.height)
+
+      ctx.save()
+      ctx.globalAlpha = 0.18
+      ctx.strokeStyle = accent
+      ctx.lineWidth = 2
+      for (let i = 1; i <= 8; i += 1) {
+        const x = (current.width / 9) * i
+        ctx.beginPath()
+        ctx.moveTo(x, 18)
+        ctx.lineTo(x, current.height - 40)
+        ctx.stroke()
+      }
+      ctx.restore()
+
+      ctx.strokeStyle = secondary
+      ctx.lineWidth = 2
+      ctx.beginPath()
+      if (ctx.roundRect) {
+        ctx.roundRect(
+          current.shuttle.x - current.shuttle.width / 2,
+          current.shuttle.y,
+          current.shuttle.width,
+          current.shuttle.height,
+          8
+        )
+      } else {
+        ctx.rect(
+          current.shuttle.x - current.shuttle.width / 2,
+          current.shuttle.y,
+          current.shuttle.width,
+          current.shuttle.height
+        )
+      }
+      ctx.stroke()
+
+      ctx.save()
+      ctx.globalAlpha = 0.6
+      ctx.fillStyle = accent
+      ctx.fillRect(
+        current.shuttle.x - current.shuttle.width / 2 + 8,
+        current.shuttle.y + 3,
+        current.shuttle.width - 16,
+        3
+      )
+      ctx.restore()
+
+      current.threads.forEach((thread) => {
+        ctx.strokeStyle = secondary
+        ctx.lineWidth = 2
+        ctx.beginPath()
+        ctx.moveTo(thread.x, thread.y - 8)
+        ctx.lineTo(thread.x, thread.y + 8)
+        ctx.stroke()
+
+        ctx.fillStyle = secondary
+        ctx.beginPath()
+        ctx.arc(thread.x, thread.y, thread.radius, 0, Math.PI * 2)
+        ctx.fill()
+      })
+
+      if (runStateRef.current === 'idle') {
+        ctx.fillStyle = secondary
+        ctx.font = '14px FreeMono, monospace'
+        ctx.textAlign = 'center'
+        ctx.fillText('Move the shuttle, catch the threads.', current.width / 2, current.height / 2 - 6)
+        ctx.fillText('Begin a weave when you are ready.', current.width / 2, current.height / 2 + 16)
+      }
+
+      if (runStateRef.current === 'over') {
+        ctx.fillStyle = secondary
+        ctx.font = '16px FreeMono, monospace'
+        ctx.textAlign = 'center'
+        ctx.fillText('Weave slipped.', current.width / 2, current.height / 2 - 6)
+        ctx.font = '12px FreeMono, monospace'
+        ctx.fillText('Reset and try again.', current.width / 2, current.height / 2 + 16)
+      }
+    }
+
+    const loop = (time) => {
+      const current = gameRef.current
+      if (!current) {
+        return
+      }
+      if (!current.lastTime) {
+        current.lastTime = time
+      }
+      const delta = time - current.lastTime
+      current.lastTime = time
+      update(delta)
+      draw()
+      animationRef.current = requestAnimationFrame(loop)
+    }
+
+    animationRef.current = requestAnimationFrame(loop)
+
+    const handleKeyDown = (event) => {
+      const current = gameRef.current
+      if (!current) {
+        return
+      }
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault()
+        current.input.left = true
+      }
+      if (event.key === 'ArrowRight') {
+        event.preventDefault()
+        current.input.right = true
+      }
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        setIsLoomOpen(false)
+        setRunState('idle')
+      }
+    }
+
+    const handleKeyUp = (event) => {
+      const current = gameRef.current
+      if (!current) {
+        return
+      }
+      if (event.key === 'ArrowLeft') {
+        current.input.left = false
+      }
+      if (event.key === 'ArrowRight') {
+        current.input.right = false
+      }
+    }
+
+    const handlePointer = (event) => {
+      const current = gameRef.current
+      if (!current) {
+        return
+      }
+      const rect = canvas.getBoundingClientRect()
+      const clientX = event.touches ? event.touches[0].clientX : event.clientX
+      const ratio = current.width / rect.width
+      const x = (clientX - rect.left) * ratio
+      const minX = 16 + current.shuttle.width / 2
+      const maxX = current.width - 16 - current.shuttle.width / 2
+      current.shuttle.x = clamp(x, minX, maxX)
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    window.addEventListener('keyup', handleKeyUp)
+    canvas.addEventListener('mousemove', handlePointer)
+    canvas.addEventListener('touchmove', handlePointer, { passive: true })
+    canvas.addEventListener('touchstart', handlePointer, { passive: true })
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current)
+      }
+      window.removeEventListener('keydown', handleKeyDown)
+      window.removeEventListener('keyup', handleKeyUp)
+      canvas.removeEventListener('mousemove', handlePointer)
+      canvas.removeEventListener('touchmove', handlePointer)
+      canvas.removeEventListener('touchstart', handlePointer)
+    }
+  }, [isLoomOpen])
+
+  const handleOpenLoom = () => {
+    setIsLoomOpen(true)
+  }
+
+  const handleCloseLoom = () => {
+    setIsLoomOpen(false)
+    setRunState('idle')
+  }
+
+  const handleStartWeave = () => {
+    const current = gameRef.current
+    if (current) {
+      current.threads = []
+      current.lastSpawn = 0
+      current.lastTime = 0
+      current.shuttle.x = current.width / 2
+    }
+    stitchesRef.current = 0
+    slipsRef.current = 0
+    setStitches(0)
+    setSlips(0)
+    setRunState('running')
+  }
+
+  const loomActionLabel = runState === 'running' ? 'Reset weave' : runState === 'over' ? 'Weave again' : 'Begin weave'
+  const loomStatus =
+    runState === 'over'
+      ? 'The loom slipped loose. Reset and try again.'
+      : runState === 'running'
+        ? 'Keep the rhythm steady and the weave tight.'
+        : 'A quiet loom waits for the first thread.'
+
   return (
     <>
       <header>
@@ -15,19 +376,78 @@ function Sponsors() {
         </div>
         <div className="header-divider"></div>
         <h1>Sponsors</h1>
-        <p>Thanks to the people who keep LibreLoom going. Your support helps us build open-source tools that are easier to self-host and maintain.</p>
+        <p>Thanks to the people who keep LibreLoom going. Every thread strengthens the fabric we build together.</p>
         <div className="header-divider"></div>
       </header>
 
-      <section className="team-section">
+      <section className="sponsor-hero">
+        <div className="sponsor-story">
+          <h2>Support the weave</h2>
+          <p>Each sponsor helps the loom move faster: better tools, clearer docs, and more time spent building open-source for everyone.</p>
+          <p className="sponsor-emphasis">Your support is a quiet, steady force behind every release.</p>
+          <div className="loom-cta-row">
+            <button className="loom-cta" type="button" onClick={handleOpenLoom}>Weave a few threads</button>
+            <span className="loom-hint">A tiny loom waits in the corner.</span>
+          </div>
+        </div>
+        <div className="loom-frame" aria-hidden="true">
+          <div className="loom-threads">
+            {Array.from({ length: 9 }).map((_, index) => (
+              <span className="loom-thread" key={`thread-${index}`}></span>
+            ))}
+          </div>
+          <div className="loom-shuttle">Loom Mini</div>
+          <div className="loom-knots">
+            <span className="loom-knot"></span>
+            <span className="loom-knot"></span>
+            <span className="loom-knot"></span>
+          </div>
+        </div>
+      </section>
+
+      <section className="sponsor-line">
+        <span className="sponsor-line-rule"></span>
+        <span className="sponsor-line-label">Supporters</span>
+        <span className="sponsor-line-rule"></span>
+      </section>
+
+      <section className="team-section sponsor-lineup">
         <div className="cards-container">
-          <div className="card">
+          <div className="card sponsor-card">
+            <div className="sponsor-mark">
+              <span className="sponsor-dot" aria-hidden="true">●</span>
+              <span className="sponsor-mark-text">Founding thread</span>
+            </div>
             <h2>Eddie &amp; Ali</h2>
             <p><strong>Donation:</strong> $50</p>
             <p>First supporters of LibreLoom. Thank you for backing the mission.</p>
           </div>
         </div>
       </section>
+
+      {isLoomOpen && (
+        <div className="loom-modal" role="dialog" aria-modal="true" aria-labelledby="loom-title">
+          <div className="loom-modal-card" role="document">
+            <div className="loom-modal-header">
+              <h2 id="loom-title">Loom Mini</h2>
+              <button className="loom-ghost" type="button" onClick={handleCloseLoom} aria-label="Close loom">Close</button>
+            </div>
+            <p className="loom-subtitle">Guide the shuttle and catch threads to keep the weave tight.</p>
+            <div className="loom-canvas-wrap">
+              <canvas ref={canvasRef} width={CANVAS_WIDTH} height={CANVAS_HEIGHT}></canvas>
+            </div>
+            <div className="loom-stats">
+              <span>Stitches: {stitches}</span>
+              <span>Slips: {slips}/3</span>
+            </div>
+            <p className="loom-status">{loomStatus}</p>
+            <div className="loom-actions">
+              <button className="loom-cta" type="button" onClick={handleStartWeave}>{loomActionLabel}</button>
+            </div>
+            <p className="loom-controls">Arrows or a gentle drag move the shuttle.</p>
+          </div>
+        </div>
+      )}
     </>
   )
 }
