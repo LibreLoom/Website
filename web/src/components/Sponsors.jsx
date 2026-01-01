@@ -246,7 +246,7 @@ function Sponsors() {
       }
       current.shuttle.width = difficulty.shuttleWidth
 
-      const moveSpeed = 0.45 * delta
+      const moveSpeed = 1.0 * delta
       if (current.input.left) {
         current.shuttle.x -= moveSpeed
       }
