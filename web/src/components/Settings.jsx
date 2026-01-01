@@ -78,7 +78,7 @@ function Settings({ isOpen, onClose, disableSnapDragging, setDisableSnapDragging
 
   const applyColors = () => {
     const root = document.documentElement
-    
+
     if (useDarkModePalette) {
       // Store both palettes
       root.style.setProperty('--primary-light', colors.primary)
@@ -121,6 +121,17 @@ function Settings({ isOpen, onClose, disableSnapDragging, setDisableSnapDragging
       }
     }
   }
+
+  useEffect(() => {
+    if (!isOpen) {
+      return
+    }
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [isOpen])
 
   if (!isOpen) return null
 

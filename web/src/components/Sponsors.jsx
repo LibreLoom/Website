@@ -63,6 +63,7 @@ function Sponsors() {
   const [lastWoven, setLastWoven] = useState('')
   const [wovenCounts, setWovenCounts] = useState({})
   const canvasRef = useRef(null)
+  const canvasWrapRef = useRef(null)
   const animationRef = useRef(null)
   const gameRef = useRef(null)
   const runStateRef = useRef(runState)
@@ -103,17 +104,6 @@ function Sponsors() {
     const secondary = styles.getPropertyValue('--secondary').trim() || '#000000'
     const accent = styles.getPropertyValue('--accent').trim() || '#767676'
 
-    const setupCanvas = () => {
-      const dpr = window.devicePixelRatio || 1
-      canvas.width = CANVAS_WIDTH * dpr
-      canvas.height = CANVAS_HEIGHT * dpr
-      canvas.style.width = `${CANVAS_WIDTH}px`
-      canvas.style.height = `${CANVAS_HEIGHT}px`
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-    }
-
-    setupCanvas()
-
     const supporterNames = SUPPORTERS.length
       ? SUPPORTERS.map((supporter) => supporter.name)
       : ['LibreLoom']
@@ -148,6 +138,34 @@ function Sponsors() {
 
     const clamp = (value, min, max) => Math.max(min, Math.min(max, value))
 
+    const updateCanvasSize = () => {
+      const wrap = canvasWrapRef.current
+      const current = gameRef.current
+      if (!wrap || !current) {
+        return
+      }
+      const rect = wrap.getBoundingClientRect()
+      const width = Math.max(280, Math.floor(rect.width))
+      const height = Math.max(200, Math.floor(rect.height))
+      const dpr = window.devicePixelRatio || 1
+      canvas.width = width * dpr
+      canvas.height = height * dpr
+      canvas.style.width = `${width}px`
+      canvas.style.height = `${height}px`
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      current.width = width
+      current.height = height
+      current.shuttle.y = height - 26
+      current.shuttle.x = clamp(
+        current.shuttle.x,
+        16 + current.shuttle.width / 2,
+        width - 16 - current.shuttle.width / 2
+      )
+    }
+
+    updateCanvasSize()
+    requestAnimationFrame(updateCanvasSize)
+
     const resetWeave = () => {
       const current = gameRef.current
       if (!current) {
@@ -160,6 +178,7 @@ function Sponsors() {
       current.supporterCursor = 0
       current.shuttle.x = current.width / 2
       current.shuttle.width = 72
+      current.shuttle.y = current.height - 26
       stitchesRef.current = 0
       slipsRef.current = 0
       elapsedSecondsRef.current = 0
@@ -437,6 +456,7 @@ function Sponsors() {
 
     window.addEventListener('keydown', handleKeyDown)
     window.addEventListener('keyup', handleKeyUp)
+    window.addEventListener('resize', updateCanvasSize)
     canvas.addEventListener('mousemove', handlePointer)
     canvas.addEventListener('touchmove', handlePointer, { passive: true })
     canvas.addEventListener('touchstart', handlePointer, { passive: true })
@@ -447,6 +467,7 @@ function Sponsors() {
       }
       window.removeEventListener('keydown', handleKeyDown)
       window.removeEventListener('keyup', handleKeyUp)
+      window.removeEventListener('resize', updateCanvasSize)
       canvas.removeEventListener('mousemove', handlePointer)
       canvas.removeEventListener('touchmove', handlePointer)
       canvas.removeEventListener('touchstart', handlePointer)
@@ -472,6 +493,7 @@ function Sponsors() {
       current.supporterCursor = 0
       current.shuttle.x = current.width / 2
       current.shuttle.width = 72
+      current.shuttle.y = current.height - 26
     }
     stitchesRef.current = 0
     slipsRef.current = 0
@@ -549,14 +571,14 @@ function Sponsors() {
       </section>
 
       {isLoomOpen && (
-        <div className="modal-overlay is-open" role="dialog" aria-modal="true" aria-labelledby="loom-title">
-          <div className="modal-card loom-modal-card" role="document">
+        <div className="modal-overlay modal-overlay--full is-open" role="dialog" aria-modal="true" aria-labelledby="loom-title">
+          <div className="modal-card modal-card--fullscreen loom-modal-card" role="document">
             <div className="loom-modal-header">
               <h2 id="loom-title">Loom Mini</h2>
               <button className="loom-ghost" type="button" onClick={handleCloseLoom} aria-label="Close loom">Close</button>
             </div>
             <p className="loom-subtitle">Guide the shuttle and catch threads to keep the weave tight. The tempo rises over time.</p>
-            <div className="loom-canvas-wrap">
+            <div className="loom-canvas-wrap" ref={canvasWrapRef}>
               <canvas ref={canvasRef} width={CANVAS_WIDTH} height={CANVAS_HEIGHT}></canvas>
             </div>
             <div className="loom-stats">
