@@ -3,7 +3,7 @@
   margin: 40px auto 20px;
   padding: 0 40px;
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  grid-template-columns: 1fr;
   gap: 28px;
   align-items: stretch;
 }
@@ -86,74 +86,6 @@
   color: var(--accent);
 }
 
-.loom-frame {
-  background-color: var(--primary);
-  border: 2px solid var(--secondary);
-  border-radius: 28px;
-  padding: 30px;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 280px;
-}
-
-.loom-threads {
-  display: flex;
-  gap: 14px;
-  height: 180px;
-  width: 100%;
-  align-items: stretch;
-  justify-content: center;
-}
-
-.loom-thread {
-  width: 2px;
-  background-color: var(--accent);
-  opacity: 0.35;
-  border-radius: 999px;
-  animation: threadSway 2.6s ease-in-out infinite;
-}
-
-.loom-thread:nth-child(odd) {
-  animation-delay: 0.2s;
-}
-
-.loom-thread:nth-child(3n) {
-  opacity: 0.5;
-}
-
-.loom-shuttle {
-  position: absolute;
-  bottom: 28px;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 2px solid var(--secondary);
-  border-radius: 999px;
-  padding: 6px 16px;
-  font-family: 'FreeMono', 'Courier New', monospace;
-  font-size: 0.9rem;
-  background-color: var(--primary);
-  animation: shuttleFloat 3.6s ease-in-out infinite;
-}
-
-.loom-knots {
-  position: absolute;
-  top: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-}
-
-.loom-knot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: 2px solid var(--secondary);
-}
-
 .sponsor-line {
   max-width: 1100px;
   margin: 20px auto 10px;
@@ -194,11 +126,25 @@
   font-family: 'FreeMono', 'Courier New', monospace;
   font-size: 0.85rem;
   color: var(--secondary);
+  transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 .sponsor-dot {
   font-size: 1rem;
   line-height: 1;
+}
+
+.sponsor-mark-text {
+  color: inherit;
+}
+
+.sponsor-card:hover .sponsor-mark {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.sponsor-card:hover .sponsor-dot {
+  color: var(--primary);
 }
 
 .loom-modal {
@@ -305,31 +251,9 @@
   font-size: 0.85rem;
 }
 
-@keyframes threadSway {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(6px);
-  }
-}
-
-@keyframes shuttleFloat {
-  0%, 100% {
-    transform: translateX(-50%) translateY(0);
-  }
-  50% {
-    transform: translateX(-50%) translateY(-6px);
-  }
-}
-
 @media (max-width: 900px) {
   .sponsor-hero {
     grid-template-columns: 1fr;
-  }
-
-  .loom-frame {
-    min-height: 240px;
   }
 }
 

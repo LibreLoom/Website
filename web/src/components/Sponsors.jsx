@@ -108,7 +108,7 @@ function Sponsors() {
         x: 24 + Math.random() * (current.width - 48),
         y: -10,
         radius: 6,
-        speed: 0.18 + Math.random() * 0.07
+        speed: 0.12 + Math.random() * 0.05
       })
       current.lastSpawn = time
     }
@@ -134,13 +134,13 @@ function Sponsors() {
       const maxX = current.width - 16 - current.shuttle.width / 2
       current.shuttle.x = clamp(current.shuttle.x, minX, maxX)
 
-      const spawnInterval = 720
+      const spawnInterval = 1200
       if (!current.lastSpawn || current.lastTime - current.lastSpawn > spawnInterval) {
         spawnThread(current.lastTime)
       }
 
       current.threads = current.threads.filter((thread) => {
-        thread.y += thread.speed * delta * 4
+        thread.y += thread.speed * delta * 3
         const hitY = thread.y + thread.radius >= current.shuttle.y
         const hitX = Math.abs(thread.x - current.shuttle.x) <= current.shuttle.width / 2
 
@@ -387,20 +387,7 @@ function Sponsors() {
           <p className="sponsor-emphasis">Your support is a quiet, steady force behind every release.</p>
           <div className="loom-cta-row">
             <button className="loom-cta" type="button" onClick={handleOpenLoom}>Weave a few threads</button>
-            <span className="loom-hint">A tiny loom waits in the corner.</span>
-          </div>
-        </div>
-        <div className="loom-frame" aria-hidden="true">
-          <div className="loom-threads">
-            {Array.from({ length: 9 }).map((_, index) => (
-              <span className="loom-thread" key={`thread-${index}`}></span>
-            ))}
-          </div>
-          <div className="loom-shuttle">Loom Mini</div>
-          <div className="loom-knots">
-            <span className="loom-knot"></span>
-            <span className="loom-knot"></span>
-            <span className="loom-knot"></span>
+            <span className="loom-hint">A quiet loom waits nearby.</span>
           </div>
         </div>
       </section>
