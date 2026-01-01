@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import '../styles/Settings.css'
 
 function Settings({ isOpen, onClose, disableSnapDragging, setDisableSnapDragging }) {
@@ -13,6 +13,7 @@ function Settings({ isOpen, onClose, disableSnapDragging, setDisableSnapDragging
 
   const [colors, setColors] = useState(defaultColors)
   const [useDarkModePalette, setUseDarkModePalette] = useState(false)
+  const modalRef = useRef(null)
 
   useEffect(() => {
     // Load saved colors from localStorage
@@ -128,17 +129,44 @@ function Settings({ isOpen, onClose, disableSnapDragging, setDisableSnapDragging
     }
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        onClose()
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    requestAnimationFrame(() => {
+      if (modalRef.current) {
+        modalRef.current.focus()
+      }
+    })
     return () => {
       document.body.style.overflow = previousOverflow
+      window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [isOpen])
+  }, [isOpen, onClose])
 
   if (!isOpen) return null
 
   return (
-    <div className="modal-overlay is-open" onClick={(e) => e.target.classList.contains('modal-overlay') && onClose()}>
-      <div className="modal-card modal-card--wide color-settings-modal" onClick={(e) => e.stopPropagation()}>
-        <h1>Settings</h1>
+    <div
+      className="modal-overlay is-open"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="settings-title"
+      aria-describedby="settings-description"
+      onClick={(e) => e.target.classList.contains('modal-overlay') && onClose()}
+    >
+      <div
+        className="modal-card modal-card--wide color-settings-modal"
+        ref={modalRef}
+        tabIndex="-1"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h1 id="settings-title">Settings</h1>
+        <p id="settings-description" className="visually-hidden">
+          Customize theme colors and layout preferences. Press Escape to close this dialog.
+        </p>
 
         <div className="checkbox-group">
           <input
@@ -225,13 +253,13 @@ function Settings({ isOpen, onClose, disableSnapDragging, setDisableSnapDragging
         )}
 
         <div className="button-group">
-          <button className="cancel-btn" onClick={onClose}>
+          <button className="cancel-btn" type="button" onClick={onClose}>
             Cancel
           </button>
-          <button className="reset-btn" onClick={handleReset}>
+          <button className="reset-btn" type="button" onClick={handleReset}>
             Reset Colors
           </button>
-          <button className="apply-btn" onClick={handleApply}>
+          <button className="apply-btn" type="button" onClick={handleApply}>
             Apply
           </button>
         </div>

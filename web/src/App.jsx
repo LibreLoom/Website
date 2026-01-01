@@ -11,13 +11,16 @@ function App() {
 
   return (
     <Router>
+      <a className="skip-link" href="#main-content">Skip to content</a>
       <Navigation disableSnapDragging={disableSnapDragging} setDisableSnapDragging={setDisableSnapDragging}/>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/team" element={<Team />} />
-        <Route path="/sponsors" element={<Sponsors />} />
-      </Routes>
+      <main id="main-content" tabIndex="-1">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/sponsors" element={<Sponsors />} />
+        </Routes>
+      </main>
     </Router>
   )
 }
