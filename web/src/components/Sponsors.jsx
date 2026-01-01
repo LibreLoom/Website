@@ -520,6 +520,15 @@ function Sponsors() {
   }
 
   const loomActionLabel = runState === 'running' ? 'Reset weave' : runState === 'over' ? 'Weave again' : 'Begin weave'
+  const rosterLimit = 6
+  const rosterEntries = SUPPORTERS
+    .map((supporter) => ({
+      name: supporter.name,
+      count: wovenCounts[supporter.name] || 0
+    }))
+    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
+    .slice(0, rosterLimit)
+  const remainingSupporters = Math.max(0, SUPPORTERS.length - rosterEntries.length)
   const loomStatus =
     runState === 'over'
       ? 'The loom slipped loose. Reset and try again.'
@@ -584,39 +593,55 @@ function Sponsors() {
               <h2 id="loom-title">Loom Mini</h2>
               <button className="loom-ghost" type="button" onClick={handleCloseLoom} aria-label="Close loom" ref={loomCloseRef}>Close</button>
             </div>
-            <p className="loom-subtitle" id="loom-subtitle">Guide the shuttle and catch threads to keep the weave tight. The tempo rises over time.</p>
-            <div className="loom-canvas-wrap" ref={canvasWrapRef}>
-              <canvas
-                ref={canvasRef}
-                width={CANVAS_WIDTH}
-                height={CANVAS_HEIGHT}
-                role="img"
-                aria-label="Loom Mini playfield. Catch falling threads with the shuttle."
-              >
-                Loom Mini playfield. Use arrow keys or drag to move the shuttle.
-              </canvas>
+            <div className="loom-layout">
+              <div className="loom-playfield">
+                <div className="loom-canvas-wrap" ref={canvasWrapRef}>
+                  <canvas
+                    ref={canvasRef}
+                    width={CANVAS_WIDTH}
+                    height={CANVAS_HEIGHT}
+                    role="img"
+                    aria-label="Loom Mini playfield. Catch falling threads with the shuttle."
+                  >
+                    Loom Mini playfield. Use arrow keys or drag to move the shuttle.
+                  </canvas>
+                </div>
+                <p className="loom-controls">Arrows or a gentle drag move the shuttle.</p>
+              </div>
+              <div className="loom-panel">
+                <p className="loom-subtitle" id="loom-subtitle">Guide the shuttle and catch threads to keep the weave tight. The tempo rises over time.</p>
+                <div className="loom-stats">
+                  <span className="loom-stat">Tempo: {level}</span>
+                  <span className="loom-stat">Time: {formatDuration(elapsedSeconds)}</span>
+                  <span className="loom-stat">Stitches: {stitches}</span>
+                  <span className="loom-stat">Slips: {slips}/3</span>
+                  <span className="loom-stat">Streak: {streak}</span>
+                  <span className="loom-stat">Best: {bestStreak}</span>
+                  <span className="loom-stat">Woven: {lastWoven || '—'}</span>
+                  <span className="loom-stat">Supporters: {SUPPORTERS.length}</span>
+                </div>
+                <div className="loom-roster">
+                  <div className="loom-roster-header">
+                    <span>Supporters woven</span>
+                    <span>{SUPPORTERS.length} total</span>
+                  </div>
+                  <div className="loom-roster-list">
+                    {rosterEntries.map((supporter) => (
+                      <span key={supporter.name}>
+                        {supporter.name}: {supporter.count}
+                      </span>
+                    ))}
+                  </div>
+                  {remainingSupporters > 0 && (
+                    <div className="loom-roster-more">+ {remainingSupporters} more</div>
+                  )}
+                </div>
+                <p className="loom-status" role="status">{loomStatus}</p>
+                <div className="loom-actions">
+                  <button className="loom-cta" type="button" onClick={handleStartWeave}>{loomActionLabel}</button>
+                </div>
+              </div>
             </div>
-            <div className="loom-stats">
-              <span>Tempo: {level}</span>
-              <span>Time: {formatDuration(elapsedSeconds)}</span>
-              <span>Stitches: {stitches}</span>
-              <span>Slips: {slips}/3</span>
-              <span>Streak: {streak}</span>
-              <span>Best: {bestStreak}</span>
-              <span>Woven: {lastWoven || '—'}</span>
-            </div>
-            <div className="loom-roster">
-              {SUPPORTERS.map((supporter) => (
-                <span key={supporter.name}>
-                  {supporter.name}: {wovenCounts[supporter.name] || 0}
-                </span>
-              ))}
-            </div>
-            <p className="loom-status" role="status">{loomStatus}</p>
-            <div className="loom-actions">
-              <button className="loom-cta" type="button" onClick={handleStartWeave}>{loomActionLabel}</button>
-            </div>
-            <p className="loom-controls">Arrows or a gentle drag move the shuttle.</p>
           </div>
         </div>
       )}

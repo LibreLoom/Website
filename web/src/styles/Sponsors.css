@@ -150,9 +150,10 @@
 .loom-modal-card {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
   height: 100%;
   min-height: 0;
+  padding: 20px;
 }
 
 .loom-modal-header {
@@ -160,6 +161,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--accent);
 }
 
 .loom-modal-card h2 {
@@ -173,6 +176,32 @@
   color: var(--accent);
   margin: 0;
   line-height: 1.6;
+}
+
+.loom-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2.4fr) minmax(280px, 1fr);
+  gap: 24px;
+  flex: 1;
+  min-height: 0;
+}
+
+.loom-playfield {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+}
+
+.loom-panel {
+  border: 2px solid var(--secondary);
+  border-radius: 24px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+  background-color: var(--primary);
 }
 
 .loom-canvas-wrap {
@@ -194,28 +223,68 @@
 }
 
 .loom-stats {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
   font-family: 'FreeMono', 'Courier New', monospace;
   color: var(--secondary);
   font-size: 0.9rem;
 }
 
+.loom-stat {
+  border: 2px solid var(--secondary);
+  border-radius: 999px;
+  padding: 6px 12px;
+  text-align: center;
+}
+
 .loom-roster {
+  border: 2px solid var(--secondary);
+  border-radius: 20px;
+  padding: 12px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 12px;
   font-family: 'FreeMono', 'Courier New', monospace;
   font-size: 0.8rem;
   color: var(--accent);
 }
 
+.loom-roster-header {
+  display: flex;
+  justify-content: space-between;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+}
+
+.loom-roster-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 8px;
+  color: var(--secondary);
+}
+
+.loom-roster-list span {
+  border: 2px solid var(--accent);
+  border-radius: 999px;
+  padding: 4px 10px;
+  text-align: center;
+}
+
+.loom-roster-more {
+  text-align: right;
+  color: var(--accent);
+  font-size: 0.75rem;
+}
+
 .loom-status {
   margin: 0;
   color: var(--accent);
   font-size: 0.9rem;
+  border: 2px dashed var(--accent);
+  border-radius: 16px;
+  padding: 10px 12px;
 }
 
 .loom-actions {
@@ -246,11 +315,17 @@
   margin: 0;
   color: var(--accent);
   font-size: 0.85rem;
+  text-align: center;
 }
 
 @media (max-width: 900px) {
   .sponsor-hero {
     grid-template-columns: 1fr;
+  }
+
+  .loom-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) auto;
   }
 }
 
@@ -262,5 +337,17 @@
 
   .sponsor-story {
     padding: 32px;
+  }
+
+  .loom-modal-card {
+    padding: 16px;
+  }
+
+  .loom-panel {
+    padding: 14px;
+  }
+
+  .loom-roster-list {
+    grid-template-columns: 1fr;
   }
 }
