@@ -4,12 +4,39 @@ import '../styles/Sponsors.css'
 
 const CANVAS_WIDTH = 420
 const CANVAS_HEIGHT = 260
+const SUPPORTERS = [
+  {
+    name: 'Eddie & Ali',
+    amount: '$50',
+    badge: 'Founding thread',
+    note: 'First supporters of LibreLoom. Thank you for backing the mission.'
+  }
+]
+
+const getSupporterMark = (name) => {
+  if (name.includes('&')) {
+    const parts = name
+      .split('&')
+      .map((part) => part.trim())
+      .filter(Boolean)
+    return parts.map((part) => part[0]).join('&').toUpperCase()
+  }
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((part) => part[0])
+    .join('')
+    .slice(0, 3)
+    .toUpperCase()
+}
 
 function Sponsors() {
   const [isLoomOpen, setIsLoomOpen] = useState(false)
   const [runState, setRunState] = useState('idle')
   const [stitches, setStitches] = useState(0)
   const [slips, setSlips] = useState(0)
+  const [lastWoven, setLastWoven] = useState('')
+  const [wovenCounts, setWovenCounts] = useState({})
   const canvasRef = useRef(null)
   const animationRef = useRef(null)
   const gameRef = useRef(null)
@@ -58,6 +85,13 @@ function Sponsors() {
 
     setupCanvas()
 
+    const supporterNames = SUPPORTERS.length
+      ? SUPPORTERS.map((supporter) => supporter.name)
+      : ['LibreLoom']
+    const supporterMarks = SUPPORTERS.length
+      ? SUPPORTERS.map((supporter) => getSupporterMark(supporter.name))
+      : ['LL']
+
     const game = {
       width: CANVAS_WIDTH,
       height: CANVAS_HEIGHT,
@@ -74,7 +108,10 @@ function Sponsors() {
         left: false,
         right: false
       },
-      slipsAllowed: 3
+      slipsAllowed: 3,
+      supporterNames,
+      supporterMarks,
+      supporterCursor: 0
     }
 
     gameRef.current = game
@@ -89,11 +126,14 @@ function Sponsors() {
       current.threads = []
       current.lastSpawn = 0
       current.lastTime = 0
+      current.supporterCursor = 0
       current.shuttle.x = current.width / 2
       stitchesRef.current = 0
       slipsRef.current = 0
       setStitches(0)
       setSlips(0)
+      setLastWoven('')
+      setWovenCounts({})
     }
 
     resetWeave()
@@ -104,11 +144,17 @@ function Sponsors() {
       if (!current) {
         return
       }
+      const index = current.supporterCursor % current.supporterNames.length
+      const supporterName = current.supporterNames[index]
+      const supporterMark = current.supporterMarks[index]
+      current.supporterCursor += 1
       current.threads.push({
         x: 24 + Math.random() * (current.width - 48),
         y: -10,
         radius: 6,
-        speed: 0.12 + Math.random() * 0.05
+        speed: 0.12 + Math.random() * 0.05,
+        supporterName,
+        label: supporterMark
       })
       current.lastSpawn = time
     }
@@ -147,6 +193,14 @@ function Sponsors() {
         if (hitY && hitX) {
           stitchesRef.current += 1
           setStitches(stitchesRef.current)
+          if (thread.supporterName) {
+            const supporterName = thread.supporterName
+            setLastWoven(supporterName)
+            setWovenCounts((prev) => ({
+              ...prev,
+              [supporterName]: (prev[supporterName] || 0) + 1
+            }))
+          }
           return false
         }
 
@@ -230,6 +284,13 @@ function Sponsors() {
         ctx.beginPath()
         ctx.arc(thread.x, thread.y, thread.radius, 0, Math.PI * 2)
         ctx.fill()
+
+        if (thread.label) {
+          ctx.fillStyle = secondary
+          ctx.font = '10px FreeMono, monospace'
+          ctx.textAlign = 'center'
+          ctx.fillText(thread.label, thread.x, thread.y - 12)
+        }
       })
 
       if (runStateRef.current === 'idle') {
@@ -347,12 +408,15 @@ function Sponsors() {
       current.threads = []
       current.lastSpawn = 0
       current.lastTime = 0
+      current.supporterCursor = 0
       current.shuttle.x = current.width / 2
     }
     stitchesRef.current = 0
     slipsRef.current = 0
     setStitches(0)
     setSlips(0)
+    setLastWoven('')
+    setWovenCounts({})
     setRunState('running')
   }
 
@@ -400,15 +464,17 @@ function Sponsors() {
 
       <section className="team-section sponsor-lineup">
         <div className="cards-container">
-          <div className="card sponsor-card">
-            <div className="sponsor-mark">
-              <span className="sponsor-dot" aria-hidden="true">●</span>
-              <span className="sponsor-mark-text">Founding thread</span>
+          {SUPPORTERS.map((supporter) => (
+            <div className="card sponsor-card" key={supporter.name}>
+              <div className="sponsor-mark">
+                <span className="sponsor-dot" aria-hidden="true">●</span>
+                <span className="sponsor-mark-text">{supporter.badge}</span>
+              </div>
+              <h2>{supporter.name}</h2>
+              <p><strong>Donation:</strong> {supporter.amount}</p>
+              <p>{supporter.note}</p>
             </div>
-            <h2>Eddie &amp; Ali</h2>
-            <p><strong>Donation:</strong> $50</p>
-            <p>First supporters of LibreLoom. Thank you for backing the mission.</p>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -426,6 +492,14 @@ function Sponsors() {
             <div className="loom-stats">
               <span>Stitches: {stitches}</span>
               <span>Slips: {slips}/3</span>
+              <span>Woven: {lastWoven || '—'}</span>
+            </div>
+            <div className="loom-roster">
+              {SUPPORTERS.map((supporter) => (
+                <span key={supporter.name}>
+                  {supporter.name}: {wovenCounts[supporter.name] || 0}
+                </span>
+              ))}
             </div>
             <p className="loom-status">{loomStatus}</p>
             <div className="loom-actions">

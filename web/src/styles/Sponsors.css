@@ -210,9 +210,19 @@
   display: flex;
   justify-content: space-between;
   gap: 16px;
+  flex-wrap: wrap;
   font-family: 'FreeMono', 'Courier New', monospace;
   color: var(--secondary);
   font-size: 0.9rem;
+}
+
+.loom-roster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-family: 'FreeMono', 'Courier New', monospace;
+  font-size: 0.8rem;
+  color: var(--accent);
 }
 
 .loom-status {
