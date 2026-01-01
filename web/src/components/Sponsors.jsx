@@ -479,8 +479,8 @@ function Sponsors() {
       </section>
 
       {isLoomOpen && (
-        <div className="loom-modal" role="dialog" aria-modal="true" aria-labelledby="loom-title">
-          <div className="loom-modal-card" role="document">
+        <div className="modal-overlay is-open" role="dialog" aria-modal="true" aria-labelledby="loom-title">
+          <div className="modal-card loom-modal-card" role="document">
             <div className="loom-modal-header">
               <h2 id="loom-title">Loom Mini</h2>
               <button className="loom-ghost" type="button" onClick={handleCloseLoom} aria-label="Close loom">Close</button>

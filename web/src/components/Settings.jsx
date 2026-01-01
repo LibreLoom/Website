@@ -125,8 +125,8 @@ function Settings({ isOpen, onClose, disableSnapDragging, setDisableSnapDragging
   if (!isOpen) return null
 
   return (
-    <div className="settings-overlay active" onClick={(e) => e.target.className.includes('settings-overlay') && onClose()}>
-      <div className="color-settings-modal" onClick={(e) => e.stopPropagation()}>
+    <div className="modal-overlay is-open" onClick={(e) => e.target.classList.contains('modal-overlay') && onClose()}>
+      <div className="modal-card modal-card--wide color-settings-modal" onClick={(e) => e.stopPropagation()}>
         <h1>Settings</h1>
 
         <div className="checkbox-group">
@@ -230,4 +230,3 @@ function Settings({ isOpen, onClose, disableSnapDragging, setDisableSnapDragging
 }
 
 export default Settings
-

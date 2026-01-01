@@ -1,0 +1,76 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000;
+  opacity: 0;
+  pointer-events: none;
+  padding: 24px;
+}
+
+.modal-overlay.is-open {
+  opacity: 1;
+  pointer-events: all;
+  animation: modal-fade-in 0.25s ease both;
+}
+
+.modal-card {
+  background: var(--primary);
+  color: var(--secondary);
+  border: 2px solid var(--secondary);
+  border-radius: 28px;
+  padding: 28px;
+  width: min(92vw, 520px);
+  max-height: 85vh;
+  overflow-y: auto;
+  animation: modal-rise 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.modal-card--wide {
+  width: min(92vw, 800px);
+  padding: 50px 60px;
+}
+
+@keyframes modal-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-card {
+    padding: 22px;
+  }
+
+  .modal-card--wide {
+    padding: 30px 25px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-card {
+    animation: none;
+  }
+
+  .modal-overlay {
+    animation: none;
+  }
+}

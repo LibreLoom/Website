@@ -147,23 +147,7 @@
   color: var(--primary);
 }
 
-.loom-modal {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.65);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-  padding: 24px;
-}
-
 .loom-modal-card {
-  background-color: var(--primary);
-  border: 2px solid var(--secondary);
-  border-radius: 28px;
-  padding: 28px;
-  width: min(92vw, 520px);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -275,9 +259,5 @@
 
   .sponsor-story {
     padding: 32px;
-  }
-
-  .loom-modal-card {
-    padding: 22px;
   }
 }
