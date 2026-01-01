@@ -30,11 +30,36 @@ const getSupporterMark = (name) => {
     .toUpperCase()
 }
 
+const formatDuration = (totalSeconds) => {
+  const minutes = Math.floor(totalSeconds / 60)
+  const seconds = totalSeconds % 60
+  return `${minutes}:${String(seconds).padStart(2, '0')}`
+}
+
+const getDifficultyProfile = (elapsedMs) => {
+  const elapsedSeconds = Math.floor(elapsedMs / 1000)
+  const level = Math.floor(elapsedSeconds / 10) + 1
+  const spawnInterval = Math.max(520, 1200 - (level - 1) * 70)
+  const speedMultiplier = 1 + (level - 1) * 0.06
+  const shuttleWidth = Math.max(52, 72 - (level - 1) * 2)
+  return {
+    elapsedSeconds,
+    level,
+    spawnInterval,
+    speedMultiplier,
+    shuttleWidth
+  }
+}
+
 function Sponsors() {
   const [isLoomOpen, setIsLoomOpen] = useState(false)
   const [runState, setRunState] = useState('idle')
   const [stitches, setStitches] = useState(0)
   const [slips, setSlips] = useState(0)
+  const [elapsedSeconds, setElapsedSeconds] = useState(0)
+  const [level, setLevel] = useState(1)
+  const [streak, setStreak] = useState(0)
+  const [bestStreak, setBestStreak] = useState(0)
   const [lastWoven, setLastWoven] = useState('')
   const [wovenCounts, setWovenCounts] = useState({})
   const canvasRef = useRef(null)
@@ -43,6 +68,10 @@ function Sponsors() {
   const runStateRef = useRef(runState)
   const stitchesRef = useRef(0)
   const slipsRef = useRef(0)
+  const elapsedSecondsRef = useRef(0)
+  const levelRef = useRef(1)
+  const streakRef = useRef(0)
+  const bestStreakRef = useRef(0)
 
   useEffect(() => {
     runStateRef.current = runState
@@ -104,6 +133,7 @@ function Sponsors() {
       threads: [],
       lastSpawn: 0,
       lastTime: 0,
+      elapsed: 0,
       input: {
         left: false,
         right: false
@@ -126,12 +156,22 @@ function Sponsors() {
       current.threads = []
       current.lastSpawn = 0
       current.lastTime = 0
+      current.elapsed = 0
       current.supporterCursor = 0
       current.shuttle.x = current.width / 2
+      current.shuttle.width = 72
       stitchesRef.current = 0
       slipsRef.current = 0
+      elapsedSecondsRef.current = 0
+      levelRef.current = 1
+      streakRef.current = 0
+      bestStreakRef.current = 0
       setStitches(0)
       setSlips(0)
+      setElapsedSeconds(0)
+      setLevel(1)
+      setStreak(0)
+      setBestStreak(0)
       setLastWoven('')
       setWovenCounts({})
     }
@@ -139,7 +179,7 @@ function Sponsors() {
     resetWeave()
     setRunState('idle')
 
-    const spawnThread = (time) => {
+    const spawnThread = (time, speedMultiplier) => {
       const current = gameRef.current
       if (!current) {
         return
@@ -152,7 +192,7 @@ function Sponsors() {
         x: 24 + Math.random() * (current.width - 48),
         y: -10,
         radius: 6,
-        speed: 0.12 + Math.random() * 0.05,
+        speed: (0.12 + Math.random() * 0.05) * speedMultiplier,
         supporterName,
         label: supporterMark
       })
@@ -168,6 +208,18 @@ function Sponsors() {
         return
       }
 
+      current.elapsed += delta
+      const difficulty = getDifficultyProfile(current.elapsed)
+      if (difficulty.elapsedSeconds !== elapsedSecondsRef.current) {
+        elapsedSecondsRef.current = difficulty.elapsedSeconds
+        setElapsedSeconds(difficulty.elapsedSeconds)
+      }
+      if (difficulty.level !== levelRef.current) {
+        levelRef.current = difficulty.level
+        setLevel(difficulty.level)
+      }
+      current.shuttle.width = difficulty.shuttleWidth
+
       const moveSpeed = 0.3 * delta
       if (current.input.left) {
         current.shuttle.x -= moveSpeed
@@ -180,9 +232,8 @@ function Sponsors() {
       const maxX = current.width - 16 - current.shuttle.width / 2
       current.shuttle.x = clamp(current.shuttle.x, minX, maxX)
 
-      const spawnInterval = 1200
-      if (!current.lastSpawn || current.lastTime - current.lastSpawn > spawnInterval) {
-        spawnThread(current.lastTime)
+      if (!current.lastSpawn || current.lastTime - current.lastSpawn > difficulty.spawnInterval) {
+        spawnThread(current.lastTime, difficulty.speedMultiplier)
       }
 
       current.threads = current.threads.filter((thread) => {
@@ -193,6 +244,12 @@ function Sponsors() {
         if (hitY && hitX) {
           stitchesRef.current += 1
           setStitches(stitchesRef.current)
+          streakRef.current += 1
+          setStreak(streakRef.current)
+          if (streakRef.current > bestStreakRef.current) {
+            bestStreakRef.current = streakRef.current
+            setBestStreak(bestStreakRef.current)
+          }
           if (thread.supporterName) {
             const supporterName = thread.supporterName
             setLastWoven(supporterName)
@@ -207,6 +264,8 @@ function Sponsors() {
         if (thread.y - thread.radius > current.height + 10) {
           slipsRef.current += 1
           setSlips(slipsRef.current)
+          streakRef.current = 0
+          setStreak(0)
           if (slipsRef.current >= current.slipsAllowed) {
             setRunState('over')
           }
@@ -299,6 +358,7 @@ function Sponsors() {
         ctx.textAlign = 'center'
         ctx.fillText('Move the shuttle, catch the threads.', current.width / 2, current.height / 2 - 6)
         ctx.fillText('Begin a weave when you are ready.', current.width / 2, current.height / 2 + 16)
+        ctx.fillText('The tempo rises as time passes.', current.width / 2, current.height / 2 + 38)
       }
 
       if (runStateRef.current === 'over') {
@@ -408,13 +468,23 @@ function Sponsors() {
       current.threads = []
       current.lastSpawn = 0
       current.lastTime = 0
+      current.elapsed = 0
       current.supporterCursor = 0
       current.shuttle.x = current.width / 2
+      current.shuttle.width = 72
     }
     stitchesRef.current = 0
     slipsRef.current = 0
+    elapsedSecondsRef.current = 0
+    levelRef.current = 1
+    streakRef.current = 0
+    bestStreakRef.current = 0
     setStitches(0)
     setSlips(0)
+    setElapsedSeconds(0)
+    setLevel(1)
+    setStreak(0)
+    setBestStreak(0)
     setLastWoven('')
     setWovenCounts({})
     setRunState('running')
@@ -425,7 +495,7 @@ function Sponsors() {
     runState === 'over'
       ? 'The loom slipped loose. Reset and try again.'
       : runState === 'running'
-        ? 'Keep the rhythm steady and the weave tight.'
+        ? 'Tempo rises over time. Stay steady as the weave tightens.'
         : 'A quiet loom waits for the first thread.'
 
   return (
@@ -485,13 +555,17 @@ function Sponsors() {
               <h2 id="loom-title">Loom Mini</h2>
               <button className="loom-ghost" type="button" onClick={handleCloseLoom} aria-label="Close loom">Close</button>
             </div>
-            <p className="loom-subtitle">Guide the shuttle and catch threads to keep the weave tight.</p>
+            <p className="loom-subtitle">Guide the shuttle and catch threads to keep the weave tight. The tempo rises over time.</p>
             <div className="loom-canvas-wrap">
               <canvas ref={canvasRef} width={CANVAS_WIDTH} height={CANVAS_HEIGHT}></canvas>
             </div>
             <div className="loom-stats">
+              <span>Tempo: {level}</span>
+              <span>Time: {formatDuration(elapsedSeconds)}</span>
               <span>Stitches: {stitches}</span>
               <span>Slips: {slips}/3</span>
+              <span>Streak: {streak}</span>
+              <span>Best: {bestStreak}</span>
               <span>Woven: {lastWoven || '—'}</span>
             </div>
             <div className="loom-roster">
