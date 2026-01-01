@@ -370,13 +370,20 @@ function Navigation({ disableSnapDragging, setDisableSnapDragging }) {
             Projects
           </Link>
           
-          <Link 
-            to="/team" 
+          <Link
+            to="/team"
             className={`nav-link ${location.pathname === '/team' ? 'active' : ''}`}
           >
             Team
           </Link>
-          
+
+          <Link
+            to="/sponsors"
+            className={`nav-link ${location.pathname === '/sponsors' ? 'active' : ''}`}
+          >
+            Sponsors
+          </Link>
+
           <div className="nav-divider"></div>
           
           <a href="https://ko-fi.com/libreloom" target="_blank" rel="noopener noreferrer" className="nav-link donate-btn">
@@ -433,13 +440,20 @@ function Navigation({ disableSnapDragging, setDisableSnapDragging }) {
               Projects
             </Link>
             
-            <Link 
-              to="/team" 
+            <Link
+              to="/team"
               className={`nav-link ${location.pathname === '/team' ? 'active' : ''}`}
             >
               Team
             </Link>
-            
+
+            <Link
+              to="/sponsors"
+              className={`nav-link ${location.pathname === '/sponsors' ? 'active' : ''}`}
+            >
+              Sponsors
+            </Link>
+
             <div className="nav-divider"></div>
             
             <a href="https://ko-fi.com/libreloom" target="_blank" rel="noopener noreferrer" className="nav-link donate-btn">
