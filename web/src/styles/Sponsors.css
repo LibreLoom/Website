@@ -1,390 +1,360 @@
 .sponsor-hero {
-  max-width: 1100px;
-  margin: 40px auto 20px;
-  padding: 0 40px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 28px;
-  align-items: stretch;
+    max-width: 1100px;
+    margin: 40px auto 20px;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    align-items: stretch;
 }
 
 .sponsor-story {
-  background-color: var(--primary);
-  border: 2px solid var(--secondary);
-  border-radius: 28px;
-  padding: 40px;
-  text-align: left;
-  position: relative;
-  overflow: hidden;
+    background-color: var(--primary);
+    border: 2px solid var(--secondary);
+    border-radius: 28px;
+    padding: 40px;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
 }
 
 .sponsor-story::after {
-  content: "";
-  position: absolute;
-  width: 140px;
-  height: 140px;
-  border: 2px solid var(--accent);
-  border-radius: 50%;
-  opacity: 0.2;
-  top: -40px;
-  right: -40px;
+    content: "";
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    opacity: 0.2;
+    top: -40px;
+    right: -40px;
 }
 
 .sponsor-story h2 {
-  font-family: 'FreeMono', 'Courier New', monospace;
-  font-size: 1.9rem;
-  margin-bottom: 18px;
-  font-weight: 400;
-  color: var(--secondary);
+    font-family: "FreeMono", "Courier New", monospace;
+    font-size: 1.9rem;
+    margin-bottom: 18px;
+    font-weight: 400;
+    color: var(--secondary);
 }
 
 .sponsor-story p {
-  font-size: 1.05rem;
-  line-height: 1.7;
-  color: var(--accent);
-  margin-bottom: 14px;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--accent);
+    margin-bottom: 14px;
 }
 
 .sponsor-emphasis {
-  color: var(--secondary);
-  font-style: italic;
+    color: var(--secondary);
+    font-style: italic;
 }
 
 .loom-cta-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  align-items: center;
-  margin-top: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+    margin-top: 24px;
 }
 
 .loom-cta {
-  border: 2px solid var(--secondary);
-  background-color: var(--secondary);
-  color: var(--primary);
-  border-radius: 999px;
-  padding: 10px 20px;
-  font-family: 'FreeMono', 'Courier New', monospace;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+    border: 2px solid var(--secondary);
+    background-color: var(--secondary);
+    color: var(--primary);
+    border-radius: 999px;
+    padding: 10px 20px;
+    font-family: "FreeMono", "Courier New", monospace;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        background-color 0.2s ease,
+        color 0.2s ease;
 }
 
 .loom-cta:hover {
-  transform: translateY(-2px);
-  background-color: var(--primary);
-  color: var(--secondary);
+    transform: translateY(-2px);
+    background-color: var(--primary);
+    color: var(--secondary);
 }
 
 .loom-cta:focus-visible {
-  outline: 2px dashed var(--accent);
-  outline-offset: 4px;
+    outline: 2px dashed var(--accent);
+    outline-offset: 4px;
 }
 
 .loom-hint {
-  font-size: 0.9rem;
-  color: var(--accent);
+    font-size: 0.9rem;
+    color: var(--accent);
 }
 
 .sponsor-line {
-  max-width: 1100px;
-  margin: 20px auto 10px;
-  padding: 0 40px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  font-family: 'FreeMono', 'Courier New', monospace;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-size: 0.75rem;
-  color: var(--accent);
+    max-width: 1100px;
+    margin: 20px auto 10px;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: "FreeMono", "Courier New", monospace;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: var(--accent);
 }
 
 .sponsor-line-rule {
-  flex: 1;
-  height: 2px;
-  background-color: var(--accent);
-  opacity: 0.3;
+    flex: 1;
+    height: 2px;
+    background-color: var(--accent);
+    opacity: 0.3;
 }
 
 .sponsor-lineup {
-  margin-top: 20px;
-}
-
-.sponsor-card {
-  text-align: left;
-}
-
-.sponsor-mark {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  border: 2px solid var(--secondary);
-  border-radius: 999px;
-  padding: 6px 14px;
-  margin-bottom: 18px;
-  font-family: 'FreeMono', 'Courier New', monospace;
-  font-size: 0.85rem;
-  color: var(--secondary);
-  transition: color 0.3s ease, border-color 0.3s ease;
-}
-
-.sponsor-dot {
-  font-size: 1rem;
-  line-height: 1;
-}
-
-.sponsor-mark-text {
-  color: inherit;
-}
-
-.sponsor-card:hover .sponsor-mark {
-  color: var(--primary);
-  border-color: var(--primary);
-}
-
-.sponsor-card:hover .sponsor-dot {
-  color: var(--primary);
+    margin-top: 20px;
 }
 
 .loom-modal-card {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  height: 100%;
-  min-height: 0;
-  padding: 20px;
-  overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+    min-height: 0;
+    padding: 20px;
+    overflow: hidden;
 }
 
 .loom-modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding-bottom: 12px;
-  border-bottom: 2px solid var(--accent);
-  flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--accent);
+    flex-wrap: wrap;
 }
 
 .loom-modal-card h2 {
-  font-family: 'FreeMono', 'Courier New', monospace;
-  font-size: 1.6rem;
-  margin: 0;
-  font-weight: 400;
+    font-family: "FreeMono", "Courier New", monospace;
+    font-size: 1.6rem;
+    margin: 0;
+    font-weight: 400;
 }
 
 .loom-subtitle {
-  color: var(--accent);
-  margin: 0;
-  line-height: 1.6;
+    color: var(--accent);
+    margin: 0;
+    line-height: 1.6;
 }
 
 .loom-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 2.4fr) minmax(280px, 1fr);
-  gap: 24px;
-  flex: 1;
-  min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 2.4fr) minmax(280px, 1fr);
+    gap: 24px;
+    flex: 1;
+    min-height: 0;
 }
 
 .loom-playfield {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 0;
 }
 
 .loom-panel {
-  border: 2px solid var(--secondary);
-  border-radius: 24px;
-  padding: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  min-height: 0;
-  background-color: var(--primary);
-  overflow-y: auto;
+    border: 2px solid var(--secondary);
+    border-radius: 24px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 0;
+    background-color: var(--primary);
+    overflow-y: auto;
 }
 
 .loom-canvas-wrap {
-  border: 2px solid var(--secondary);
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--primary);
-  flex: 1;
-  width: 100%;
-  min-height: 0;
+    border: 2px solid var(--secondary);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary);
+    flex: 1;
+    width: 100%;
+    min-height: 0;
 }
 
 .loom-canvas-wrap canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 .loom-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 10px;
-  font-family: 'FreeMono', 'Courier New', monospace;
-  color: var(--secondary);
-  font-size: 0.9rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    font-family: "FreeMono", "Courier New", monospace;
+    color: var(--secondary);
+    font-size: 0.9rem;
 }
 
 .loom-stat {
-  border: 2px solid var(--secondary);
-  border-radius: 999px;
-  padding: 6px 12px;
-  text-align: center;
+    border: 2px solid var(--secondary);
+    border-radius: 999px;
+    padding: 6px 12px;
+    text-align: center;
 }
 
 .loom-roster {
-  border: 2px solid var(--secondary);
-  border-radius: 20px;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  font-family: 'FreeMono', 'Courier New', monospace;
-  font-size: 0.8rem;
-  color: var(--accent);
+    border: 2px solid var(--secondary);
+    border-radius: 20px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-family: "FreeMono", "Courier New", monospace;
+    font-size: 0.8rem;
+    color: var(--accent);
 }
 
 .loom-roster-header {
-  display: flex;
-  justify-content: space-between;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.7rem;
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.7rem;
 }
 
 .loom-roster-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 8px;
-  color: var(--secondary);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 8px;
+    color: var(--secondary);
 }
 
 .loom-roster-list span {
-  border: 2px solid var(--accent);
-  border-radius: 999px;
-  padding: 4px 10px;
-  text-align: center;
+    border: 2px solid var(--accent);
+    border-radius: 999px;
+    padding: 4px 10px;
+    text-align: center;
 }
 
 .loom-roster-more {
-  text-align: right;
-  color: var(--accent);
-  font-size: 0.75rem;
+    text-align: right;
+    color: var(--accent);
+    font-size: 0.75rem;
 }
 
 .loom-status {
-  margin: 0;
-  color: var(--accent);
-  font-size: 0.9rem;
-  border: 2px dashed var(--accent);
-  border-radius: 16px;
-  padding: 10px 12px;
+    margin: 0;
+    color: var(--accent);
+    font-size: 0.9rem;
+    border: 2px dashed var(--accent);
+    border-radius: 16px;
+    padding: 10px 12px;
 }
 
 .loom-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  flex-wrap: wrap;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
 .loom-ghost {
-  border: 2px solid var(--secondary);
-  background-color: var(--primary);
-  color: var(--secondary);
-  border-radius: 999px;
-  padding: 10px 18px;
-  font-family: 'FreeMono', 'Courier New', monospace;
-  cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+    border: 2px solid var(--secondary);
+    background-color: var(--primary);
+    color: var(--secondary);
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-family: "FreeMono", "Courier New", monospace;
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        background-color 0.2s ease,
+        color 0.2s ease;
 }
 
 .loom-ghost:hover {
-  transform: translateY(-2px);
-  background-color: var(--secondary);
-  color: var(--primary);
+    transform: translateY(-2px);
+    background-color: var(--secondary);
+    color: var(--primary);
 }
 
 .loom-controls {
-  margin: 0;
-  color: var(--accent);
-  font-size: 0.85rem;
-  text-align: center;
+    margin: 0;
+    color: var(--accent);
+    font-size: 0.85rem;
+    text-align: center;
 }
 
 @media (max-width: 900px) {
-  .sponsor-hero {
-    grid-template-columns: 1fr;
-  }
+    .sponsor-hero {
+        grid-template-columns: 1fr;
+    }
 
-  .loom-layout {
-    grid-template-columns: 1fr;
-    grid-template-rows: minmax(0, 1fr) auto;
-  }
+    .loom-layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(0, 1fr) auto;
+    }
 }
 
 @media (max-width: 768px) {
-  .sponsor-hero,
-  .sponsor-line {
-    padding: 0 24px;
-  }
+    .sponsor-hero,
+    .sponsor-line {
+        padding: 0 24px;
+    }
 
-  .sponsor-story {
-    padding: 32px;
-  }
+    .sponsor-story {
+        padding: 32px;
+    }
 
-  .loom-modal-card {
-    padding: 16px;
-  }
+    .loom-modal-card {
+        padding: 16px;
+    }
 
-  .loom-panel {
-    padding: 14px;
-    max-height: 42vh;
-  }
+    .loom-panel {
+        padding: 14px;
+        max-height: 42vh;
+    }
 
-  .loom-stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    font-size: 0.85rem;
-  }
+    .loom-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        font-size: 0.85rem;
+    }
 
-  .loom-stat {
-    padding: 6px 8px;
-    font-size: 0.8rem;
-  }
+    .loom-stat {
+        padding: 6px 8px;
+        font-size: 0.8rem;
+    }
 
-  .loom-roster-list {
-    grid-template-columns: 1fr;
-  }
+    .loom-roster-list {
+        grid-template-columns: 1fr;
+    }
 
-  .loom-actions {
-    justify-content: stretch;
-  }
+    .loom-actions {
+        justify-content: stretch;
+    }
 
-  .loom-actions .loom-cta {
-    width: 100%;
-  }
+    .loom-actions .loom-cta {
+        width: 100%;
+    }
 }
 
 @media (max-width: 520px) {
-  .loom-panel {
-    max-height: 46vh;
-  }
+    .loom-panel {
+        max-height: 46vh;
+    }
 
-  .loom-stats {
-    grid-template-columns: 1fr;
-  }
+    .loom-stats {
+        grid-template-columns: 1fr;
+    }
 
-  .loom-modal-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+    .loom-modal-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }

@@ -1,239 +1,150 @@
 header {
-  text-align: center;
-  padding: 80px 40px 40px;
-  max-width: 1100px;
-  margin: 0 auto;
+    text-align: center;
+    padding: 80px 40px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
 .logo-container {
-  margin-bottom: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .logo-container svg {
-  max-width: 500px;
-  width: 100%;
-  height: auto;
-  transition: transform 0.3s ease;
+    max-width: 500px;
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
 }
 
 .logo-container svg:hover {
-  transform: scale(1.02);
+    transform: scale(1.02);
 }
 
 .logo-svg-bg {
-  fill: var(--secondary);
-  transition: fill 0.3s ease;
+    fill: var(--secondary);
+    transition: fill 0.3s ease;
 }
 
 .logo-svg-fg {
-  fill: var(--primary);
-  transition: fill 0.3s ease;
+    fill: var(--primary);
+    transition: fill 0.3s ease;
 }
 
 header h1 {
-  font-family: 'FreeMono', 'Courier New', monospace;
-  font-size: 2.5rem;
-  margin-bottom: 24px;
-  font-weight: 400;
-  letter-spacing: -0.02em;
+    font-family: "FreeMono", "Courier New", monospace;
+    font-size: 2.5rem;
+    margin-bottom: 24px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
 }
 
 header p {
-  font-size: 1.2rem;
-  color: var(--secondary);
-  max-width: 700px;
-  margin: 0 auto 20px;
-  line-height: 1.8;
+    font-size: 1.2rem;
+    color: var(--secondary);
+    max-width: 700px;
+    margin: 0 auto 20px;
+    line-height: 1.8;
 }
 
 header p em {
-  font-style: italic;
-  font-weight: 500;
+    font-style: italic;
+    font-weight: 500;
 }
 
 .team-section {
-  max-width: 1100px;
-  margin: 40px auto;
-  padding: 0 40px;
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 40px;
 }
 
 .team-intro {
-  background-color: var(--primary);
-  border: 2px solid var(--secondary);
-  border-radius: 28px;
-  padding: 50px;
-  text-align: center;
-  transition: transform 0.3s ease, background-color 0.3s ease;
-  margin-bottom: 40px;
+    background-color: var(--primary);
+    border: 2px solid var(--secondary);
+    border-radius: 28px;
+    padding: 50px;
+    text-align: center;
+    transition:
+        transform 0.3s ease,
+        background-color 0.3s ease;
+    margin-bottom: 40px;
+    animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+    animation-delay: 0.1s;
 }
 
 .team-intro:hover {
-  transform: translateY(-4px);
-  background-color: var(--secondary);
+    transform: translateY(-4px);
+    background-color: var(--secondary);
 }
 
 .team-intro:hover h2,
 .team-intro:hover p {
-  color: var(--primary);
+    color: var(--primary);
 }
 
 .team-intro h2 {
-  font-family: 'FreeMono', 'Courier New', monospace;
-  font-size: 2rem;
-  margin-bottom: 24px;
-  font-weight: 400;
-  color: var(--secondary);
-  transition: color 0.3s ease;
+    font-family: "FreeMono", "Courier New", monospace;
+    font-size: 2rem;
+    margin-bottom: 24px;
+    font-weight: 400;
+    color: var(--secondary);
+    transition: color 0.3s ease;
 }
 
 .team-intro p {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: var(--accent);
-  transition: color 0.3s ease;
-  margin-bottom: 0;
-}
-
-.cards-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 28px;
-}
-
-.card {
-  background-color: var(--primary);
-  border: 2px solid var(--secondary);
-  border-radius: 28px;
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-6px);
-  background-color: var(--secondary);
-}
-
-.card:hover h2,
-.card:hover p {
-  color: var(--primary);
-}
-
-.card h2 {
-  font-family: 'FreeMono', 'Courier New', monospace;
-  margin-top: 0;
-  font-size: 1.5rem;
-  color: var(--secondary);
-  margin-bottom: 20px;
-  font-weight: 400;
-  transition: color 0.3s ease;
-}
-
-.card p {
-  flex: 1;
-  line-height: 1.7;
-  margin-bottom: 0;
-  color: var(--accent);
-  transition: color 0.3s ease;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-}
-
-.card a {
-  color: var(--secondary);
-  text-decoration: underline;
-  word-wrap: normal;
-  overflow-wrap: normal;
-  word-break: normal;
-}
-
-.card a:visited {
-  color: var(--secondary);
-}
-
-.card:hover a {
-  color: var(--primary);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--accent);
+    transition: color 0.3s ease;
+    margin-bottom: 0;
 }
 
 .header-divider {
-  width: 100%;
-  height: 2px;
-  background-color: var(--accent);
-  opacity: 0.3;
-  margin: 30px 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent);
+    opacity: 0.3;
+    margin: 30px 0;
 }
 
 @media (max-width: 768px) {
-  header {
-    padding: 60px 24px 30px;
-  }
+    header {
+        padding: 60px 24px 30px;
+    }
 
-  header h1 {
-    font-size: 2rem;
-  }
+    header h1 {
+        font-size: 2rem;
+    }
 
-  .logo-container svg {
-    max-width: 300px;
-  }
+    .logo-container svg {
+        max-width: 300px;
+    }
 
-  .team-section {
-    padding: 0 24px;
-    margin: 30px auto;
-  }
+    .team-section {
+        padding: 0 24px;
+        margin: 30px auto;
+    }
 
-  .team-intro {
-    padding: 35px;
-  }
-
-  .cards-container {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
+    .team-intro {
+        padding: 35px;
+    }
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.team-intro {
-  animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
-  animation-delay: 0.1s;
-}
-
-.card {
-  animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
-}
-
-.card:nth-child(1) {
-  animation-delay: 0.05s;
-}
-
-.card:nth-child(2) {
-  animation-delay: 0.08s;
-}
-
-.card:nth-child(3) {
-  animation-delay: 0.11s;
-}
-
-.card:nth-child(4) {
-  animation-delay: 0.14s;
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 header,
 .team-section {
-  position: relative;
-  z-index: 1;
+    position: relative;
+    z-index: 1;
 }
-
