@@ -115,12 +115,12 @@
 }
 
 .loom-modal-card {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    display: grid;
+    grid-template-rows: auto 1fr;
     height: 100%;
     min-height: 0;
-    padding: 20px;
+    padding: 24px;
+    gap: 20px;
     overflow: hidden;
 }
 
@@ -129,9 +129,8 @@
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    padding-bottom: 12px;
+    padding-bottom: 16px;
     border-bottom: 2px solid var(--accent);
-    flex-wrap: wrap;
 }
 
 .loom-modal-card h2 {
@@ -142,33 +141,31 @@
 }
 
 .loom-subtitle {
-    color: var(--accent);
-    margin: 0;
-    line-height: 1.6;
+    display: none;
 }
 
 .loom-layout {
     display: grid;
-    grid-template-columns: minmax(0, 2.4fr) minmax(280px, 1fr);
+    grid-template-columns: 1fr 360px;
     gap: 24px;
-    flex: 1;
     min-height: 0;
+    overflow: hidden;
 }
 
 .loom-playfield {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
     min-height: 0;
 }
 
 .loom-panel {
     border: 2px solid var(--secondary);
     border-radius: 24px;
-    padding: 18px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
     min-height: 0;
     background-color: var(--primary);
     overflow-y: auto;
@@ -183,29 +180,67 @@
     background-color: var(--primary);
     flex: 1;
     width: 100%;
-    min-height: 0;
+    min-height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.loom-canvas-wrap::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 19px,
+            var(--accent) 19px,
+            var(--accent) 20px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 19px,
+            var(--accent) 19px,
+            var(--accent) 20px
+        );
+    opacity: 0.05;
+    pointer-events: none;
 }
 
 .loom-canvas-wrap canvas {
     display: block;
     width: 100%;
     height: 100%;
+    object-fit: contain;
 }
 
 .loom-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
     font-family: "FreeMono", "Courier New", monospace;
-    color: var(--secondary);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
 .loom-stat {
     border: 2px solid var(--secondary);
-    border-radius: 999px;
-    padding: 6px 12px;
+    border-radius: 12px;
+    padding: 8px 12px;
     text-align: center;
+    background-color: var(--primary);
+    transition: all 0.2s ease;
+}
+
+.loom-stat:hover {
+    background-color: var(--secondary);
+    color: var(--primary);
+}
+
+.loom-stat-highlight {
+    border-color: var(--accent);
+    background-color: var(--accent);
+    color: var(--primary);
 }
 
 .loom-roster {
@@ -214,7 +249,7 @@
     padding: 12px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
     font-family: "FreeMono", "Courier New", monospace;
     font-size: 0.8rem;
     color: var(--accent);
@@ -226,26 +261,31 @@
     text-transform: uppercase;
     letter-spacing: 0.08em;
     font-size: 0.7rem;
+    padding: 0 4px;
 }
 
 .loom-roster-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 8px;
-    color: var(--secondary);
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 6px;
 }
 
 .loom-roster-list span {
     border: 2px solid var(--accent);
     border-radius: 999px;
-    padding: 4px 10px;
+    padding: 4px 8px;
     text-align: center;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .loom-roster-more {
     text-align: right;
     color: var(--accent);
-    font-size: 0.75rem;
+    font-size: 0.7rem;
+    padding: 4px;
 }
 
 .loom-status {
@@ -254,14 +294,15 @@
     font-size: 0.9rem;
     border: 2px dashed var(--accent);
     border-radius: 16px;
-    padding: 10px 12px;
+    padding: 12px 16px;
+    text-align: center;
+    font-style: italic;
 }
 
 .loom-actions {
     display: flex;
-    justify-content: flex-end;
     gap: 12px;
-    flex-wrap: wrap;
+    margin-top: auto;
 }
 
 .loom-ghost {
@@ -269,13 +310,11 @@
     background-color: var(--primary);
     color: var(--secondary);
     border-radius: 999px;
-    padding: 10px 18px;
+    padding: 10px 20px;
     font-family: "FreeMono", "Courier New", monospace;
+    font-size: 0.9rem;
     cursor: pointer;
-    transition:
-        transform 0.2s ease,
-        background-color 0.2s ease,
-        color 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .loom-ghost:hover {
@@ -289,6 +328,10 @@
     color: var(--accent);
     font-size: 0.85rem;
     text-align: center;
+    background-color: var(--primary);
+    border-radius: 999px;
+    padding: 8px 16px;
+    align-self: center;
 }
 
 @media (max-width: 900px) {
@@ -298,7 +341,27 @@
 
     .loom-layout {
         grid-template-columns: 1fr;
-        grid-template-rows: minmax(0, 1fr) auto;
+        grid-template-rows: 1fr auto;
+        gap: 16px;
+    }
+
+    .loom-canvas-wrap {
+        min-height: 250px;
+    }
+
+    .loom-panel {
+        padding: 16px;
+        max-height: 40vh;
+    }
+
+    .loom-actions {
+        flex-wrap: wrap;
+    }
+
+    .loom-actions .loom-cta,
+    .loom-ghost {
+        flex: 1;
+        text-align: center;
     }
 }
 
@@ -314,47 +377,68 @@
 
     .loom-modal-card {
         padding: 16px;
+        gap: 16px;
+    }
+
+    .loom-modal-header {
+        flex-wrap: wrap;
+        gap: 12px;
     }
 
     .loom-panel {
         padding: 14px;
-        max-height: 42vh;
+        gap: 14px;
     }
 
     .loom-stats {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        font-size: 0.85rem;
+        grid-template-columns: repeat(2, 1fr);
+        font-size: 0.8rem;
     }
 
     .loom-stat {
         padding: 6px 8px;
-        font-size: 0.8rem;
     }
 
     .loom-roster-list {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .loom-actions {
-        justify-content: stretch;
+        flex-direction: column;
+        gap: 10px;
     }
 
-    .loom-actions .loom-cta {
+    .loom-actions .loom-cta,
+    .loom-ghost {
         width: 100%;
     }
 }
 
 @media (max-width: 520px) {
     .loom-panel {
-        max-height: 46vh;
+        max-height: 45vh;
+        gap: 12px;
     }
 
     .loom-stats {
         grid-template-columns: 1fr;
     }
 
+    .loom-roster-list {
+        grid-template-columns: 1fr;
+    }
+
     .loom-modal-header {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    .loom-modal-header h2 {
+        font-size: 1.4rem;
+    }
+
+    .loom-controls {
+        font-size: 0.8rem;
+        padding: 6px 12px;
     }
 }

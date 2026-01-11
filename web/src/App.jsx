@@ -10,7 +10,7 @@ function App() {
   const [disableSnapDragging, setDisableSnapDragging] = useState(false);
 
   return (
-    <Router>
+    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <a className="skip-link" href="#main-content">Skip to content</a>
       <Navigation disableSnapDragging={disableSnapDragging} setDisableSnapDragging={setDisableSnapDragging}/>
       <main id="main-content" tabIndex="-1">

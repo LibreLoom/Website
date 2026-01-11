@@ -170,7 +170,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 5px;
   width: 60px;
   height: 60px;
   background: var(--secondary);
@@ -211,6 +210,7 @@
 }
 
 .hamburger span {
+  position: absolute;
   width: 24px;
   height: 3px;
   background: var(--primary);
@@ -219,17 +219,29 @@
   transform-origin: center;
 }
 
+.hamburger span:nth-child(1) {
+  transform: translateY(-8px);
+}
+
+.hamburger span:nth-child(2) {
+  transform: translateY(0);
+}
+
+.hamburger span:nth-child(3) {
+  transform: translateY(8px);
+}
+
 .hamburger.active span:nth-child(1) {
-  transform: translateY(8px) rotate(45deg);
+  transform: translateY(0) rotate(45deg);
 }
 
 .hamburger.active span:nth-child(2) {
   opacity: 0;
-  transform: scale(0);
+  transform: translateY(0) scale(0);
 }
 
 .hamburger.active span:nth-child(3) {
-  transform: translateY(-8px) rotate(-45deg);
+  transform: translateY(0) rotate(-45deg);
 }
 
 /* Mobile Menu Overlay */

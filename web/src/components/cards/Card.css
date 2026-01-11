@@ -1,5 +1,5 @@
 /* Base Card Styles */
-.card {
+.card:not(.card--modal) {
     background-color: var(--primary);
     border: 2px solid var(--secondary);
     border-radius: 28px;
@@ -14,14 +14,16 @@
     animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
 }
 
-.card:hover {
+.card:not(.card--modal):hover {
     transform: translateY(-6px);
     background-color: var(--secondary);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
-.card:hover h2,
-.card:hover p {
+.card:not(.card--modal):hover h2,
+.card:not(.card--modal):hover p {
     color: var(--primary);
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
 }
 
 .card h2 {
@@ -56,7 +58,7 @@
     color: var(--secondary);
 }
 
-.card:hover a {
+.card:not(.card--modal):hover a {
     color: var(--primary);
 }
 
@@ -282,7 +284,6 @@
 
 .card--modal:hover {
     transform: none;
-    background-color: var(--primary);
 }
 
 .card--modal--wide {

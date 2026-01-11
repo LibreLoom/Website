@@ -46,12 +46,16 @@ const getDifficultyProfile = (elapsedMs) => {
   const spawnInterval = Math.max(520, 1200 - (level - 1) * 70);
   const speedMultiplier = 1 + (level - 1) * 0.06;
   const shuttleWidth = Math.max(52, 72 - (level - 1) * 2);
+  const minHorizontalSpacing = Math.max(0, Math.min(60, (level - 1) * 15));
+  const maxHorizontalSpacing = Math.max(120, 160 - (level - 1) * 10);
   return {
     elapsedSeconds,
     level,
     spawnInterval,
     speedMultiplier,
     shuttleWidth,
+    minHorizontalSpacing,
+    maxHorizontalSpacing,
   };
 };
 
@@ -134,8 +138,10 @@ function Sponsors() {
       },
       threads: [],
       lastSpawn: 0,
+      lastSpawnX: null,
       lastTime: 0,
       elapsed: 0,
+      countdownTime: 2000,
       input: {
         left: false,
         right: false,
@@ -185,8 +191,10 @@ function Sponsors() {
       }
       current.threads = [];
       current.lastSpawn = 0;
+      current.lastSpawnX = null;
       current.lastTime = 0;
       current.elapsed = 0;
+      current.countdownTime = 2000;
       current.supporterCursor = 0;
       current.shuttle.x = current.width / 2;
       current.shuttle.width = 72;
@@ -210,7 +218,7 @@ function Sponsors() {
     resetWeave();
     setRunState("idle");
 
-    const spawnThread = (time, speedMultiplier) => {
+    const spawnThread = (time, speedMultiplier, minSpacing, maxSpacing) => {
       const current = gameRef.current;
       if (!current) {
         return;
@@ -219,8 +227,33 @@ function Sponsors() {
       const supporterName = current.supporterNames[index];
       const supporterMark = current.supporterMarks[index];
       current.supporterCursor += 1;
+
+      const padding = 24;
+      const availableWidth = current.width - padding * 2;
+
+      let x;
+      let attempts = 0;
+      const maxAttempts = 15;
+
+      do {
+        x = padding + Math.random() * availableWidth;
+        attempts++;
+
+        if (current.lastSpawnX !== null) {
+          const distance = Math.abs(x - current.lastSpawnX);
+          const inRange = distance >= minSpacing && distance <= maxSpacing;
+          if (inRange) {
+            break;
+          }
+        } else {
+          break;
+        }
+      } while (attempts < maxAttempts);
+
+      current.lastSpawnX = x;
+
       current.threads.push({
-        x: 24 + Math.random() * (current.width - 48),
+        x,
         y: -10,
         radius: 6,
         speed: (0.12 + Math.random() * 0.05) * speedMultiplier,
@@ -231,11 +264,21 @@ function Sponsors() {
     };
 
     const update = (delta) => {
-      if (runStateRef.current !== "running") {
-        return;
-      }
       const current = gameRef.current;
       if (!current) {
+        return;
+      }
+
+      if (runStateRef.current === "counting") {
+        current.countdownTime -= delta;
+        if (current.countdownTime <= 0) {
+          current.countdownTime = 0;
+          setRunState("running");
+        }
+        return;
+      }
+
+      if (runStateRef.current !== "running") {
         return;
       }
 
@@ -267,7 +310,12 @@ function Sponsors() {
         !current.lastSpawn ||
         current.lastTime - current.lastSpawn > difficulty.spawnInterval
       ) {
-        spawnThread(current.lastTime, difficulty.speedMultiplier);
+        spawnThread(
+          current.lastTime,
+          difficulty.speedMultiplier,
+          difficulty.minHorizontalSpacing,
+          difficulty.maxHorizontalSpacing
+        );
       }
 
       current.threads = current.threads.filter((thread) => {
@@ -392,7 +440,7 @@ function Sponsors() {
         ctx.font = "14px FreeMono, monospace";
         ctx.textAlign = "center";
         ctx.fillText(
-          "Move the shuttle, catch the threads.",
+          "Move shuttle, catch threads.",
           current.width / 2,
           current.height / 2 - 6,
         );
@@ -406,6 +454,26 @@ function Sponsors() {
           current.width / 2,
           current.height / 2 + 38,
         );
+      }
+
+      if (runStateRef.current === "counting") {
+        ctx.fillStyle = secondary;
+        ctx.font = "24px FreeMono, monospace";
+        ctx.textAlign = "center";
+        const countdownSeconds = Math.ceil(current.countdownTime / 1000);
+        if (countdownSeconds >= 2) {
+          ctx.fillText(
+            "Ready?",
+            current.width / 2,
+            current.height / 2,
+          );
+        } else if (countdownSeconds >= 1) {
+          ctx.fillText(
+            "Weave.",
+            current.width / 2,
+            current.height / 2,
+          );
+        }
       }
 
       if (runStateRef.current === "over") {
@@ -524,8 +592,10 @@ function Sponsors() {
     if (current) {
       current.threads = [];
       current.lastSpawn = 0;
+      current.lastSpawnX = null;
       current.lastTime = 0;
       current.elapsed = 0;
+      current.countdownTime = 2000;
       current.supporterCursor = 0;
       current.shuttle.x = current.width / 2;
       current.shuttle.width = 72;
@@ -545,7 +615,7 @@ function Sponsors() {
     setBestStreak(0);
     setLastWoven("");
     setWovenCounts({});
-    setRunState("running");
+    setRunState("counting");
   };
 
   const loomActionLabel =
@@ -700,16 +770,12 @@ function Sponsors() {
                 </p>
               </div>
               <div className="loom-panel">
-                <p className="loom-subtitle" id="loom-subtitle">
-                  Guide the shuttle and catch threads to keep the weave tight.
-                  The tempo rises over time.
-                </p>
                 <div className="loom-stats">
                   <span className="loom-stat">Tempo: {level}</span>
                   <span className="loom-stat">
                     Time: {formatDuration(elapsedSeconds)}
                   </span>
-                  <span className="loom-stat">Stitches: {stitches}</span>
+                  <span className="loom-stat loom-stat-highlight">Stitches: {stitches}</span>
                   <span className="loom-stat">Slips: {slips}/3</span>
                   <span className="loom-stat">Streak: {streak}</span>
                   <span className="loom-stat">Best: {bestStreak}</span>
