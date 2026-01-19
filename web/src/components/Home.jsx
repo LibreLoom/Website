@@ -37,7 +37,7 @@ function Home() {
         <h1>This is LibreLoom.</h1>
         <p>
           Weaving free and open-source software for everyone. Our mission is to
-          bring easy and free to use tools to every person and every community.
+          make the world a better place by displacing non-free software and putting free, open-source software in its place.
         </p>
       </header>
 
