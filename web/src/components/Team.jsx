@@ -7,7 +7,7 @@ function Team() {
     {
       name: "plainskill",
       description:
-        'The master of delegation who tells Opencode to do things instead of doing it themselves. Has perfected the art of looking busy while simultaneously assigning tasks to others. Their favorite phrase is "Could you just..." followed by a complex coding request that they definitely could do themselves but won\'t.',
+        'The master of delegation who tells OpenCode to do things instead of doing it themselves. Has perfected the art of looking busy while simultaneously assigning tasks to others. Their favorite phrase is "Could you just..." followed by a complex coding request that they definitely could do themselves but won\'t.',
     },
     {
       name: "trafficcone",
