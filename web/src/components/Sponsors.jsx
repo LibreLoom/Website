@@ -615,12 +615,16 @@ function Sponsors() {
     setBestStreak(0);
     setLastWoven("");
     setWovenCounts({});
-    setRunState("counting");
+    if (runState === "running" || runState === "counting") {
+      setRunState("idle");
+    } else {
+      setRunState("counting");
+    }
   };
 
   const loomActionLabel =
-    runState === "running"
-      ? "Reset weave"
+    runState === "running" || runState === "counting"
+      ? "Stop weave"
       : runState === "over"
         ? "Weave again"
         : "Begin weave";
