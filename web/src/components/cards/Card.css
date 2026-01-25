@@ -209,6 +209,8 @@
     transform: translateY(-2px);
     background-color: var(--primary);
     color: var(--secondary);
+
+    outline: 2px solid var(--primary);
 }
 
 .card--project:hover a.project-link-btn,
