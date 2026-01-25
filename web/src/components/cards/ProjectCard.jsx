@@ -22,7 +22,7 @@ function ProjectCard({ title, link, description, status, children }) {
           rel="noopener noreferrer"
           className="project-link-btn"
         >
-          View Project Source
+          View Project
         </a>
       )}
     </Card>
