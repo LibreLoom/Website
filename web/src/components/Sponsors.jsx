@@ -12,6 +12,12 @@ const SUPPORTERS = [
     badge: "Founding thread",
     note: "First supporters of LibreLoom. Thank you for backing the mission.",
   },
+  {
+    name: "Дегтярева Наталья Игоревна & Ремигайло Павел Александрович",
+    amount: "$70",
+    badge: "Weaving patron",
+    note: "Thank you for your support!",
+  },
 ];
 
 const getSupporterMark = (name) => {
