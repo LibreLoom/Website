@@ -6,7 +6,7 @@ function Projects() {
   const projects = [
     {
       title: "LibreServ",
-      link: "https://gt.plainskill.net/LibreLoom/LibreServ",
+      link: "https://serv.libreloom.org",
       status: { type: "concept", icon: "🚧", text: "In development..." },
       description:
         "An operating system designed to simplify self-hosting to a level where anyone will be able to understand it. Hardware with LibreServ pre-installed will be available!",
@@ -21,7 +21,7 @@ function Projects() {
     {
       title: "PolyLibre",
       link: "https://gt.plainskill.net/LibreLoom/PolyLibre",
-      status: { type: "active", icon: "⏸️", text: "Development Halted" },
+      status: { type: "active", icon: "⏸️", text: "Development Paused" },
       description:
         "A free, open-source 3D modeling tool designed as an alternative to TinkerCAD. Features 16 primitive shapes, model import/export, autosave, and full theme customization.",
     },
