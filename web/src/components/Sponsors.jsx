@@ -14,7 +14,7 @@ const SUPPORTERS = [
   },
   {
     name: "Дегтярева Наталья Игоревна & Ремигайло Павел Александрович",
-    amount: "$70",
+    amount: "$180",
     badge: "Weaving patron",
     note: "Thank you for your support!",
   },
