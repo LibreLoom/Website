@@ -1,10 +1,21 @@
 import React from 'react'
 import Card from './Card'
 
-function TeamCard({ name, description, children }) {
+function TeamCard({ name, description, tierBadge, funnyBadge, children }) {
   return (
     <Card>
-      <h2>{name}</h2>
+      <div className="team-card-header">
+        <h2>{name}</h2>
+        {tierBadge && (
+          <span className={`tier-badge tier-${tierBadge.toLowerCase()}`}>
+            {tierBadge === 'Gold' && '🥇'}
+            {tierBadge === 'Silver' && '🥈'}
+            {tierBadge === 'Bronze' && '🥉'}
+            {' '}{tierBadge}
+          </span>
+        )}
+      </div>
+      {funnyBadge && <span className="funny-badge">{funnyBadge}</span>}
       {description && <p>{description}</p>}
       {children}
     </Card>

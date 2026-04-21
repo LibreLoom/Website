@@ -148,3 +148,68 @@ header,
     position: relative;
     z-index: 1;
 }
+
+.team-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.team-card-header h2 {
+    margin: 0;
+}
+
+.tier-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.tier-gold {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #1a1a1a;
+}
+
+.tier-silver {
+    background: linear-gradient(135deg, #C0C0C0, #8B8B8B);
+    color: #1a1a1a;
+}
+
+.tier-bronze {
+    background: linear-gradient(135deg, #CD7F32, #8B4513);
+    color: #fff;
+}
+
+.funny-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    background-color: var(--accent);
+    color: var(--primary);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+@media (max-width: 768px) {
+    .team-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .tier-badge {
+        font-size: 0.7rem;
+        padding: 3px 10px;
+    }
+
+    .funny-badge {
+        font-size: 0.8rem;
+        padding: 5px 12px;
+    }
+}
