@@ -8,10 +8,7 @@ function TeamCard({ name, description, tierBadge, funnyBadge, children }) {
         <h2>{name}</h2>
         {tierBadge && (
           <span className={`tier-badge tier-${tierBadge.toLowerCase()}`}>
-            {tierBadge === 'Gold' && '🥇'}
-            {tierBadge === 'Silver' && '🥈'}
-            {tierBadge === 'Bronze' && '🥉'}
-            {' '}{tierBadge}
+            {tierBadge}
           </span>
         )}
       </div>
