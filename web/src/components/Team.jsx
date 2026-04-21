@@ -24,6 +24,11 @@ function Team() {
       description:
         "A Professional goof-off artist who spends work hours playing Roblox. Somehow still delivers projects on time, leading everyone to wonder if they've discovered time travel or just have a really good bot.",
     },
+    {
+      name: "fluffy-bunny-23",
+      description:
+        'Trusts his AI agents a little too much (we have the screenshots to prove it). His laptop has apparently never left the desk because it\'s made of fragile glass or something. The resident documentation enthusiast in a team that prefers to "ship first, document never."',
+    },
   ];
 
   return (
