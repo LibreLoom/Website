@@ -35,7 +35,7 @@ function Team() {
       name: "lazypanda5050",
       description:
         'So lazy it happens to be good sometimes. Their philosophy is "Why do it today when you can do it tomorrow... or never?" Has accidentally created some of our most efficient solutions (using his competitive coding genes) by trying to find the minimum effort required to solve a problem.',
-      funnyBadge: "Efficiency Expert",
+      funnyBadge: "Thoroughly Lazy",
     },
   ];
 
