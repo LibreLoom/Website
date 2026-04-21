@@ -8,32 +8,34 @@ function Team() {
       name: "plainskill",
       description:
         'The master of delegation who tells OpenCode to do things instead of doing it themselves. Has perfected the art of looking busy while simultaneously assigning tasks to others. Their favorite phrase is "Could you just..." followed by a complex coding request that they definitely could do themselves but won\'t.',
-      tierBadge: "Gold",
+      tierBadge: "Top Contributor",
       funnyBadge: "Code Machine",
     },
     {
       name: "trafficcone",
       description:
         "Their desk setup is such a mess it's officially classified as a workplace hazard. OSHA had to send over actual traffic cones to mark the danger zone. Somehow finds everything in the chaos and claims it's an \"organized filing system\" that only they understand.",
-      tierBadge: "Silver",
+      tierBadge: "Top Contributor",
       funnyBadge: "Steady Contributor",
     },
     {
       name: "fluffy-bunny-23",
       description:
         'Trusts his AI agents a little too much (we have the screenshots to prove it). His laptop has apparently never left the desk because it\'s made of fragile glass or something. The resident documentation enthusiast in a team that prefers to "ship first, document never."',
-      tierBadge: "Bronze",
+      tierBadge: "Top Contributor",
       funnyBadge: "Documentation Champion",
     },
     {
       name: "1nOnlyDude",
       description:
         "A Professional goof-off artist who spends work hours playing Roblox. Somehow still delivers projects on time, leading everyone to wonder if they've discovered time travel or just have a really good bot.",
+      funnyBadge: "Speedrunner",
     },
     {
       name: "lazypanda5050",
       description:
         'So lazy it happens to be good sometimes. Their philosophy is "Why do it today when you can do it tomorrow... or never?" Has accidentally created some of our most efficient solutions (using his competitive coding genes) by trying to find the minimum effort required to solve a problem.',
+      funnyBadge: "Efficiency Expert",
     },
   ];
 

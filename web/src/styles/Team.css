@@ -168,25 +168,9 @@ header,
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    border: 2px solid;
-}
-
-.tier-gold {
-    background-color: #FFD700;
-    border-color: #FFD700;
-    color: #000000;
-}
-
-.tier-silver {
-    background-color: #C0C0C0;
-    border-color: #C0C0C0;
-    color: #000000;
-}
-
-.tier-bronze {
-    background-color: #CD7F32;
-    border-color: #CD7F32;
-    color: #FFFFFF;
+    border: 2px solid var(--secondary);
+    background-color: var(--primary);
+    color: var(--secondary);
 }
 
 .funny-badge {
