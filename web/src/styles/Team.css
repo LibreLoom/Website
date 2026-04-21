@@ -151,26 +151,33 @@ header,
 
 .team-card-header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: space-between;
     gap: 12px;
     margin-bottom: 8px;
+    flex-wrap: wrap;
 }
 
-.team-card-header h2 {
+.team-card-name {
     margin: 0;
+    word-break: break-word;
+    flex: 1 1 auto;
+    min-width: 0;
 }
 
 .tier-badge {
     display: inline-block;
     padding: 4px 12px;
     border-radius: 16px;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     border: 2px solid var(--secondary);
     background-color: var(--primary);
     color: var(--secondary);
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .funny-badge {

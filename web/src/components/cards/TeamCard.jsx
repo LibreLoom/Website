@@ -5,11 +5,9 @@ function TeamCard({ name, description, tierBadge, funnyBadge, children }) {
   return (
     <Card>
       <div className="team-card-header">
-        <h2>{name}</h2>
+        <h2 className="team-card-name">{name}</h2>
         {tierBadge && (
-          <span className={`tier-badge tier-${tierBadge.toLowerCase()}`}>
-            {tierBadge}
-          </span>
+          <span className="tier-badge">{tierBadge}</span>
         )}
       </div>
       {funnyBadge && <span className="funny-badge">{funnyBadge}</span>}
