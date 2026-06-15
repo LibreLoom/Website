@@ -8,6 +8,7 @@ export default defineConfig({
     port: 3000,
     open: true,
     host: true,
+    allowedHosts: ['cs.oc.zwjde.com', 'ioj6n6ye4y3v.shares.zrok.io']
   },
   preview: {
     allowedHosts: ['libreloom.org']
