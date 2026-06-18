@@ -17,7 +17,6 @@
 .card:not(.card--modal):hover {
     transform: translateY(-6px);
     background-color: var(--secondary);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .card:not(.card--modal):hover h2,

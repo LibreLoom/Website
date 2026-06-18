@@ -12,13 +12,6 @@ function Projects() {
         "An operating system designed to simplify self-hosting to a level where anyone will be able to understand it. Hardware with LibreServ pre-installed will be available!",
     },
     {
-      title: "free-to-use-ai-list-gen-n8n",
-      link: "https://gt.plainskill.net/LibreLoom/free-to-use-ai-list-gen-n8n",
-      status: { type: "maintenance", icon: "🔧", text: "Maintenance-Only" },
-      description:
-        "An n8n workflow which contains an AI agent who scours the web for free-to-use ai chat websites and adds them to a Nextcloud table. Public database available.",
-    },
-    {
       title: "PolyLibre",
       link: "https://gt.plainskill.net/LibreLoom/PolyLibre",
       status: { type: "active", icon: "⏸️", text: "Development Paused" },
