@@ -28,9 +28,9 @@ header {
     transition: fill 0.3s ease;
 }
 
-.logo-svg-fg {
-    fill: var(--primary);
-    transition: fill 0.3s ease;
+.logo-svg-threads {
+    stroke: var(--secondary);
+    transition: stroke 0.3s ease;
 }
 
 header h1 {

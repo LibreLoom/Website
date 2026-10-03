@@ -7,13 +7,14 @@ This is the LibreLoom website, built as a modern React + Vite application.
 ```
 web/
 ├── public/
-│   └── favicon.png
+│   ├── favicon.svg     # LibreLoom icon (from the design repo)
+│   └── favicon.png     # PNG fallback
 ├── src/
 │   ├── assets/
-│   │   ├── abstract/   # Background images
-│   │   └── logo/       # Logo files (SVG + PNG)
+│   │   └── abstract/   # Background images
 │   ├── components/
 │   │   ├── Home.jsx
+│   │   ├── Logo.jsx    # LibreLoom mark, themed via CSS variables
 │   │   ├── Navigation.jsx
 │   │   ├── Projects.jsx
 │   │   ├── Settings.jsx
